@@ -1,0 +1,496 @@
+<?php
+require_once __DIR__ . '/BD.php';
+require_once __DIR__ . '/Cliente.php';
+require_once __DIR__ . '/Barbero.php';
+require_once __DIR__ . '/Servicio.php';
+require_once __DIR__ . '/Horario.php';
+require_once __DIR__ . '/../Notificaciones.php';
+
+class Reserva {
+    private ?int $reservaId;
+    private int $clienteId;
+    private int $barberoId;
+    private int $servicioId;
+    private string $fechaHora;
+    private string $estado;
+    private ?string $creadoEn;
+
+    public function __construct($clienteId, $barberoId, $servicioId, $fechaHora, $estado = "pendiente", $reservaId = null, $creadoEn = null) {
+        $this->reservaId = $reservaId;
+        $this->clienteId = $clienteId;
+        $this->barberoId = $barberoId;
+        $this->servicioId = $servicioId;
+        $this->fechaHora = $fechaHora;
+        $this->estado = $estado;
+        $this->creadoEn = $creadoEn;
+    }
+
+    // Métodos para cambiar el estado de la reserva
+    public function confirmar(): void {
+        $this->estado = "confirmada";
+    }
+
+    // Método para cambiar el estado de la reserva
+    public function cancelar(): void {
+        $this->estado = "cancelada";
+    }
+
+    // Método para cambiar el estado de la reserva
+    public function completar(): void {
+        $this->estado = "completada";
+    }
+
+    // Método para verificar si la reserva está pendiente
+    public function estaPendiente(): bool {
+        return $this->estado === "pendiente";
+    }
+
+    // Getters y setters para las propiedades de la reserva
+    public function getReservaId(): ?int {
+        return $this->reservaId;
+    }
+
+    public function setReservaId(?int $reservaId): void {
+        $this->reservaId = $reservaId;
+    }
+
+    public function getClienteId(): int {
+        return $this->clienteId;
+    }
+
+    public function setClienteId(int $clienteId): void {
+        $this->clienteId = $clienteId;
+    }
+
+    public function getBarberoId(): int {
+        return $this->barberoId;
+    }
+
+    public function setBarberoId(int $barberoId): void {
+        $this->barberoId = $barberoId;
+    }
+
+    public function getServicioId(): int {
+        return $this->servicioId;
+    }
+
+    public function setServicioId(int $servicioId): void {
+        $this->servicioId = $servicioId;
+    }
+
+    public function getFechaHora(): string {
+        return $this->fechaHora;
+    }
+
+    public function setFechaHora(string $fechaHora): void {
+        $this->fechaHora = $fechaHora;
+    }
+
+    public function getEstado(): string {
+        return $this->estado;
+    }
+
+    public function setEstado(string $estado): void {
+        $this->estado = $estado;
+    }
+
+    public function getCreadoEn(): ?string {
+        return $this->creadoEn;
+    }
+
+    public function setCreadoEn(?string $creadoEn): void {
+        $this->creadoEn = $creadoEn;
+    }
+
+    // Método para guardar o actualizar la reserva en la base de datos
+    public function guardar(): bool {
+        // Antes de guardar, verificamos si el barbero está disponible en la fecha y hora dada para el servicio seleccionado
+        if (!self::estaDisponible($this->barberoId, $this->fechaHora, $this->servicioId, $this->reservaId)) {
+            return false;
+        }
+
+        $db = BD::obtenerConexion();
+
+        // Si la reserva no tiene un ID, es una creación; de lo contrario, es una actualización
+        if ($this->reservaId === null) {
+            $sql = "INSERT INTO reservas (cliente_id, barbero_id, servicio_id, fecha_hora, estado)
+                    VALUES (?, ?, ?, ?, ?)
+                    RETURNING reserva_id";
+
+            $stmt = $db->prepare($sql);
+            $stmt->execute([
+                $this->clienteId,
+                $this->barberoId,
+                $this->servicioId,
+                $this->fechaHora,
+                $this->estado
+            ]);
+
+            $this->reservaId = $stmt->fetchColumn();
+            return true;
+        }
+
+        $sql = "UPDATE reservas
+                SET cliente_id = ?, barbero_id = ?, servicio_id = ?, fecha_hora = ?, estado = ?
+                WHERE reserva_id = ?";
+
+        $stmt = $db->prepare($sql);
+        return $stmt->execute([
+            $this->clienteId,
+            $this->barberoId,
+            $this->servicioId,
+            $this->fechaHora,
+            $this->estado,
+            $this->reservaId
+        ]);
+    }
+
+    // Método para obtener todas las reservas con detalles de cliente, barbero y servicio
+    public static function obtenerTodas(): array {
+        $db = BD::obtenerConexion();
+
+        $sql = "SELECT r.*, 
+                       c.nombre AS cliente_nombre,
+                       c.apellido AS cliente_apellido,
+                       u.nombre AS barbero_nombre,
+                       s.nombre AS servicio_nombre
+                FROM reservas r
+                JOIN clientes c ON r.cliente_id = c.cliente_id
+                JOIN barberos b ON r.barbero_id = b.barbero_id
+                LEFT JOIN usuarios u ON b.usuario_id = u.usuario_id
+                JOIN servicios s ON r.servicio_id = s.servicio_id
+                ORDER BY r.fecha_hora DESC";
+
+        return $db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    // Método para obtener una reserva por ID
+    public static function obtenerPorId($reservaId): ?Reserva {
+        $db = BD::obtenerConexion();
+
+        $stmt = $db->prepare("SELECT * FROM reservas WHERE reserva_id = ?");
+        $stmt->execute([$reservaId]);
+
+        $data = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!$data) {
+            return null;
+        }
+
+        return new Reserva(
+            $data['cliente_id'],
+            $data['barbero_id'],
+            $data['servicio_id'],
+            $data['fecha_hora'],
+            $data['estado'],
+            $data['reserva_id'],
+            $data['creado_en']
+        );
+    }
+
+    // Método para verificar si el barbero está disponible en la fecha y hora dada para el servicio seleccionado
+    public static function estaDisponible($barberoId, $fechaHora, $servicioId, $reservaId = null): bool {
+        $db = BD::obtenerConexion();
+
+        // Para verificar la disponibilidad, necesitamos considerar la duración del servicio
+        // Primero, obtenemos la duración del servicio
+        $duracion = 30;
+        // Obtenemos la duración del servicio
+        $finNueva = date("Y-m-d H:i:s", strtotime($fechaHora . " + $duracion minutes"));
+
+        $sql = "SELECT COUNT(*)
+                FROM reservas r
+                WHERE r.barbero_id = ?
+                AND r.estado != 'cancelada'
+                AND (?::int IS NULL OR r.reserva_id != ?)
+                AND (
+                    ? < (r.fecha_hora + interval '30 minutes')
+                    AND ? > r.fecha_hora
+                )";
+
+        $stmt = $db->prepare($sql);
+        $stmt->execute([
+            $barberoId,
+            $reservaId,
+            $reservaId,
+            $fechaHora,
+            $finNueva
+        ]);
+
+        return $stmt->fetchColumn() == 0;
+    }
+
+    // Método para obtener todas las reservas con detalles para el panel de administración
+    public static function obtenerTodasConDetalles(): array {
+        $db = BD::obtenerConexion();
+
+        // Hacemos JOIN con usuarios para obtener el nombre real del barbero (u.nombre)
+        $sql = "SELECT r.reserva_id, 
+                       r.fecha_hora, 
+                       r.estado,
+                       (c.nombre || ' ' || c.apellido) AS cliente,
+                       u.nombre AS barbero, 
+                       s.nombre AS servicio
+                FROM reservas r
+                INNER JOIN clientes c ON r.cliente_id = c.cliente_id
+                INNER JOIN servicios s ON r.servicio_id = s.servicio_id
+                LEFT JOIN barberos b ON r.barbero_id = b.barbero_id
+                LEFT JOIN usuarios u ON b.usuario_id = u.usuario_id
+                ORDER BY r.fecha_hora DESC";
+
+        return $db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
+    // Métodos para cambiar el estado de la reserva desde el panel de administración
+    public static function cambiarEstado($reservaId, $estado) {
+        $db = BD::obtenerConexion();
+
+        $sql = "UPDATE reservas SET estado = ? WHERE reserva_id = ?";
+        $stmt = $db->prepare($sql);
+        return $stmt->execute([$estado, $reservaId]);
+    }
+
+    // Método para eliminar una reserva desde el panel de administración
+    public static function eliminar($reservaId) {
+        $db = BD::obtenerConexion();
+
+        $stmt = $db->prepare("DELETE FROM reservas WHERE reserva_id = ?");
+        return $stmt->execute([$reservaId]);
+    }
+
+    // Método de instancia para eliminar esta reserva
+    public function eliminarReserva(): bool {
+        return $this->reservaId !== null && self::eliminar($this->reservaId);
+    }
+
+    // para obtener por barbero
+    public static function contarTotalPorBarbero(int $barberoId): int {
+        $stmt = BD::obtenerConexion()->prepare(
+            "SELECT COUNT(*) FROM reservas WHERE barbero_id = ?"
+        );
+        $stmt->execute([$barberoId]);
+        return (int) $stmt->fetchColumn();
+    }
+ 
+    public static function contarPorEstadoYBarbero(string $estado, int $barberoId): int {
+        $stmt = BD::obtenerConexion()->prepare(
+            "SELECT COUNT(*) FROM reservas WHERE estado = ? AND barbero_id = ?"
+        );
+        $stmt->execute([$estado, $barberoId]);
+        return (int) $stmt->fetchColumn();
+    }
+ 
+    public static function obtenerRecientesPorBarbero(int $barberoId, int $limite = 5): array {
+        $stmt = BD::obtenerConexion()->prepare("
+            SELECT r.reserva_id, r.fecha_hora, r.estado,
+                   c.nombre || ' ' || c.apellido AS cliente,
+                   u.nombre AS barbero,
+                   s.nombre AS servicio
+            FROM reservas r
+            JOIN clientes  c ON r.cliente_id  = c.cliente_id
+            JOIN barberos  b ON r.barbero_id  = b.barbero_id
+            LEFT JOIN usuarios u ON b.usuario_id = u.usuario_id
+            JOIN servicios s ON r.servicio_id = s.servicio_id
+            WHERE r.barbero_id = ?
+            ORDER BY r.creado_en DESC
+            LIMIT ?
+        ");
+        $stmt->execute([$barberoId, $limite]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public static function contarPorEstado(string $estado): int {
+        $stmt = BD::obtenerConexion()->prepare(
+            "SELECT COUNT(*) FROM reservas WHERE estado = ?"
+        );
+        $stmt->execute([$estado]);
+        return (int) $stmt->fetchColumn();
+    }
+ 
+    public static function obtenerRecientes(int $limite = 5): array {
+        $stmt = BD::obtenerConexion()->prepare("
+            SELECT r.reserva_id, r.fecha_hora, r.estado,
+                   c.nombre || ' ' || c.apellido AS cliente,
+                   u.nombre AS barbero,
+                   s.nombre AS servicio
+            FROM reservas r
+            JOIN clientes  c ON r.cliente_id  = c.cliente_id
+            JOIN barberos  b ON r.barbero_id  = b.barbero_id
+            LEFT JOIN usuarios u ON b.usuario_id = u.usuario_id
+            JOIN servicios s ON r.servicio_id = s.servicio_id
+            ORDER BY r.creado_en DESC
+            LIMIT ?
+        ");
+        $stmt->execute([$limite]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    // =========================================================================
+    // MÉTODOS INTEGADOS DESDE EL ARCHIVO GESTORRESERVAS.PHP
+    // =========================================================================
+
+    public static function crearReserva($clienteId, $barberoId, $servicioId, $fechaHora): bool {
+        $reserva = new self($clienteId, $barberoId, $servicioId, $fechaHora);
+        return $reserva->guardar();
+    }
+
+    public static function confirmarReserva($reservaId): bool {
+        $reserva = self::obtenerPorId($reservaId);
+        if (!$reserva) {
+            return false;
+        }
+        $reserva->confirmar();
+        return $reserva->guardar();
+    }
+
+    public static function cancelarReserva($reservaId): bool {
+        $reserva = self::obtenerPorId($reservaId);
+        if (!$reserva) {
+            return false;
+        }
+        $reserva->cancelar();
+        return $reserva->guardar();
+    }
+
+    public static function completarReserva($reservaId): bool {
+        $reserva = self::obtenerPorId($reservaId);
+        if (!$reserva) {
+            return false;
+        }
+        $reserva->completar();
+        return $reserva->guardar();
+    }
+
+    public static function obtenerAgendaBarbero($barberoId): array {
+        $db = BD::obtenerConexion();
+        $sql = "SELECT r.*, 
+                       c.nombre AS cliente_nombre,
+                       c.apellido AS cliente_apellido,
+                       s.nombre AS servicio_nombre,
+                       s.duracion_minutos
+                FROM reservas r
+                JOIN clientes c ON r.cliente_id = c.cliente_id
+                JOIN servicios s ON r.servicio_id = s.servicio_id
+                WHERE r.barbero_id = ?
+                AND r.estado != 'cancelada'
+                ORDER BY r.fecha_hora ASC";
+        $stmt = $db->prepare($sql);
+        $stmt->execute([$barberoId]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public static function obtenerReservasDelDia($fecha): array {
+        $db = BD::obtenerConexion();
+        $sql = "SELECT r.*,
+                       c.nombre AS cliente_nombre,
+                       c.apellido AS cliente_apellido,
+                       u.nombre AS barbero_nombre,
+                       s.nombre AS servicio_nombre
+                FROM reservas r
+                JOIN clientes c ON r.cliente_id = c.cliente_id
+                LEFT JOIN barberos b ON r.barbero_id = b.barbero_id
+                LEFT JOIN usuarios u ON b.usuario_id = u.usuario_id
+                JOIN servicios s ON r.servicio_id = s.servicio_id
+                WHERE DATE(r.fecha_hora) = ?
+                ORDER BY r.fecha_hora ASC";
+        $stmt = $db->prepare($sql);
+        $stmt->execute([$fecha]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public static function contarReservasPendientes(): int {
+        // En lugar de hacer una nueva query, reutilizamos tu método nativo de Reserva
+        return self::contarPorEstado('pendiente');
+    }
+
+    public static function validarHorarioBarberia($fechaHora): bool {
+        $hora = date("H:i", strtotime($fechaHora));
+        return $hora >= "09:00" && $hora <= "20:00";
+    }
+
+    public static function puedeReservar($barberoId, $servicioId, $fechaHora): bool {
+        if (!self::validarHorarioBarberia($fechaHora)) {
+            return false;
+        }
+        return self::estaDisponible($barberoId, $fechaHora, $servicioId);
+    }
+
+    // Formatea una fecha (Y-m-d) como "lunes, 7 de junio" para encabezar la agenda del día
+    public static function formatearFechaAgenda(string $fecha): string {
+        $dias = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+        $meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+        $ts = strtotime($fecha);
+        $diaSemana = mb_strtolower($dias[(int)date('w', $ts)]);
+        $mes = $meses[(int)date('n', $ts) - 1];
+        return $diaSemana . ', ' . (int)date('j', $ts) . ' de ' . $mes;
+    }
+
+    // Agrupa las reservas activas de un día por barbero y bloque horario, listas para pintar la agenda
+    public static function obtenerAgendaDelDiaPorBarbero($fecha): array {
+        $agenda = [];
+        foreach (self::obtenerReservasDelDia($fecha) as $reserva) {
+            if ($reserva['estado'] === 'cancelada') {
+                continue;
+            }
+            $horaBloque = date('H:i', strtotime($reserva['fecha_hora']));
+            $agenda[(int)$reserva['barbero_id']][$horaBloque] = $reserva;
+        }
+        return $agenda;
+    }
+
+    // Valida los datos del formulario "Nueva Reserva", crea el cliente y la reserva, y devuelve el mensaje para mostrar al usuario
+    public static function registrarDesdeFormulario(array $datos): string {
+        $nombre = trim($datos['client_nombre'] ?? '');
+        $apellido = trim($datos['client_apellido'] ?? '');
+        $telefono = trim($datos['client_phone'] ?? '');
+        $email = trim($datos['client_email'] ?? '');
+        $servicioId = $datos['servicio_id'] ?? '';
+        $barberoId = $datos['barbero_id'] ?? '';
+        $fecha = trim($datos['fecha'] ?? '');
+        $hora = trim($datos['hora'] ?? '');
+
+        $datosValidos = $nombre !== '' && $apellido !== '' && $telefono !== ''
+            && ctype_digit((string)$servicioId) && ctype_digit((string)$barberoId)
+            && preg_match('/^\d{4}-\d{2}-\d{2}$/', $fecha)
+            && in_array($hora, Horario::generarBloquesHorarios($fecha), true);
+
+        if (!$datosValidos) {
+            return 'Completa todos los campos obligatorios para crear la reserva.';
+        }
+
+        if (strtotime("$fecha $hora") < time()) {
+            return 'No se pueden crear reservas en una fecha y hora que ya pasaron.';
+        }
+
+        $cliente = new Cliente($nombre, $apellido, $telefono, $email !== '' ? $email : null);
+        if (!$cliente->guardar()) {
+            return 'No se pudo guardar la información del cliente.';
+        }
+
+        $fechaHora = $fecha . ' ' . $hora . ':00';
+        $reserva = new self($cliente->getClienteId(), (int)$barberoId, (int)$servicioId, $fechaHora, 'confirmada');
+
+        if (!$reserva->guardar()) {
+            return 'No se pudo crear la reserva. El barbero ya tiene esa hora ocupada.';
+        }
+
+        try {
+            $barberoObj  = Barbero::obtenerPorId($barberoId);
+            $servicioObj = Servicio::obtenerPorId($servicioId);
+            if ($barberoObj && $servicioObj) {
+                enviarNotificacionesReserva([
+                    'cliente'    => $cliente->getNombreCompleto(),
+                    'servicio'   => $servicioObj->getNombre(),
+                    'barbero'    => $barberoObj->getNombre(),
+                    'fecha_hora' => formatearFechaHoraNotificacion($reserva->getFechaHora()),
+                    'email'      => $cliente->getEmail() ?? '',
+                ]);
+            }
+        } catch (Throwable $e) {
+            // el fallo de notificación no debe bloquear la confirmación de la reserva
+        }
+
+        return 'Reserva creada correctamente.';
+    }
+}

@@ -1,0 +1,141 @@
+<?php
+require_once __DIR__ . '/../../Clases/DatosUbicacion.php';
+require_once __DIR__ . '/../../Clases/Horario.php';
+require_once __DIR__ . '/../clases_admin/GestorUsuarios.php';
+ini_set('session.save_path', sys_get_temp_dir());
+session_start();
+
+$usuario = GestorUsuarios::obtenerDesdeSesion();
+if (!$usuario) {
+    header("Location: ../login.php");
+    exit;
+}
+if (!($usuario instanceof Administrador)) {
+    header("Location: GestionReservas.php");
+    exit;
+}
+
+
+// Procesar actualización de datos de ubicación y horarios
+if (isset($_POST['guardar'])) {
+
+// Actualizar datos de ubicación
+    DatosUbicacion::actualizar(
+        $_POST['direccion'],
+        $_POST['telefono'],
+        $_POST['whatsapp'],
+        $_POST['mapa_embed']
+    );
+
+    // Actualizar horarios
+    foreach ($_POST['horarios'] as $horarioId => $datos) {
+    Horario::actualizar(
+        $horarioId,
+        $datos['hora_apertura'] ?: null,
+        $datos['hora_cierre'] ?: null,
+        isset($datos['cerrado'])
+    );
+}
+
+    header("Location: " . BASE_PATH . "/api/admin/GestionesAdmin/GestionUbicacion.php");
+    exit;
+}
+
+// Obtener datos actuales de ubicación y horarios para mostrar en el formulario
+$datosUbicacion = DatosUbicacion::obtener();
+$horarios = Horario::obtenerTodos();
+?>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestión Ubicación</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../../../assets/style.css">
+</head>
+<body>
+
+<section class="admin-layout">
+
+    <?php include_once __DIR__ . '/../includes/admin_sidebar.php'; ?>
+
+    <main class="admin-main">
+
+        <p class="admin-small-title">UBICACIÓN</p>
+        <h1>Horario & Ubicación</h1>
+        <p class="admin-subtitle">Actualiza los datos de contacto y horario.</p>
+
+        <form method="POST">
+
+            <section class="admin-panel-box gestion-ubicacion-box">
+
+                <h2>Información de contacto</h2>
+
+                <label>Dirección</label>
+                <input type="text" name="direccion" value="<?= htmlspecialchars($datosUbicacion['direccion']) ?>" required>
+
+                <section class="ubicacion-form-grid">
+                    <section>
+                        <label>Teléfono</label>
+                        <input type="text" name="telefono" value="<?= htmlspecialchars($datosUbicacion['telefono']) ?>">
+                    </section>
+
+                    <section>
+                        <label>WhatsApp</label>
+                        <input type="text" name="whatsapp" value="<?= htmlspecialchars($datosUbicacion['whatsapp']) ?>">
+                    </section>
+                </section>
+
+                <label>URL Google Maps Embed</label>
+                <input type="text" name="mapa_embed" value="<?= htmlspecialchars($datosUbicacion['mapa_embed']) ?>">
+
+            </section>
+
+            <section class="admin-panel-box gestion-ubicacion-box">
+
+                <h2>Horario semanal</h2>
+
+                <?php foreach ($horarios as $horario): ?>
+                    <section class="horario-admin-row">
+
+                        <span><?= htmlspecialchars($horario['dia_semana']) ?></span>
+
+                        <input 
+                            type="time" 
+                            name="horarios[<?= $horario['horario_id'] ?>][hora_apertura]"
+                            value="<?= htmlspecialchars($horario['hora_apertura']) ?>"
+                        >
+
+                        <input 
+                            type="time" 
+                            name="horarios[<?= $horario['horario_id'] ?>][hora_cierre]"
+                            value="<?= htmlspecialchars($horario['hora_cierre']) ?>"
+                        >
+
+                        <label class="admin-check">
+                            <input 
+                                type="checkbox" 
+                                name="horarios[<?= $horario['horario_id'] ?>][cerrado]"
+                                <?= !empty($horario['cerrado']) ? 'checked' : '' ?>
+                            >
+                            Cerrado
+                        </label>
+
+                    </section>
+                <?php endforeach; ?>
+
+            </section>
+
+            <button type="submit" name="guardar" class="admin-btn">
+                Guardar cambios
+            </button>
+
+        </form>
+
+    </main>
+
+</section>
+
+</body>
+</html>
