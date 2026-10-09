@@ -1,0 +1,4931 @@
+
+:root {
+    --dark-bg: #0a0a0a;
+    --gold: #d4a017; /* tono dorado ajustado */
+    --gold-dark: #b8860b;
+    --green: #4CAF50;
+    --red: #e74c3c;
+    --border: rgba(217,156,43,0.14);
+    --white: #ffffff;
+    --gray-text: #b3b3b3;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    min-height: 100%;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #1a1a1a; /* Fondo temporal para ver el header */
+    min-height: 100vh;
+    color: var(--white);
+}
+
+img, picture, video, iframe, svg {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Estilos del Header */
+
+
+.main-header {
+    background-color: var(--dark-bg);
+    padding: 10px 0;
+    border-bottom: 1px solid #222;
+    height: 80px;
+    overflow: hidden;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    align-items: center;
+    height: 100%;
+}
+
+/* Logo Estilo */
+.logo {
+    font-weight: 700;
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.icon {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    text-decoration: none;
+}
+
+.icon img {
+    height: 100%;       
+    max-height: 120px;   
+    width: auto;        
+    display: block;
+}
+
+.logo .text-white { color: var(--white); }
+.logo .text-gold { color: var(--gold); }
+
+/* Menú de Navegación */
+.nav-menu ul {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+}
+
+.nav-menu ul li a {
+    text-decoration: none;
+    color: var(--gray-text);
+    font-size: 0.9rem;
+    font-weight: 400;
+    transition: color 0.3s ease;
+}
+
+.nav-menu ul li a:hover {
+    color: var(--white);
+}
+
+/* Botón Reservar */
+.btn-reserve {
+    background-color: var(--gold);
+    color: #000;
+    text-decoration: none;
+    padding: 12px 30px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    transition: transform 0.2s ease, background-color 0.3s ease;
+    display: inline-block;
+}
+
+.btn-reserve:hover {
+    background-color: #f0ad32;
+    transform: scale(1.05);
+}
+
+/* Responsivo básico */
+@media (max-width: 768px) {
+    .container {
+        max-width: 100%;
+        width: 100%;
+        padding: 0 16px;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+    .main-header {
+        height: auto;
+        padding: 14px 0;
+    }
+    .logo {
+        font-size: 1.2rem;
+    }
+    .icon img {
+        max-height: 60px;
+    }
+    .nav-menu { display: none; }
+    .cta { display: none; }
+    .container-contenido {
+        height: auto;
+        min-height: 100vh;
+        padding: 100px 16px 80px;
+        background-position: center top;
+    }
+    .container-contenido::after {
+        height: 220px;
+    }
+    .contenido-titulo {
+        font-size: clamp(2.4rem, 10vw, 4rem);
+        max-width: 100%;
+        margin-bottom: 20px;
+    }
+    .contenido-description {
+        font-size: 1rem;
+        margin-bottom: 30px;
+    }
+    .buttons {
+        flex-direction: column;
+        gap: 14px;
+    }
+    .btn-reservas,
+    .btn-servicios,
+    .btn-reserve {
+        width: 100%;
+        max-width: 100%;
+        padding: 14px 20px;
+    }
+    .explora {
+        padding: 80px 0 40px;
+    }
+    .bottom-cta-bar {
+        max-width: 100%;
+        padding: 18px 16px;
+    }
+    .footer-container {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+    .footer-center {
+        flex-direction: column;
+        gap: 20px;
+    }
+    .explore-card {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .card-icon {
+        margin-right: 0;
+        margin-bottom: 12px;
+        width: auto;
+    }
+    .card-arrow {
+        margin-left: 0;
+    }
+    .footer-logo img {
+        width: 100%;
+        max-width: 280px;
+    }
+}
+
+/* Estilos para el Contenido */
+
+.container-contenido {
+    position: relative;
+    height: 90vh; 
+    background: linear-gradient(rgba(0, 0, 0, 0.445), rgba(0, 0, 0, 0.658)), 
+                url('img/barberia.png'); 
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--white);
+    padding: 0 20px;
+    overflow: hidden;
+}
+
+/* Esta es la capa que crea el efecto de "fundido a negro" */
+.container-contenido::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 350px; /* Ajusta este valor: más alto = difuminado más largo y suave */
+    background: linear-gradient(to top, var(--dark-bg), transparent);
+    z-index: 1;
+    pointer-events: none; /* Permite que puedas hacer clic a través del degradado */
+}
+
+/* Importante: el contenido debe estar por encima del degradado */
+.contenido {
+    position: relative;
+    z-index: 2; /* Mayor que el z-index del ::after */
+}
+
+.direccion{
+    color: var(--gold);
+    letter-spacing: 2px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+}
+
+.contenido-titulo{
+    font-size: clamp(3rem, 10vw, 6rem);
+    font-weight: 900;
+    line-height: 1.05;
+    color: var(--white);
+    margin-bottom: 30px;
+    max-width: 850px; /* Ajusta este valor para forzar el salto de línea donde prefieras */
+    margin-left: auto;
+    margin-right: auto;
+    text-wrap: balance;
+}
+
+.contenido-titulo .texto-dorado{
+    display: block; /* Esto obliga a que la parte dorada siempre empiece en una línea nueva */
+    color: var(--gold);
+}
+
+.contenido-description{
+    max-width: 700px;
+    margin: 0 auto 40px;
+    font-size: 1.1rem;
+    color: var(--gray-text);
+    line-height: 1.6;
+}
+
+.buttons{
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn-reservas{
+    background-color: var(--gold);
+    color: #000;
+    padding: 15px 35px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.btn-servicios{
+    border: 2px solid var(--white);
+    color: var(--white);
+    padding: 15px 35px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.btn-servicios:hover{
+    background-color: var(--white);
+    color: #000;
+}
+
+/* PARTE DE EXPLORAR SERVICIOS */
+
+.explora {
+    background-color: var(--dark-bg); 
+    padding: 120px 0 60px 0; 
+    text-align: center;
+}
+
+.container-small {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.section-subtitle {
+    color: var(--gold);
+    letter-spacing: 4px;
+    font-size: 0.8rem;
+    font-weight: 800;
+    margin-bottom: 40px;
+    
+}
+
+.section-title {
+    color: var(--white);
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 40px;
+}
+
+.title-underline {
+    width: 50px;
+    height: 3px;
+    background-color: var(--gold);
+    margin: 20px auto 50px;
+}
+
+/* El Grid de tarjetas */
+.explore-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Crea columnas automáticas */
+    gap: 20px;
+    max-width: 1100px;
+    margin: 0 auto 60px;
+    padding: 0 20px;
+}
+
+.explore-card {
+    background-color: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 25px;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    text-align: left;
+}
+
+.explore-card:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+    border-color: var(--gold);
+    transform: translateY(-5px);
+}
+
+.card-icon {
+    font-size: 24px;
+    color: var(--gold);
+    margin-right: 20px;
+    width: 40px;
+}
+
+.card-info h3 {
+    color: var(--white);
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.card-info p {
+    color: var(--gray-text);
+    font-size: 0.85rem;
+}
+
+.card-arrow {
+    margin-left: auto;
+    color: var(--gray-text);
+    font-size: 1.5rem;
+}
+
+/* Barra inferior dorada */
+.bottom-cta-bar {
+    background-color: var(--gold);
+    max-width: 500px; /* Ancho controlado */
+    margin: 0 auto;   /* CENTRADO AUTOMÁTICO */
+    padding: 20px;
+    display: block;   /* Para que respete el margin auto */
+    text-decoration: none;
+    transition: transform 0.3s ease;
+}
+
+.bottom-cta-bar:hover {
+    transform: scale(1.05);
+}
+
+.bottom-cta-bar a {
+    color: #000;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-decoration: none;
+}
+
+
+/* --- SECCIÓN FOOTER --- */
+
+.footer {
+    background-color: #1a1a1abb;
+    color: #b3b3b3;
+    padding: 60px 20px 20px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* CONTENEDOR PRINCIPAL */
+.footer-container {
+    max-width: 1300px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 250px 1fr 250px;
+    align-items: start; /* 🔥 todos los títulos alineados */
+}
+
+/* COLUMNAS LATERALES */
+.footer-lado {
+    display: flex;
+    flex-direction: column;
+}
+
+/* CENTRO */
+.footer-center {
+    display: flex;
+    justify-content: center;
+    gap: 80px;
+}
+
+/* TEXTOS */
+.footer h4 {
+    color: #d99c2b;
+    margin-bottom: 15px;
+    margin-top: 0;
+}
+
+.footer p {
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+}
+
+.footer a {
+    display: block;
+    text-decoration: none;
+    color: #b3b3b3;
+    margin-bottom: 8px;
+    transition: 0.3s;
+}
+
+.footer a:hover {
+    color: #d99c2b;
+}
+
+/* MAPA */
+.mapa {
+    width: 220px;
+    height: 200px;
+    border-radius: 8px;
+    border: none;
+}
+
+/* LOGO */
+.footer-logo {
+    align-items: flex-end;
+}
+
+.footer-logo img {
+    width: 220px;          /* 🔥 mismo tamaño que mapa */
+    max-height: 200px;
+    object-fit: contain;
+    opacity: 0.9;
+    transition: 0.3s;
+}
+
+.footer-logo img:hover {
+    opacity: 1;
+    transform: scale(1.05);
+}
+
+/* FOOTER ABAJO */
+.footer-bottom {
+    border-top: 1px solid #222;
+    margin-top: 40px;
+    padding-top: 15px;
+    text-align: center;
+    font-size: 0.8rem;
+    color: #777;
+}
+
+.footer-login {
+    display: inline;
+    color: inherit;
+    text-decoration: none;
+    transition: 0.3s;
+}
+.footer-bottom .footer-login {
+    display: inline !important;
+}
+
+.footer-login:hover {
+    color: var(--gold);
+}
+
+/* --- SECCIÓN GALERÍA --- */
+
+@media (max-width: 1024px) {
+    .footer-container {
+        grid-template-columns: 1fr;
+        gap: 32px;
+    }
+
+    .footer-lado {
+        align-items: stretch;
+    }
+
+    .mapa {
+        width: 100%;
+        height: 240px;
+    }
+
+    .footer-center {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 28px;
+    }
+
+    .footer-logo {
+        align-items: center;
+    }
+
+    .footer-logo img {
+        width: 180px;
+        max-height: 170px;
+    }
+}
+
+@media (max-width: 640px) {
+    .footer-center {
+        grid-template-columns: 1fr;
+    }
+}
+
+.galeria-hero {
+    padding: 100px 20px 60px;
+    text-align: center;
+    background-color: var(--dark-bg);
+}
+
+.titulo-galeria {
+    font-size: 3rem;
+    color: var(--white);
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+.subtitle {
+    color: var(--gold);
+    letter-spacing: 4px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.descripcion-galeria {
+    max-width: 700px;
+    margin: 0 auto;
+    color: var(--gray-text);
+    line-height: 1.6;
+}
+
+/* --- NAVEGACIÓN DE CATEGORÍAS --- */
+.categorias-nav {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    border-bottom: 1px solid #222;
+    padding-bottom: 20px;
+}
+
+.categorias-lista {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+}
+
+.categorias-lista li a {
+    text-decoration: none;
+    color: var(--gray-text);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    padding: 10px 20px;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+    text-transform: uppercase;
+}
+
+.categorias-lista li a:hover {
+    color: var(--gold);
+}
+
+.categorias-lista li a.active {
+    color: var(--gold);
+    border-bottom: 2px solid var(--gold);
+}
+
+/* --- GRID DE IMÁGENES --- */
+.galeria-grid-container {
+    padding: 40px 20px 80px;
+    background-color: var(--dark-bg);
+}
+
+.galeria-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.galeria-item {
+    background-color: #151515;
+    border: 1px solid #222;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.galeria-item:hover {
+    transform: translateY(-10px);
+    border-color: var(--gold);
+}
+
+.image-wrapper {
+    position: relative;
+    height: 350px;
+    overflow: hidden;
+}
+
+.image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: scale 0.5s ease;
+}
+
+.galeria-item:hover .image-wrapper img {
+    scale: 1.1;
+}
+
+/* Estilos mejorados para la gestión de reservas (barra de filtros) */
+.filtros-reservas {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.5);
+    flex-wrap: wrap;
+}
+
+.filtros-reservas label { color: var(--white); font-size: 0.95rem; display: inline-flex; align-items: center; gap: 8px; position: relative; }
+
+.filtros-reservas select {
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: #0f0f0f;
+    color: var(--white);
+    border: 1px solid rgba(255,255,255,0.04);
+    padding: 8px 34px 8px 12px;
+    border-radius: 10px;
+    min-width: 100px;
+    cursor: pointer;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.08s ease;
+}
+
+.filtros-reservas label::after {
+    content: "▾";
+    position: absolute;
+    right: 14px;
+    pointer-events: none;
+    color: var(--gray-text);
+    font-size: 0.8rem;
+}
+
+.filtros-reservas select:focus {
+    outline: none;
+    border-color: var(--gold);
+    box-shadow: 0 0 0 6px rgba(212,160,23,0.07);
+    transform: translateY(-1px);
+}
+
+.filtros-reservas .btn {
+    background: var(--gold);
+    color: #000;
+    padding: 9px 14px;
+    border-radius: 10px;
+    border: 1px solid rgba(0,0,0,0.12);
+    cursor: pointer;
+    font-weight: 800;
+    transition: transform 0.12s ease, box-shadow 0.12s ease, box-shadow 0.12s ease;
+}
+
+.filtros-reservas .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.5); }
+
+.admin-table { width: 100%; border-collapse: collapse; margin-top: 8px; }
+.admin-table th, .admin-table td { padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.04); text-align: left; }
+.admin-table thead th { background: transparent; }
+.btn-danger { background: #b93b3b; color: #fff; padding: 8px 12px; border: none; cursor: pointer; border-radius:6px; }
+
+.estado { padding: 6px 10px; border-radius: 8px; font-weight:700; color:#000; display: inline-block; border: 1px solid rgba(0,0,0,0.12); }
+.estado-pendiente { background: var(--gold); color: #000; border-color: var(--gold-dark); }
+.estado-confirmada { background: var(--green); color: #fff; border-color: #2e7d32; }
+.estado-cancelada { background: var(--red); color: #fff; border-color: #b03a2e; }
+.texto-aceptada { color: #4CAF50; font-weight: 800; margin-right:8px; }
+.texto-cancelada { color: #e74c3c; font-weight: 800; margin-right:8px; }
+
+/* Responsive: apilar filtros en pantallas pequeñas */
+@media (max-width: 600px) {
+    .filtros-reservas { flex-direction: column; align-items: stretch; }
+    .filtros-reservas label { width: 100%; }
+    .filtros-reservas .btn { width: 100%; }
+}
+
+/* Hamburger menu styles for client views */
+.hamburger-btn {
+    display: none; /* shown on small screens */
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    margin-left: 12px;
+    align-self: center;
+}
+.hamburger-line {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--white);
+    margin: 4px 0;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.hamburger-menu {
+    position: absolute;
+    right: 16px;
+    top: 70px;
+    background: rgba(10,10,10,0.98);
+    border: 1px solid rgba(255,255,255,0.04);
+    padding: 12px;
+    border-radius: 8px;
+    min-width: 180px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+    z-index: 9999;
+    display: none;
+}
+.hamburger-menu ul { list-style: none; margin: 0; padding: 0; }
+.hamburger-menu li { margin: 6px 0; }
+.hamburger-menu a { color: var(--white); text-decoration: none; display: block; padding: 8px 10px; border-radius:6px; }
+.hamburger-menu a:hover { background: rgba(255,255,255,0.02); color: var(--gold); }
+
+/* Show hamburger on tablets and smaller, hide main nav on <=1024px */
+@media (max-width: 1024px) {
+    .nav-menu { display: none; }
+    .hamburger-btn { display: inline-flex; }
+}
+
+/* Tablet-specific sizing (601px - 1024px): slightly larger tappable area */
+@media (min-width: 601px) and (max-width: 1024px) {
+    .hamburger-btn {
+        padding: 10px;
+        margin-left: 16px;
+    }
+    .hamburger-line {
+        width: 26px;
+        height: 3px;
+        margin: 5px 0;
+    }
+    .hamburger-menu {
+        top: 64px; /* adjust for taller tablet headers */
+        right: 18px;
+        min-width: 220px;
+        padding: 14px;
+    }
+    .icon img { max-height: 56px; }
+}
+
+/* Mobile-specific (<=600px): keep previous compact sizes */
+@media (max-width: 600px) {
+    .hamburger-btn { padding: 8px; margin-left: 12px; }
+    .hamburger-line { width: 22px; height: 2px; margin: 4px 0; }
+    .hamburger-menu { top: 60px; right: 12px; min-width: 180px; }
+    .icon img { max-height: 44px; }
+}
+
+/* Ocultar la palabra 'BARBERÍA' en móviles y mostrar solo logo + 'CATRACHA' */
+@media (max-width: 768px) {
+    .logo { display: flex; align-items: center; gap: 6px; }
+    .logo .text-white { display: none; }
+    .logo .text-gold { font-size: 1.25rem; }
+    .icon img { max-height: 44px; }
+}
+
+/* When menu is open */
+.hamburger-menu.open { display: block; }
+.hamburger-btn.open .hamburger-line:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.hamburger-btn.open .hamburger-line:nth-child(2) { opacity: 0; }
+.hamburger-btn.open .hamburger-line:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+/* Global responsive rules: móviles, tablets y escritorio */
+
+/* Mobile first base adjustments */
+html, body { font-size: 16px; }
+
+/* Tables: make horizontally scrollable on small screens */
+.admin-table, .explore-grid, .galeria-grid { width: 100%; }
+.table-responsive { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+/* Small devices (phones, up to 600px) */
+@media (max-width: 600px) {
+    .container, .container-small { padding: 0 12px; }
+    .contenido-titulo { font-size: clamp(1.8rem, 6vw, 2.6rem); }
+    .nav-menu ul { gap: 12px; }
+    .explore-grid { grid-template-columns: 1fr; gap: 14px; }
+    .equipo-grid { grid-template-columns: 1fr; }
+    .galeria-grid { grid-template-columns: 1fr; }
+    .admin-main { padding: 16px; }
+    .admin-panel-box { padding: 12px; }
+    .admin-table th, .admin-table td { padding: 8px; font-size: 0.95rem; }
+    .logo { font-size: 1.2rem; }
+    .btn-reserve, .btn-reservas, .btn-reservar-equipo { padding: 10px 18px; }
+    .main-header { height: auto; padding: 10px 8px; }
+}
+
+/* Medium devices (tablets, 601px - 900px) */
+@media (min-width: 601px) and (max-width: 900px) {
+    .container, .container-small { padding: 0 20px; }
+    .explore-grid { grid-template-columns: repeat(2, 1fr); }
+    .equipo-grid { grid-template-columns: repeat(2, 1fr); }
+    .galeria-grid { grid-template-columns: repeat(2, 1fr); }
+    .contenido-titulo { font-size: clamp(2.4rem, 5.5vw, 3.6rem); }
+    .admin-main { padding: 20px; }
+    .admin-panel-box { padding: 16px; }
+}
+
+/* Large devices (desktops, 901px and above) */
+@media (min-width: 901px) {
+    .container, .container-small { padding: 0 24px; }
+    .explore-grid { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+    .equipo-grid { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+}
+
+/* Make images responsive globally */
+img { max-width: 100%; height: auto; display: block; }
+
+/* Utility: stack buttons on small widths */
+.btn-group { display:flex; gap:8px; }
+@media (max-width: 480px) { .btn-group { flex-direction: column; } }
+
+.overlay {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+
+.tag-estilo {
+    background-color: var(--gold);
+    color: #000;
+    padding: 5px 15px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.item-info {
+    padding: 20px;
+}
+
+.item-info h3 {
+    color: var(--white);
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+}
+
+.item-info p {
+    color: var(--gray-text);
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+/* --- MENSAJES DE ERROR / VACÍO --- */
+.no-data-msg {
+    grid-column: 1 / -1;
+    padding: 60px 0;
+    text-align: center;
+}
+
+.no-data {
+    color: var(--gray-text);
+    font-style: italic;
+    text-align: center;
+}
+
+.galeria-cta {
+    padding: 80px 20px;
+    background-color: #0d0d0d;
+    text-align: center;
+}
+
+.cta-box {
+    border: 1px solid var(--gold);
+    padding: 50px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.cta-box h2 {
+    color: var(--white);
+    margin-bottom: 30px;
+    font-size: 2rem;
+}
+
+
+/* --- SECCIÓN EQUIPO --- */
+
+
+.equipo-section {
+    background-color: #0a0a0a;
+    padding: 80px 20px;
+    color: var(--white);
+    text-align: center;
+}
+
+.equipo-header {
+    margin-bottom: 60px;
+}
+
+.equipo-header .subtitle {
+    color: var(--gold);
+    letter-spacing: 3px;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.titulo-principal {
+    font-size: 4rem;
+    font-weight: 900;
+    margin: 10px 0;
+    color: var(--white);
+    text-align: center;
+}
+
+.underline {
+    width: 50px;
+    height: 4px;
+    background-color: var(--gold);
+    margin: 0 auto 20px;
+}
+
+.descripcion-header {
+    color: var(--gray-text);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Grid de Barberos */
+.equipo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto 50px;
+}
+
+.barbero-card {
+    position: relative;
+    height: 500px;
+    overflow: hidden;
+    background-color: #151515;
+    border: 1px solid #222;
+    transition: 0.3s;
+}
+
+.barbero-card:hover {
+    border-color: var(--gold);
+}
+
+.equipo-section .barbero-img {
+    width: 100%;
+    height: 100%;
+    min-height: 320px;
+    border-radius: 0; /* asegurar que no sea circular */
+    overflow: hidden;
+    display: block;
+}
+
+.equipo-section .barbero-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    opacity: 0.6; /* Oscurece la imagen para que el texto resalte */
+    transition: 0.5s;
+    display: block;
+}
+
+.barbero-card:hover .barbero-img img {
+    transform: scale(1.05);
+    opacity: 0.4;
+}
+
+/* Información del Barbero sobre la Imagen */
+.barbero-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 30px;
+    text-align: left;
+    background: linear-gradient(transparent, rgba(0,0,0,0.9));
+}
+
+.barbero-info h2 {
+    font-size: 2.5rem;
+    font-weight: 900;
+    margin-bottom: 5px;
+}
+
+.barbero-info .rango {
+    color: var(--gold);
+    font-weight: 700;
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+}
+
+.barbero-info .bio {
+    font-size: 0.9rem;
+    color: var(--gray-text);
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+/* Tags de Especialidades */
+.tags {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.tags span {
+    background-color: rgba(217, 156, 43, 0.15); /* Dorado muy transparente */
+    color: var(--gold);
+    padding: 5px 12px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    border: 1px solid rgba(217, 156, 43, 0.3);
+}
+
+/* Botón inferior */
+.btn-reservar-equipo {
+    background-color: var(--gold);
+    color: #000;
+    padding: 18px 40px;
+    text-decoration: none;
+    font-weight: 800;
+    display: inline-block;
+    transition: 0.3s;
+}
+
+.btn-reservar-equipo:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+}
+
+/* --- SECCIÓN UBICACIÓN --- */
+
+.ubicacion-page {
+    background-color: var(--dark-bg);
+    padding-bottom: 80px;
+}
+
+.ubicacion-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    align-items: start;
+    margin-top: 40px;
+}
+
+.info-item {
+    margin-bottom: 40px;
+}
+
+.info-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.info-header i {
+    color: var(--gold);
+    font-size: 1.5rem;
+}
+
+.info-header h2 {
+    color: var(--white);
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    font-weight: 800;
+}
+
+.info-item p {
+    color: var(--gray-text);
+    font-size: 1rem;
+    line-height: 1.8;
+}
+
+.horario-lista {
+    list-style: none;
+    padding: 0;
+}
+
+.horario-lista li {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #222;
+    color: var(--gray-text);
+    font-size: 0.95rem;
+}
+
+.horario-lista li .dia {
+    font-weight: 600;
+}
+
+.horario-lista li .horas {
+    color: var(--white);
+}
+
+/* Contenedor del Mapa */
+.ubicacion-mapa {
+    height: 100%;
+    min-height: 500px;
+    border: 1px solid #222;
+    transition: border-color 0.3s ease;
+}
+
+.ubicacion-mapa:hover {
+    border-color: var(--gold);
+}
+
+.ubicacion-mapa iframe {
+    width: 100%;
+    height: 100%;
+    filter: none;
+    border: none;
+}
+
+/* Responsivo para Ubicación */
+@media (max-width: 900px) {
+    .ubicacion-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .ubicacion-mapa {
+        min-height: 350px;
+        order: -1; /* Mapa arriba en móviles */
+    }
+}
+
+.equipo-cta {
+    text-align: center;
+    margin-top: 40px;
+}
+
+/* --- SECCIÓN UBICACIÓN --- */
+
+.ubicacion-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.ubicacion-header .subtitle {
+    display: block;
+    color: var(--gold);
+    letter-spacing: 3px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.ubicacion-header .titulo-principal {
+    margin: 0;
+}
+
+.ubicacion-header .underline {
+    margin: 15px auto 20px;
+}
+
+.ubicacion-header .descripcion-header {
+    text-align: center;
+}
+
+/* --- ESTILOS DE SERVICIOS PREMIUM (ESTILO TARJETAS DOBLE COLUMNA) --- */
+
+:root {
+    --gold: #d4af37;
+    --dark-card: #111111;
+    --border-color: #222222;
+    --text-gray: #aaaaaa;
+}
+
+.servicios-body {
+    background-color: #050505; /* Fondo negro profundo como la imagen */
+    color: white;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Contenedor principal con GRID de 2 columnas */
+.servicios-main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 60px 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); /* Crea las 2 columnas */
+    gap: 30px;
+}
+
+/* Encabezado ocupa todo el ancho */
+.servicios-header-top {
+    grid-column: 1 / -1; 
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.servicios-header-top .titulo-principal {
+    font-size: 3rem;
+    text-transform: uppercase;
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+
+.servicios-header-top .underline {
+    display: block;
+    width: 80px;
+    height: 3px;
+    background: var(--gold);
+    margin: 0 auto;
+}
+
+/* Tarjetas de Categoría (section) */
+.categoria-bloque {
+    background: var(--dark-card);
+    border: 1px solid var(--border-color);
+    padding: 40px;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Resaltado para Servicios Populares */
+.categoria-bloque.destacado {
+    border: 1px solid var(--gold);
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.1);
+}
+
+.categoria-nombre {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 30px;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Icono decorativo antes del título */
+.categoria-nombre::before {
+    content: '◈'; 
+    color: var(--gold);
+    font-size: 1.2rem;
+}
+
+.items-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Filas de Servicio (article) */
+.item-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding-bottom: 12px;
+    border-bottom: 1px dotted #333; /* Línea punteada de la imagen */
+}
+
+.item-info h3 {
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: #efefef;
+    margin: 0;
+}
+
+.item-info small {
+    color: var(--gold);
+    font-size: 0.75rem;
+    display: block;
+    margin-top: 5px;
+    text-transform: uppercase;
+}
+
+.item-precio span {
+    color: var(--gold);
+    font-weight: 700;
+    font-size: 1.1rem;
+    white-space: nowrap;
+}
+
+/* Botón de Reserva */
+.categoria-cta {
+    margin-top: auto;
+    padding-top: 30px;
+    text-align: center;
+}
+
+.btn-reserva-premium {
+    background-color: var(--gold);
+    color: black;
+    padding: 12px 30px;
+    text-decoration: none;
+    font-weight: 800;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    display: inline-block;
+    transition: 0.3s;
+    border-radius: 2px;
+}
+
+.btn-reserva-premium:hover {
+    background-color: white;
+    transform: translateY(-2px);
+}
+
+/* Ajustes para móviles */
+@media (max-width: 768px) {
+    .servicios-main {
+        grid-template-columns: 1fr; /* Una sola columna en móvil */
+        padding: 40px 15px;
+    }
+    
+    .servicios-header-top .titulo-principal {
+        font-size: 2rem;
+    }
+    
+    .categoria-bloque {
+        padding: 25px;
+    }
+}
+/* --- BLOG CLIENTE --- */
+
+.blog-page {
+    background-color: var(--dark-bg);
+    color: var(--white);
+    padding: 90px 20px;
+}
+
+.blog-header {
+    text-align: center;
+    margin-bottom: 55px;
+}
+
+.blog-grid {
+    max-width: 1150px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+}
+
+.blog-card {
+    background-color: #111;
+    border: 1px solid #222;
+    overflow: hidden;
+    transition: 0.3s;
+}
+
+.blog-card:hover {
+    border-color: var(--gold);
+    transform: translateY(-6px);
+}
+
+.blog-media {
+    width: 100%;
+    height: 330px;
+    background-color: #050505;
+    overflow: hidden;
+}
+
+.blog-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.blog-media iframe,
+.blog-media blockquote {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 100% !important;
+}
+
+.blog-info {
+    padding: 24px;
+}
+
+.blog-tag {
+    display: inline-block;
+    background-color: rgba(217, 156, 43, 0.15);
+    color: var(--gold);
+    border: 1px solid rgba(217, 156, 43, 0.35);
+    padding: 5px 10px;
+    font-size: 0.65rem;
+    font-weight: 900;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+}
+
+.blog-info h2 {
+    color: var(--white);
+    font-size: 1.25rem;
+    line-height: 1.3;
+    margin-bottom: 12px;
+}
+
+.blog-info p {
+    color: var(--gray-text);
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+.blog-btn {
+    display: inline-block;
+    margin-top: 20px;
+    background-color: var(--gold);
+    color: #000;
+    padding: 11px 18px;
+    text-decoration: none;
+    font-weight: 900;
+    font-size: 0.75rem;
+}
+
+.blog-btn:hover {
+    background-color: #f0ad32;
+}
+
+@media (max-width: 900px) {
+    .blog-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* --- INSTAGRAM REELS --- */
+
+.instagram-wrapper {
+    width: 100%;
+    height: 500px;
+    overflow: hidden;
+    background-color: #000;
+}
+
+.instagram-wrapper iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+/* --- SECCIÓN RESERVAS --- */
+
+.reservas-page {
+    background-color: #0d0d0d;
+    color: #ffffff;
+    min-height: calc(100vh - 80px);
+    padding: 60px 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.reservas-container {
+    max-width: 900px;
+    width: 100%;
+    background: #141414;
+    border: 1px solid #222;
+    border-radius: 12px;
+    padding: 40px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.reservas-container h1 {
+    text-align: center;
+    font-size: 2.2rem;
+    color: #d99c2b;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* Mensajes de confirmación / error de la reserva */
+.alert {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 20px 24px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+.alert-icono {
+    flex-shrink: 0;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.alert-texto strong {
+    display: block;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+}
+
+.alert-texto p {
+    margin: 0;
+    color: #cfcfcf;
+    line-height: 1.5;
+}
+
+.alert-success {
+    background: rgba(217, 156, 43, 0.08);
+    border: 1px solid #d99c2b;
+}
+
+.alert-success .alert-icono {
+    background: #d99c2b;
+    color: #0a0a0a;
+}
+
+.alert-success .alert-texto strong {
+    color: #d99c2b;
+}
+
+.alert-error {
+    background: rgba(220, 53, 69, 0.08);
+    border: 1px solid #dc3545;
+}
+
+.alert-error .alert-icono {
+    background: #dc3545;
+    color: #ffffff;
+}
+
+.alert-error .alert-texto strong {
+    color: #dc3545;
+}
+
+/* Barra de Pasos */
+.pasos-bar {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 40px;
+    position: relative;
+    border-bottom: 2px solid #222;
+    padding-bottom: 15px;
+}
+
+.paso-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    opacity: 0.4;
+    transition: all 0.3s ease;
+}
+
+.paso-item.activo {
+    opacity: 1;
+}
+
+.paso-numero {
+    width: 35px;
+    height: 35px;
+    background: #222;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin-bottom: 8px;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.paso-item.activo .paso-numero {
+    background: #d99c2b;
+    color: #0a0a0a;
+    border-color: #ffffff;
+}
+
+.paso-texto {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Pasos del Formulario */
+.reserva-step {
+    display: none;
+}
+
+.reserva-step.activo {
+    display: block;
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+.reserva-step h2 {
+    font-size: 1.5rem;
+    margin-bottom: 25px;
+    border-left: 4px solid #d99c2b;
+    padding-left: 12px;
+}
+
+.paso-ayuda {
+    color: #999;
+    font-size: 0.9rem;
+    margin-top: -15px;
+    margin-bottom: 20px;
+}
+
+/* Estilo de Tarjetas y Opciones */
+.card-option input[type="radio"] {
+    display: none;
+}
+
+.card-option {
+    display: block;
+    background: #1c1c1c;
+    border: 2px solid #2a2a2a;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    overflow: hidden;
+}
+
+.card-option:hover {
+    border-color: #555;
+    background: #222;
+}
+
+.card-option input[type="radio"]:checked + .card-content,
+.card-option input[type="radio"]:checked + .card-content-barbero,
+.card-option:has(input[type="radio"]:checked) {
+    border-color: #d99c2b;
+    background: rgba(217, 156, 43, 0.05);
+    box-shadow: 0 0 15px rgba(217, 156, 43, 0.15);
+}
+
+/* Grid de Servicios */
+.servicios-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.servicio-card .card-content {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-info h3 {
+    font-size: 1.2rem;
+    color: #fff;
+    margin-bottom: 5px;
+}
+
+.card-info p {
+    color: #b3b3b3;
+    font-size: 0.9rem;
+}
+
+.card-meta {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.card-meta .precio {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #d99c2b;
+}
+
+.card-meta .duracion {
+    font-size: 0.8rem;
+    color: #888;
+}
+
+/* Grid de Barberos */
+.barberos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 280px));
+    justify-content: center;
+    justify-items: center;
+    gap: 20px;
+}
+
+.card-content-barbero {
+    padding: 25px 15px;
+    text-align: center;
+}
+
+.card-content-barbero .barbero-img,
+.card-content-barbero img.barbero-img {
+    width: 100%;
+    height: 280px; /* altura del recuadro de la imagen */
+    border-radius: 0; /* quitar forma circular */
+    overflow: hidden;
+    display: block;
+    margin-bottom: 15px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.card-content-barbero .barbero-img img,
+.card-content-barbero img.barbero-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+}
+
+.card-option:has(input[type="radio"]:checked) .barbero-img {
+    box-shadow: 0 0 0 3px rgba(217,156,43,0.12);
+}
+
+.card-content-barbero h3 {
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+}
+
+.card-content-barbero .especialidad {
+    font-size: 0.85rem;
+    color: #d99c2b;
+    text-transform: uppercase;
+}
+
+/* Calendario y Horas */
+.agenda-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+.calendario-box input {
+    width: 100%;
+    background: #1c1c1c;
+    border: 1px solid #333;
+    padding: 15px;
+    color: white;
+    font-size: 1rem;
+    border-radius: 6px;
+    text-align: center;
+}
+
+.horas-box h3 {
+    font-size: 1rem;
+    margin-bottom: 15px;
+    color: #b3b3b3;
+}
+
+.horas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 10px;
+    max-height: 280px;
+    overflow-y: auto;
+    padding-right: 5px;
+}
+
+.hora-item {
+    background: #1c1c1c;
+    border: 1px solid #333;
+    padding: 10px;
+    text-align: center;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+}
+
+.hora-item:hover {
+    border-color: #d99c2b;
+    color: #d99c2b;
+}
+
+.hora-item.selected {
+    background: #d99c2b;
+    color: #0a0a0a;
+    border-color: #d99c2b;
+    font-weight: bold;
+}
+
+.select-date-msg {
+    grid-column: 1 / -1;
+    color: #666;
+    font-style: italic;
+    font-size: 0.9rem;
+}
+
+/* Inputs de Datos */
+.form-group-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.input-box {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.input-box label {
+    font-size: 0.85rem;
+    color: #b3b3b3;
+    text-transform: uppercase;
+}
+
+.input-box input {
+    background: #1c1c1c;
+    border: 1px solid #333;
+    padding: 12px 15px;
+    color: white;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.input-box input:focus {
+    border-color: #d99c2b;
+    outline: none;
+}
+
+/* Resumen del Ticket */
+.ticket-resumen {
+    background: #1c1c1c;
+    border: 1px solid #2a2a2a;
+    border-radius: 8px;
+    padding: 25px;
+    margin-top: 20px;
+}
+
+.ticket-line {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid #262626;
+    font-size: 0.95rem;
+}
+
+.ticket-line.total {
+    border-bottom: none;
+    font-size: 1.2rem;
+    color: #d99c2b;
+    padding-top: 15px;
+}
+
+/* Botonera de Navegación */
+.nav-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+    gap: 15px;
+}
+
+.nav-buttons.single-btn {
+    justify-content: flex-end;
+}
+
+.btn-siguiente, .btn-confirmar {
+    background: #d99c2b;
+    color: #0a0a0a;
+    border: none;
+    padding: 14px 28px;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: background 0.3s;
+}
+
+.btn-siguiente:hover, .btn-confirmar:hover {
+    background: #f0ad32;
+}
+
+/* Estado deshabilitado para botones */
+.btn-siguiente:disabled, .btn-confirmar:disabled {
+    background: #666;
+    color: #999;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.reserva-politica {
+    margin: 20px 0 8px;
+    padding: 16px;
+    background: #1a1a1a;
+    border: 1px solid #2b2b2b;
+    border-radius: 8px;
+}
+
+.reserva-politica-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    cursor: pointer;
+    color: #ccc;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.reserva-politica-label input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    min-width: 18px;
+    accent-color: var(--gold);
+    cursor: pointer;
+    margin-top: 2px;
+}
+
+.reserva-politica-link {
+    color: var(--gold);
+    text-decoration: underline;
+}
+
+.reserva-politica-link:hover {
+    color: #fff;
+}
+
+.btn-siguiente:disabled:hover, .btn-confirmar:disabled:hover {
+    background: #666;
+}
+
+.btn-siguiente.deshabilitado, .btn-confirmar.deshabilitado {
+    background: #666;
+    color: #999;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* El botón confirmar se deshabilita visualmente cuando el checkbox de política NO está marcado */
+#form-reserva:has(#acepto-politica:not(:checked)) #btn-confirmar-reserva {
+    background: #666;
+    color: #999;
+    cursor: not-allowed;
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.btn-atras {
+    background: transparent;
+    color: #b3b3b3;
+    border: 1px solid #333;
+    padding: 14px 28px;
+    border-radius: 6px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.3s;
+}
+
+.btn-atras:hover {
+    background: #222;
+    color: #fff;
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+    .agenda-container, .form-group-grid {
+        grid-template-columns: 1fr;
+    }
+    .paso-texto { display: none; }
+}
+
+.seguimiento-live {
+    display: flex;
+    justify-content: space-between;
+    background: #111111;
+    border: 1px solid #252525;
+    padding: 12px 20px;
+    border-radius: 6px;
+    margin: -10px auto 25px auto;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.seg-item {
+    font-size: 0.88rem;
+    color: #777;
+    transition: all 0.3s ease;
+}
+
+.seg-item strong {
+    color: #fff;
+}
+
+.seg-item span {
+    font-style: italic;
+    color: #999;
+}
+
+/* Estado Activo Resaltado */
+.seg-item.completado span {
+    color: var(--gold, #d99c2b);
+    font-style: normal;
+    font-weight: 600;
+}
+
+/* Contenedor de Botones de Filtro de Categorías */
+.servicios-filtros {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+}
+
+.filtro-btn {
+    background: #1c1c1c;
+    color: #b3b3b3;
+    border: 1px solid #333;
+    padding: 9px 18px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+}
+
+.filtro-btn:hover { border-color: #d99c2b; color: #fff; }
+.filtro-btn.activo { background: #d99c2b; color: #0a0a0a; border-color: #d99c2b; }
+
+
+/* --- SECCIÓN RESEÑAS --- */
+
+.resenas-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--dark-bg);
+    color: var(--white);
+    padding: 40px 20px;
+    text-align: center;
+    margin-bottom: 30px;
+    min-height: auto;
+}
+
+.widget-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0; /* 10px de espacio abajo nada más */
+    padding: 0;
+}
+
+.resenas-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.resenas-cta {
+    text-align: center;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.resenas-cta p {
+    color: var(--gray-text);
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+}
+
+.resenas-botones {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+[class*="elfsight-app"] {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+.btn-google,
+.btn-resenas-reserva {
+    padding: 16px 30px;
+    text-decoration: none;
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+}
+
+.btn-google {
+    border: 1px solid var(--gold);
+    color: var(--gold);
+}
+
+.btn-resenas-reserva {
+    background-color: var(--gold);
+    color: #000;
+}
+
+/* --- SECCIÓN LOGIN --- */
+.login-page {
+    min-height: 100vh;
+    background-color: #0a0a0a;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.login-logo-box {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.login-icon {
+    width: 225px;
+    height: 225px;
+    margin: 0 auto 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.login-logo-box h1 {
+    font-size: 1.2rem;
+    font-weight: 900;
+}
+
+.login-logo-box h1 span {
+    color: #fff;
+}
+
+.login-logo-box h1 {
+    color: #d99c2b;
+}
+
+.login-logo-box p {
+    color: #777;
+    font-size: 0.75rem;
+    margin-top: 5px;
+}
+
+.login-box {
+    width: 360px;
+    background-color: #111;
+    border: 1px solid #222;
+    padding: 30px;
+}
+
+.login-box h2 {
+    font-size: 1rem;
+    margin-bottom: 25px;
+    color: #fff;
+}
+
+.login-box label {
+    display: block;
+    color: #777;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    font-weight: 800;
+}
+
+.login-box input {
+    width: 100%;
+    padding: 14px;
+    margin-bottom: 18px;
+    background-color: #252525;
+    border: 1px solid #333;
+    color: #fff;
+}
+
+.login-box input:focus {
+    outline: none;
+    border-color: #d99c2b;
+}
+
+.login-box button {
+    width: 100%;
+    padding: 15px;
+    background-color: #d99c2b;
+    border: none;
+    font-weight: 900;
+    color: #000;
+    cursor: pointer;
+}
+
+.login-box button:hover {
+    background-color: #f0ad32;
+}
+
+.login-error {
+    color: #ff5555;
+    margin-bottom: 15px;
+    font-size: 0.85rem;
+}
+
+.volver-web {
+    margin-top: 20px;
+    color: #777;
+    text-decoration: none;
+    font-size: 0.75rem;
+}
+
+.volver-web:hover {
+    color: #d99c2b;
+}
+
+
+/* --- PANEL ADMIN --- */
+
+.admin-layout {
+    min-height: 100vh;
+    display: flex;
+    background-color: #0a0a0a;
+    color: #fff;
+}
+ 
+ /* --- ADMIN SERVICIOS MEJORADO --- */
+
+.admin-main {
+    background-color: #0a0a0a;
+}
+
+.admin-panel-box {
+    margin-bottom: 22px;
+}
+
+.admin-form-servicios {
+    display: grid;
+    grid-template-columns: 2fr 2fr 1fr 1fr 1fr auto;
+    gap: 10px;
+    align-items: center;
+}
+
+.admin-form-servicios input {
+    background-color: #202020;
+    border: 1px solid #2b2b2b;
+    color: #fff;
+    padding: 12px;
+}
+
+.admin-form-servicios button {
+    background-color: var(--gold);
+    color: #000;
+    border: none;
+    padding: 12px 18px;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+.admin-table-servicios {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #111;
+}
+
+.admin-table-servicios th {
+    color: var(--gold);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    padding: 14px;
+    border-bottom: 1px solid #222;
+    text-align: left;
+}
+
+.admin-table-servicios td {
+    padding: 13px 14px;
+    border-bottom: 1px solid #202020;
+    color: #ccc;
+    font-size: 0.85rem;
+}
+
+.admin-table-servicios tr:hover {
+    background-color: #151515;
+}
+
+.admin-precio {
+    color: var(--gold);
+    font-weight: 900;
+}
+
+.admin-tag {
+    background-color: rgba(217, 156, 43, 0.15);
+    color: var(--gold);
+    padding: 4px 8px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.admin-actions-mini a {
+    color: #aaa;
+    margin-right: 10px;
+    text-decoration: none;
+}
+
+.admin-actions-mini a:hover {
+    color: var(--gold);
+}
+
+/* ---------- GESTIÓN GALERÍA ADMIN ---------- */
+
+.admin-form-galeria {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr auto auto;
+    gap: 10px;
+    align-items: center;
+}
+
+.admin-form-galeria input,
+.admin-form-galeria select {
+    padding: 12px;
+    background-color: #202020;
+    border: 1px solid #2b2b2b;
+    color: #fff;
+    outline: none;
+}
+
+.admin-form-galeria input:focus,
+.admin-form-galeria select:focus {
+    border-color: var(--gold);
+}
+
+.admin-form-galeria button {
+    background-color: var(--gold);
+    color: #000;
+    border: none;
+    padding: 12px 18px;
+    font-weight: 900;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.admin-form-galeria button:hover {
+    opacity: 0.9;
+}
+
+.galeria-admin-grid {
+    margin-top: 25px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+}
+
+.galeria-admin-card {
+    position: relative;
+    height: 260px;
+    background-color: #111;
+    border: 1px solid #222;
+    overflow: hidden;
+}
+
+.galeria-admin-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: 0.4s;
+}
+
+.galeria-admin-card:hover img {
+    transform: scale(1.05);
+}
+
+.galeria-admin-info {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: 0.3s;
+    text-align: center;
+    padding: 20px;
+}
+
+.galeria-admin-card:hover .galeria-admin-info {
+    opacity: 1;
+}
+
+.galeria-admin-info h3 {
+    color: #fff;
+    margin-bottom: 8px;
+    font-size: 1rem;
+}
+
+.galeria-admin-info p {
+    background-color: rgba(217,156,43,0.2);
+    color: var(--gold);
+    padding: 5px 10px;
+    font-size: 0.75rem;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    font-weight: 800;
+}
+
+.admin-actions-mini {
+    display: flex;
+    gap: 10px;
+}
+
+.admin-actions-mini a {
+    text-decoration: none;
+    padding: 8px 12px;
+    font-size: 0.8rem;
+    font-weight: 800;
+    transition: 0.3s;
+}
+
+.admin-actions-mini a:first-child {
+    background-color: var(--gold);
+    color: #000;
+}
+
+.admin-actions-mini a:last-child {
+    background-color: #c0392b;
+    color: #fff;
+}
+
+.admin-actions-mini a:hover {
+    transform: translateY(-2px);
+}
+
+.estado-activo {
+    color: #5cff8d;
+    font-size: 0.8rem;
+    font-weight: 800;
+    margin-bottom: 12px;
+}
+
+.estado-inactivo {
+    color: #ff6666;
+    font-size: 0.8rem;
+    font-weight: 800;
+    margin-bottom: 12px;
+}
+
+/* ---------- GESTIÓN BLOG ADMIN MEJORADO ---------- */
+
+.admin-form-blog {
+    display: grid;
+    grid-template-columns: 1fr 1fr 2fr auto;
+    gap: 12px;
+    align-items: start;
+}
+
+.admin-form-blog input,
+.admin-form-blog textarea {
+    background-color: #202020;
+    border: 1px solid #2b2b2b;
+    color: #fff;
+    padding: 12px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.admin-form-blog textarea {
+    min-height: 42px;
+    resize: vertical;
+}
+
+.admin-form-blog button {
+    background-color: var(--gold);
+    color: #000;
+    border: none;
+    padding: 12px 18px;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+.blog-admin-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 22px;
+    margin-top: 25px;
+}
+
+.blog-admin-card {
+    background-color: #111;
+    border: 1px solid #222;
+    overflow: hidden;
+}
+
+.blog-admin-media {
+    width: 100%;
+    height: 360px;
+    background-color: #050505;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+}
+
+.blog-admin-media iframe {
+    width: 100%;
+    max-width: 320px;
+    height: 360px;
+    border: none;
+}
+
+.blog-admin-placeholder {
+    width: 100%;
+    height: 360px;
+    background-color: #050505;
+    color: #555;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.blog-admin-info {
+    padding: 18px;
+}
+
+.blog-admin-info span {
+    display: inline-block;
+    color: var(--gold);
+    background-color: rgba(217, 156, 43, 0.15);
+    border: 1px solid rgba(217, 156, 43, 0.3);
+    padding: 5px 10px;
+    font-size: 0.65rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+
+.blog-admin-info h3 {
+    color: #fff;
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+}
+
+.blog-admin-info p {
+    color: #aaa;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    margin-bottom: 15px;
+}
+
+.blog-admin-info .admin-actions-mini {
+    display: flex;
+    gap: 8px;
+}
+
+.blog-admin-info .admin-actions-mini a {
+    padding: 8px 12px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-decoration: none;
+}
+
+.blog-admin-info .admin-actions-mini a:first-child {
+    background-color: var(--gold);
+    color: #000;
+}
+
+.blog-admin-info .admin-actions-mini a:last-child {
+    background-color: #c0392b;
+    color: #fff;
+}
+
+.instagram-admin-preview {
+    width: 100%;
+    height: 360px;
+    overflow: hidden;
+    background-color: #000;
+}
+
+.instagram-admin-preview iframe,
+.instagram-admin-preview blockquote {
+    width: 100% !important;
+    min-width: 100% !important;
+}
+/* ============================================================
+ — GestionUbicacion.php  (body.admin-panel)
+   ============================================================ */
+.gestion-ubicacion-box {
+    max-width: 700px;
+    margin-bottom: 25px;
+}
+
+.gestion-ubicacion-box h2 {
+    color: #fff;
+    font-size: 1rem;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+.gestion-ubicacion-box label {
+    display: block;
+    color: #888;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+.gestion-ubicacion-box input[type="text"],
+.gestion-ubicacion-box input[type="time"] {
+    width: 100%;
+    background-color: #202020;
+    border: 1px solid #2b2b2b;
+    color: #fff;
+    padding: 12px;
+    margin-bottom: 15px;
+}
+
+.ubicacion-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.horario-admin-row {
+    display: grid;
+    grid-template-columns: 100px 1fr 1fr 100px;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.horario-admin-row span {
+    color: #aaa;
+}
+
+.horario-admin-row .admin-check {
+    margin: 0;
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    color: #ccc;
+    text-transform: none;
+}
+
+/* ============================================================
+ — GestionEquipo.php  (body.admin-panel)
+   ============================================================ */
+ 
+body.admin-panel {
+    display: flex;
+    min-height: 100vh;
+    background-color: #0a0a0a;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+}
+ 
+ 
+/* ============================================================
+   SIDEBAR — admin_sidebar.php
+   Clases reales: .admin-sidebar  .admin-logo  .admin-menu  .admin-bottom
+   ============================================================ */
+ 
+.admin-sidebar {
+    width: 250px;
+    min-height: 100vh;
+    background-color: #111;
+    border-right: 1px solid #1c1c1c;
+    padding: 28px 15px 20px;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 1040; /* elevated so it sits above the overlay */
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+/* Admin hamburger button (tablet / mobile) */
+#admin-hamburger-btn, .admin-hamburger {
+    display: none;
+    position: fixed;
+    top: 14px;
+    right: 14px;
+    left: auto;
+    z-index: 1100;
+    background: var(--gold);
+    color: #000;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 1.05rem;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.5);
+}
+
+/* Overlay that appears when sidebar open on small screens */
+.admin-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    z-index: 1030; /* under the sidebar but above content */
+    display: none;
+}
+.admin-overlay.show { display: block; }
+
+/* Behavior on tablets and below */
+@media (max-width: 1024px) {
+    #admin-hamburger-btn, .admin-hamburger { display: inline-flex; align-items: center; justify-content: center; }
+
+    .admin-sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.25s ease;
+        box-shadow: 6px 0 30px rgba(0,0,0,0.6);
+    }
+
+    .admin-sidebar.open {
+        transform: translateX(0);
+    }
+
+    /* ensure top padding so content is not hidden under the fixed hamburger */
+    .admin-main { margin-left: 0 !important; padding-top: 72px; }
+
+  
+
+    /* Tables inside admin panels should scroll horizontally and vertically if needed */
+    .admin-panel-box table {
+        display: block;
+        max-height: 45vh;
+        overflow: auto;
+        width: 100%;
+    }
+
+    /* Slightly reduce sidebar padding on small screens */
+    .admin-sidebar { padding: 20px 12px; width: 260px; }
+
+}
+
+@media (max-width: 600px) {
+    #admin-hamburger-btn { right: 8px; top: 10px; padding: 7px 10px; }
+    .admin-sidebar { width: 240px; }
+}
+ 
+/* Logo */
+.admin-sidebar .admin-logo {
+    margin-bottom: 38px;
+    padding: 0 5px;
+    display: block;
+}
+ 
+.admin-sidebar .admin-logo strong {
+    display: block;
+    font-size: 1.1rem;
+    font-weight: 900;
+    color: #d99c2b;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    line-height: 1.1;
+}
+ 
+.admin-sidebar .admin-logo span {
+    display: block;
+    color: #555;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-top: 5px;
+}
+ 
+/* Menú de navegación */
+.admin-sidebar .admin-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex: 1;
+}
+ 
+.admin-sidebar .admin-menu a {
+    color: #777;
+    text-decoration: none;
+    padding: 11px 15px;
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    transition: all 0.2s ease;
+    display: block;
+    border-left: 2px solid transparent;
+}
+ 
+.admin-sidebar .admin-menu a:hover {
+    color: #fff;
+    background-color: rgba(217, 156, 43, 0.07);
+    border-left-color: rgba(217, 156, 43, 0.3);
+}
+ 
+.admin-sidebar .admin-menu a.active {
+    background-color: #d99c2b;
+    color: #000;
+    font-weight: 700;
+    border-left-color: transparent;
+}
+ 
+/* Pie del sidebar */
+.admin-sidebar .admin-bottom {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding-top: 20px;
+    border-top: 1px solid #1c1c1c;
+}
+ 
+.admin-sidebar .admin-bottom a {
+    color: #444;
+    text-decoration: none;
+    font-size: 0.75rem;
+    padding: 8px 15px;
+    transition: color 0.2s ease;
+}
+ 
+.admin-sidebar .admin-bottom a:hover {
+    color: #aaa;
+}
+ 
+ 
+/* ============================================================
+   ÁREA PRINCIPAL — panel.php  (.admin-main)
+   ============================================================ */
+ 
+.admin-main {
+    flex: 1;
+    margin-left: 250px;
+    padding: 35px 40px;
+    background-color: #0a0a0a;
+    min-height: 100vh;
+}
+ 
+.admin-small-title {
+    color: #d99c2b;
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+ 
+.admin-main h1 {
+    font-size: 2rem;
+    font-weight: 900;
+    margin-bottom: 6px;
+}
+ 
+.admin-subtitle {
+    color: #555;
+    font-size: 0.85rem;
+    margin-bottom: 30px;
+}
+ 
+/* Stats cards */
+.admin-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-bottom: 25px;
+}
+ 
+.admin-card {
+    background-color: #111;
+    border: 1px solid #1e1e1e;
+    padding: 20px;
+}
+ 
+.admin-card span {
+    color: #555;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+ 
+.admin-card strong {
+    display: block;
+    font-size: 2rem;
+    font-weight: 900;
+    margin-top: 10px;
+    color: #fff;
+}
+ 
+/* Panel box (reservas recientes, etc.) */
+.admin-panel-box {
+    background-color: #111;
+    border: 1px solid #1e1e1e;
+    padding: 25px;
+    margin-bottom: 25px;
+}
+ 
+.admin-panel-box h2 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: #fff;
+}
+ 
+.admin-panel-box p {
+    color: #555;
+    font-size: 0.85rem;
+}
+
+.admin-alert {
+    background-color: #251f1d;
+    border: 1px solid #d99c2b;
+    color: #f5e6c7;
+    padding: 18px 20px;
+    margin-bottom: 25px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.admin-alert strong {
+    display: block;
+    margin-right: 12px;
+}
+
+.admin-alert a {
+    color: #d99c2b;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.admin-alert a:hover {
+    text-decoration: underline;
+}
+ 
+/* Acciones rápidas */
+.admin-actions {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+ 
+.admin-actions a {
+    background-color: #111;
+    border: 1px solid #1e1e1e;
+    color: #aaa;
+    text-decoration: none;
+    padding: 18px 15px;
+    text-align: center;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: all 0.2s ease;
+}
+ 
+.admin-actions a:hover {
+    border-color: #d99c2b;
+    color: #d99c2b;
+    background-color: rgba(217, 156, 43, 0.05);
+}
+ 
+/* Tablas admin */
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+ 
+.admin-table th,
+.admin-table td {
+    border-bottom: 1px solid #1e1e1e;
+    padding: 14px;
+    text-align: left;
+}
+ 
+.admin-table th {
+    color: #d99c2b;
+    font-size: 0.72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+ 
+.admin-table td {
+    color: #aaa;
+    font-size: 0.85rem;
+}
+ 
+.admin-table a {
+    color: #d99c2b;
+    margin-right: 10px;
+    text-decoration: none;
+    font-size: 0.8rem;
+}
+ 
+.admin-header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+ 
+.admin-btn {
+    background-color: #d99c2b;
+    color: #000;
+    text-decoration: none;
+    padding: 12px 20px;
+    font-weight: 800;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    transition: background-color 0.2s ease;
+}
+ 
+.admin-btn:hover {
+    background-color: #f0ad32;
+}
+ 
+.admin-avatar {
+    width: 55px;
+    height: 55px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+ 
+ 
+/* ============================================================
+   LAYOUT BASE — admin-panel + .content
+   ============================================================ */
+ 
+body.admin-panel {
+    display: flex;
+    min-height: 100vh;
+    background-color: #0a0a0a;
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+ 
+.content {
+    margin-left: 250px;
+    flex: 1;
+    min-height: 100vh;
+    background-color: #0a0a0a;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+ 
+/* ============================================================
+   HEADER DE SECCIÓN
+   ============================================================ */
+ 
+.content > header {
+    padding: 28px 40px 22px;
+    border-bottom: 1px solid #161616;
+    background-color: #0d0d0d;
+}
+ 
+.content > header h1 {
+    font-size: 2rem;
+    font-weight: 900;
+    color: #fff;
+    margin: 0 0 5px 0;
+    letter-spacing: 0.5px;
+}
+ 
+.content > header p {
+    color: #555;
+    font-size: 0.82rem;
+    margin: 0;
+}
+ 
+/* ============================================================
+   PANEL "NUEVO MIEMBRO"
+   ============================================================ */
+ 
+.add-member-panel {
+    background-color: #0f0f0f;
+    border: 1px solid #222;
+    padding: 30px 35px;
+    margin: 30px 40px 0;
+}
+ 
+.panel-header h2 {
+    color: #d99c2b;
+    font-size: 1rem;
+    font-weight: 800;
+    letter-spacing: 3px;
+    margin: 0 0 10px 0;
+    text-transform: uppercase;
+}
+ 
+.line-gold {
+    width: 40px;
+    height: 2px;
+    background-color: #d99c2b;
+    margin-bottom: 25px;
+}
+ 
+.add-form-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* Estilo de campo de subida de imagen dentro del gestor de equipo */
+.input-group input[type="file"] {
+    border: 1px solid #2a2a2a;
+    border-radius: 10px;
+    background-color: #0d0d0d;
+    padding: 10px 12px;
+    color: #eee;
+}
+
+.input-group input[type="file"]::-webkit-file-upload-button {
+    border: none;
+    background: #d99c2b;
+    color: #000;
+    padding: 10px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 800;
+}
+
+.input-group input[type="file"]::-webkit-file-upload-button:hover {
+    background: #f0ad32;
+}
+ 
+.form-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+}
+ 
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+ 
+.input-group label {
+    color: #666;
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+ 
+.input-group input,
+.input-group select,
+.input-group textarea {
+    background-color: #050505;
+    border: 1px solid #2a2a2a;
+    color: #fff;
+    padding: 12px 14px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.83rem;
+    outline: none;
+    transition: border-color 0.2s ease;
+    box-sizing: border-box;
+    width: 100%;
+}
+ 
+.input-group input:focus,
+.input-group select:focus,
+.input-group textarea:focus {
+    border-color: #d99c2b;
+}
+ 
+.input-group input::placeholder,
+.input-group textarea::placeholder {
+    color: #333;
+}
+ 
+.input-group select {
+    cursor: pointer;
+    appearance: none;
+}
+ 
+.input-group textarea {
+    resize: vertical;
+    min-height: 75px;
+    line-height: 1.5;
+}
+ 
+.input-group.full-width {
+    grid-column: 1 / -1;
+}
+ 
+.form-footer {
+    margin-top: 6px;
+}
+ 
+.btn-save-new {
+    background-color: #d99c2b;
+    color: #000;
+    border: none;
+    padding: 14px 32px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: 0.78rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+ 
+.btn-save-new:hover {
+    background-color: #f0ad32;
+}
+ 
+/* ============================================================
+   SEPARADOR
+   ============================================================ */
+ 
+.separator-gold {
+    border: 0;
+    border-top: 1px solid #1a1a1a;
+    margin: 30px 40px;
+}
+ 
+/* ============================================================
+   GRID DE TARJETAS
+   ============================================================ */
+ 
+body.admin-panel .equipo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 22px;
+    padding: 0 40px 40px;
+    align-items: start;
+    max-width: none;
+    margin: 0;
+}
+ 
+/* ============================================================
+   TARJETA DE BARBERO — MODO VISTA
+   ============================================================ */
+ 
+body.admin-panel .barbero-card {
+    background-color: #111;
+    border: 1px solid #1e1e1e;
+    overflow: hidden;
+    position: relative;
+    transition: border-color 0.3s ease, transform 0.25s ease;
+    border-radius: 18px;
+    box-shadow: 0 18px 48px rgba(0, 0, 0, 0.22);
+}
+
+body.admin-panel .barbero-card:hover {
+    transform: translateY(-2px);
+}
+ 
+body.admin-panel .barbero-card:hover {
+    border-color: #303030;
+}
+ 
+/* ── Imagen ── */
+/* Selector ampliado: cubre tanto <img> directo como dentro de .card-image */
+body.admin-panel .barbero-card .card-image {
+    overflow: hidden;
+    width: 100%;
+    height: 360px;
+}
+ 
+body.admin-panel .barbero-card .card-image img,
+body.admin-panel .barbero-card > img {
+    width: 100%;
+    height: 360px;
+    object-fit: cover;
+    object-position: top center;
+    display: block;
+    filter: brightness(0.65);
+    transition: filter 0.4s ease, transform 0.4s ease;
+}
+ 
+body.admin-panel .barbero-card:hover .card-image img,
+body.admin-panel .barbero-card:hover > img {
+    filter: brightness(0.5);
+    transform: scale(1.03);
+}
+ 
+/* ── Bloque info ── */
+body.admin-panel .barbero-card .info {
+    padding: 18px 20px 20px;
+    background-color: #111;
+}
+ 
+body.admin-panel .barbero-card .info h3 {
+    font-size: 1.55rem;
+    font-weight: 900;
+    color: #fff;
+    margin: 0 0 4px 0;
+    letter-spacing: 0.5px;
+    line-height: 1.1;
+}
+ 
+body.admin-panel .barbero-card .info .rank {
+    color: #d99c2b;
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    margin: 0 0 4px 0;
+    display: block;
+}
+ 
+body.admin-panel .barbero-card .info .role-text {
+    color: #444;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin: 0 0 16px 0;
+    display: block;
+}
+ 
+/* ── Botones de acción (editar + eliminar) ── */
+.actions-group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 4px;
+}
+ 
+body.admin-panel .barbero-card .info .btn-edit {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    color: #555;
+    text-decoration: none;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: color 0.2s ease;
+}
+ 
+body.admin-panel .barbero-card .info .btn-edit::before {
+    content: '✎';
+    font-size: 0.9rem;
+}
+ 
+body.admin-panel .barbero-card .info .btn-edit:hover {
+    color: #fff;
+}
+ 
+.delete-form {
+    margin: 0;
+    padding: 0;
+    display: inline;
+}
+ 
+.btn-delete {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: transparent;
+    color: #5a1a1a;
+    border: none;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.btn-authorize {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    background: #2c7a2c;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.btn-authorize:hover {
+    background: #246d24;
+    transform: translateY(-1px);
+}
+ 
+.btn-delete::before {
+    content: '🗑';
+    font-size: 0.85rem;
+}
+ 
+.btn-delete:hover {
+    color: #e53e3e;
+}
+ 
+/* ============================================================
+   TARJETA DE BARBERO — MODO EDICIÓN
+   ============================================================ */
+ 
+body.admin-panel .barbero-card.editing {
+    border-color: #d99c2b;
+}
+ 
+body.admin-panel .barbero-card.editing .card-image,
+body.admin-panel .barbero-card.editing .card-image img,
+body.admin-panel .barbero-card.editing > img {
+    height: 140px;
+    filter: brightness(0.4);
+    transform: none;
+}
+ 
+.edit-form {
+    padding: 16px 18px 20px;
+    background-color: #111;
+    display: flex;
+    flex-direction: column;
+    max-height: 420px;
+    overflow-y: auto;
+}
+
+/* Dentro de la ventana flotante de edición, el propio .modal-box ya controla el scroll */
+.modal-box .edit-form {
+    max-height: none;
+    overflow-y: visible;
+}
+
+.edit-form label {
+    color: #555;
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    margin-top: 8px;
+    display: block;
+}
+ 
+.edit-form label:first-of-type {
+    margin-top: 0;
+}
+ 
+.edit-form input,
+.edit-form textarea,
+.edit-form select {
+    width: 100%;
+    background-color: #191919;
+    border: 1px solid #282828;
+    color: #fff;
+    padding: 10px 13px;
+    margin-bottom: 2px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.83rem;
+    outline: none;
+    transition: border-color 0.2s ease;
+    border-radius: 0;
+    box-sizing: border-box;
+}
+ 
+.edit-form input:focus,
+.edit-form textarea:focus,
+.edit-form select:focus {
+    border-color: #d99c2b;
+    background-color: #1e1e1e;
+}
+ 
+.edit-form input::placeholder,
+.edit-form textarea::placeholder {
+    color: #3a3a3a;
+}
+ 
+.edit-form textarea {
+    resize: vertical;
+    min-height: 80px;
+    line-height: 1.5;
+}
+
+.checkbox-label {
+    display: flex !important;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    margin-top: 12px;
+    cursor: pointer;
+}
+
+.checkbox-label input[type="checkbox"] {
+    width: auto;
+    margin: 0;
+    accent-color: #d99c2b;
+    cursor: pointer;
+}
+
+.form-buttons {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+}
+ 
+.btn-save {
+    background-color: #d99c2b;
+    color: #000;
+    border: none;
+    padding: 11px 16px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 0.72rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    flex: 1;
+    transition: background-color 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+ 
+.btn-save::before {
+    content: '✓';
+    font-size: 0.9rem;
+}
+ 
+.btn-save:hover {
+    background-color: #f0ad32;
+}
+ 
+.btn-cancel {
+    background-color: #1c1c1c;
+    color: #999;
+    border: 1px solid #2a2a2a;
+    padding: 11px 16px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 0.72rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    flex: 1;
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+ 
+.btn-cancel::before {
+    content: '✕';
+    font-size: 0.75rem;
+}
+ 
+.btn-cancel:hover {
+    background-color: #242424;
+    color: #fff;
+    border-color: #333;
+}
+
+.preview-image {
+    display: block;
+    max-width: 120px;
+    margin-top: 8px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.btn-delete-photo {
+    margin-top: 8px;
+    background-color: transparent;
+    color: #d99c2b;
+    border: 1px solid #d99c2b;
+    padding: 10px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.btn-delete-photo:hover {
+    background-color: #d99c2b;
+    color: #000;
+}
+
+.image-preview-modal-overlay {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+}
+
+.image-preview-modal-box {
+    background: #fff;
+    padding: 22px;
+    border-radius: 14px;
+    max-width: 92%;
+    width: 100%;
+    max-width: 420px;
+    text-align: center;
+    box-shadow: 0 2px 18px rgba(0, 0, 0, 0.2);
+}
+
+.image-preview-modal-box img {
+    max-width: 100%;
+    max-height: 220px;
+    margin: 0 auto 16px;
+    display: block;
+    border-radius: 12px;
+}
+
+.image-preview-modal-box p {
+    margin: 0 0 16px;
+    color: #111;
+    font-weight: 700;
+}
+
+.image-preview-modal-box .btn-save,
+.image-preview-modal-box .btn-cancel {
+    width: auto;
+    padding: 10px 18px;
+}
+
+.toast-message {
+    position: fixed;
+    right: 16px;
+    bottom: 16px;
+    background: rgba(0, 0, 0, 0.85);
+    color: #fff;
+    padding: 10px 14px;
+    border-radius: 6px;
+    z-index: 10000;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+#flash-message {
+    display: none;
+}
+
+.role-text.autorizado-en-vista {
+    color: #2a7a2a;
+    font-size: 0.75rem;
+}
+ 
+/* ============================================================
+   AGENDA DEL DÍA — GestionReservas.php (.agenda-reservas)
+   ============================================================ */
+
+.agenda-cabecera {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.agenda-cabecera h2 {
+    margin: 0;
+}
+
+.agenda-btn-nueva {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background-color: #d99c2b;
+    color: #000;
+    border: none;
+    padding: 10px 18px;
+    font-weight: 800;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.agenda-btn-nueva:hover {
+    background-color: #f0ad32;
+}
+
+.agenda-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.agenda-date-nav {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.agenda-nav-btn {
+    background: transparent;
+    border: 1px solid #2a2a2a;
+    color: #aaa;
+    width: 32px;
+    height: 32px;
+    font-size: 1.1rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.agenda-nav-btn:hover {
+    border-color: #d99c2b;
+    color: #d99c2b;
+}
+
+.agenda-fecha-actual {
+    text-align: center;
+    min-width: 170px;
+}
+
+.agenda-fecha-actual strong {
+    display: block;
+    text-transform: capitalize;
+    font-size: 0.9rem;
+    color: #fff;
+}
+
+.agenda-hoy {
+    display: inline-block;
+    margin-top: 2px;
+    color: #d99c2b;
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+.agenda-toolbar input[type="date"] {
+    background: #1c1c1c;
+    border: 1px solid #333;
+    color: #fff;
+    padding: 8px 12px;
+    font-size: 0.8rem;
+}
+
+/* Leyenda de barberos */
+.agenda-leyenda {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 14px;
+}
+
+.agenda-leyenda-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #aaa;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.agenda-leyenda-libre {
+    margin-left: auto;
+}
+
+.agenda-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #555;
+}
+
+.agenda-dot-libre {
+    background: #1c1c1c;
+    border: 1px solid #333;
+}
+
+.agenda-dot-gold   { background: #d99c2b; }
+.agenda-dot-azul   { background: #4d9de0; }
+.agenda-dot-morado { background: #a06cd5; }
+.agenda-dot-verde  { background: #4CAF50; }
+
+.agenda-texto-gold   { color: #d99c2b; }
+.agenda-texto-azul   { color: #4d9de0; }
+.agenda-texto-morado { color: #a06cd5; }
+.agenda-texto-verde  { color: #4CAF50; }
+
+.agenda-fondo-gold   { background: rgba(217, 156, 43, 0.12); border-color: rgba(217, 156, 43, 0.5); }
+.agenda-fondo-azul   { background: rgba(77, 157, 224, 0.12); border-color: rgba(77, 157, 224, 0.5); }
+.agenda-fondo-morado { background: rgba(160, 108, 213, 0.12); border-color: rgba(160, 108, 213, 0.5); }
+.agenda-fondo-verde  { background: rgba(76, 175, 80, 0.12); border-color: rgba(76, 175, 80, 0.5); }
+
+.agenda-borde-gold   { border-color: rgba(217, 156, 43, 0.5); }
+.agenda-borde-azul   { border-color: rgba(77, 157, 224, 0.5); }
+.agenda-borde-morado { border-color: rgba(160, 108, 213, 0.5); }
+.agenda-borde-verde  { border-color: rgba(76, 175, 80, 0.5); }
+
+/* Tabla de la agenda */
+.agenda-tabla-wrap {
+    overflow-x: auto;
+}
+
+.agenda-tabla {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 520px;
+}
+
+.agenda-tabla th {
+    text-align: left;
+    padding: 10px 8px;
+    color: #d99c2b;
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 1px solid #1e1e1e;
+    white-space: nowrap;
+}
+
+.agenda-tabla th .agenda-dot {
+    margin-right: 4px;
+}
+
+.agenda-col-hora {
+    width: 70px;
+}
+
+.agenda-tabla td {
+    padding: 5px;
+    border-top: 1px solid rgba(255,255,255,0.03);
+    vertical-align: middle;
+}
+
+.agenda-hora-celda {
+    color: #777;
+    font-size: 0.78rem;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.agenda-celda {
+    min-width: 130px;
+}
+
+.agenda-reserva-card {
+    border: 1px solid #333;
+    border-radius: 4px;
+    padding: 8px 10px;
+}
+
+.agenda-reserva-cliente {
+    margin: 0;
+    font-size: 0.8rem;
+    font-weight: 800;
+    line-height: 1.2;
+}
+
+.agenda-reserva-servicio {
+    margin: 2px 0 4px;
+    font-size: 0.72rem;
+    color: #999;
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.agenda-reserva-estado {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 2px 6px;
+    border-radius: 3px;
+}
+
+.agenda-celda-libre {
+    width: 100%;
+    height: 38px;
+    background: transparent;
+    border: 1px dashed #2a2a2a;
+    border-radius: 4px;
+    color: #444;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.agenda-celda-libre:hover {
+    border-color: rgba(217, 156, 43, 0.5);
+    color: #d99c2b;
+    background: rgba(217, 156, 43, 0.05);
+}
+
+/* Resumen de huecos por barbero */
+.agenda-resumen {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 12px;
+    margin-top: 18px;
+}
+
+.agenda-resumen-card {
+    background: #161616;
+    border: 1px solid #1e1e1e;
+    padding: 14px;
+}
+
+.agenda-resumen-titulo {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+}
+
+.agenda-resumen-card strong {
+    display: block;
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: #fff;
+}
+
+.agenda-resumen-card p {
+    margin: 2px 0 0;
+    color: #777;
+    font-size: 0.75rem;
+}
+
+.agenda-resumen-card span {
+    display: block;
+    margin-top: 2px;
+    color: #555;
+    font-size: 0.72rem;
+}
+
+/* ============================================================
+   MODAL — NUEVA RESERVA (.modal-overlay / .modal-box)
+   ============================================================ */
+
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.modal-overlay[hidden] {
+    display: none;
+}
+
+body.modal-abierto {
+    overflow: hidden;
+}
+
+.modal-box {
+    background: #111;
+    border: 1px solid #1e1e1e;
+    width: 100%;
+    max-width: 560px;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.modal-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 20px;
+    border-bottom: 1px solid #1e1e1e;
+    position: sticky;
+    top: 0;
+    background: #111;
+    z-index: 1;
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.modal-header p {
+    margin: 4px 0 0;
+    color: #777;
+    font-size: 0.8rem;
+}
+
+.modal-close {
+    background: transparent;
+    border: none;
+    color: #777;
+    font-size: 1.4rem;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.modal-close:hover {
+    color: #fff;
+}
+
+.modal-body {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+.modal-section-titulo {
+    margin: 0 0 10px;
+    color: #777;
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+.modal-body .input-box {
+    margin-bottom: 12px;
+}
+
+.modal-body .input-box:last-child {
+    margin-bottom: 0;
+}
+
+.modal-body input[type="text"],
+.modal-body input[type="tel"],
+.modal-body input[type="date"] {
+    width: 100%;
+    background: #1c1c1c;
+    border: 1px solid #333;
+    color: #fff;
+    padding: 10px 12px;
+    font-size: 0.9rem;
+    border-radius: 4px;
+}
+
+.modal-body input:focus {
+    outline: none;
+    border-color: #d99c2b;
+}
+
+.modal-opciones-grid,
+.modal-barberos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 8px;
+}
+
+.modal-opcion-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    background: #1c1c1c;
+    border: 1px solid #2a2a2a;
+    color: #ccc;
+    padding: 10px 12px;
+    font-size: 0.8rem;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.modal-opcion-btn:hover {
+    border-color: #555;
+}
+
+.modal-opcion-btn.seleccionado {
+    border-color: #d99c2b;
+    background: rgba(217, 156, 43, 0.08);
+    color: #fff;
+}
+
+.modal-opcion-precio {
+    color: #d99c2b;
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+.modal-horas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(64px, 1fr));
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.modal-hora-btn {
+    background: #1c1c1c;
+    border: 1px solid #2a2a2a;
+    color: #aaa;
+    padding: 8px;
+    font-size: 0.78rem;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.modal-hora-btn:hover {
+    border-color: #d99c2b;
+    color: #d99c2b;
+}
+
+.modal-hora-btn.seleccionado {
+    background: #d99c2b;
+    border-color: #d99c2b;
+    color: #000;
+    font-weight: 800;
+}
+
+.modal-footer {
+    display: flex;
+    gap: 12px;
+    padding: 0 20px 20px;
+    position: sticky;
+    bottom: 0;
+    background: #111;
+}
+
+.btn-cancelar-modal,
+.btn-confirmar-modal {
+    flex: 1;
+    padding: 12px;
+    font-size: 0.8rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 4px;
+}
+
+.btn-cancelar-modal {
+    background: transparent;
+    border: 1px solid #333;
+    color: #aaa;
+}
+
+.btn-cancelar-modal:hover {
+    border-color: #555;
+    color: #fff;
+}
+
+.btn-confirmar-modal {
+    background: #d99c2b;
+    border: 1px solid #d99c2b;
+    color: #000;
+}
+
+.btn-confirmar-modal:hover:not(:disabled) {
+    background: #f0ad32;
+}
+
+.btn-confirmar-modal:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.modal-hora-btn:disabled,
+.agenda-celda-libre:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
+.modal-hora-btn:disabled:hover,
+.agenda-celda-libre:disabled:hover {
+    border-color: #2a2a2a;
+    color: #aaa;
+    background: #1c1c1c;
+}
+
+.modal-aviso-sin-horarios {
+    margin-top: 12px;
+    padding: 10px 12px;
+    border: 1px solid rgba(217, 156, 43, 0.4);
+    border-radius: 4px;
+    color: #d99c2b;
+    font-size: 0.85rem;
+}
+
+@media (max-width: 640px) {
+    .agenda-resumen { grid-template-columns: repeat(2, 1fr); }
+    .modal-opciones-grid,
+    .modal-barberos-grid { grid-template-columns: 1fr 1fr; }
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+ 
+@media (max-width: 900px) {
+    .content { margin-left: 0; }
+ 
+    body.admin-panel .equipo-grid {
+        grid-template-columns: repeat(2, 1fr);
+        padding: 0 20px 30px;
+    }
+ 
+    .add-member-panel  { margin: 20px 20px 0; }
+    .separator-gold    { margin: 24px 20px; }
+}
+ 
+@media (max-width: 600px) {
+    body.admin-panel .equipo-grid {
+        grid-template-columns: 1fr;
+        padding: 0 16px 24px;
+    }
+ 
+    .form-row { grid-template-columns: 1fr; }
+ 
+    .add-member-panel { margin: 16px 16px 0; padding: 20px; }
+    .separator-gold   { margin: 20px 16px; }
+
+    .content > header { padding: 20px; }
+}
+
+/* ==========================================================================
+   NOTIFICACIONES AUTOMÁTICAS DE RESERVAS — botón para activar Web Push (OneSignal)
+   ========================================================================== */
+
+.btn-activar-onesignal {
+    background-color: var(--gold);
+    color: var(--dark-bg);
+    border: none;
+    border-radius: 6px;
+    padding: 12px 22px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+.btn-activar-onesignal:hover {
+    background-color: var(--gold-dark);
+    transform: translateY(-1px);
+}
+
+.btn-activar-onesignal:active {
+    transform: translateY(0);
+}
+
+.btn-activar-onesignal[disabled] {
+    background-color: #2a2a2a;
+    color: var(--gray-text);
+    cursor: default;
+    transform: none;
+}
+
+/* ============================================================
+   CAMBIAR CONTRASEÑA
+   ============================================================ */
+.cp-box {
+    max-width: 440px;
+    padding: 32px;
+}
+
+.cp-form {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+.cp-field {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.cp-field label {
+    color: var(--gold);
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.9px;
+}
+
+.cp-field input[type="password"] {
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 6px;
+    color: #fff;
+    padding: 13px 15px;
+    font-size: 0.95rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.cp-field input[type="password"]:focus {
+    outline: none;
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(212, 160, 23, 0.12);
+}
+
+.cp-field input[type="password"]::placeholder {
+    color: #555;
+    font-size: 0.88rem;
+}
+
+.cp-divider {
+    border-top: 1px solid #222;
+    margin: 2px 0;
+}
+
+.cp-submit {
+    align-self: flex-start;
+    margin-top: 4px;
+    border-radius: 6px;
+    cursor: pointer;
+    border: none;
+    font-size: 0.82rem;
+}
+
+/* ============================================================
+   RECUPERACIÓN DE CONTRASEÑA
+   ============================================================ */
+.login-subtitle {
+    color: #777;
+    font-size: 0.78rem;
+    line-height: 1.55;
+    margin-bottom: 22px;
+}
+
+.login-msg {
+    color: #4caf50;
+    font-size: 0.85rem;
+    margin-bottom: 18px;
+    line-height: 1.5;
+}
+
+.login-forgot {
+    display: block;
+    text-align: center;
+    margin-top: 16px;
+    color: #777;
+    font-size: 0.75rem;
+    text-decoration: none;
+    letter-spacing: 0.3px;
+    transition: color 0.2s;
+}
+
+.login-forgot:hover {
+    color: #d99c2b;
+}
+
+.login-btn-link {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    margin-top: 6px;
+    background-color: #d99c2b;
+    color: #000;
+    font-weight: 900;
+    font-size: 0.82rem;
+    letter-spacing: 1px;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.2s;
+    box-sizing: border-box;
+}
+
+.login-btn-link:hover {
+    background-color: #f0ad32;
+}
+
+/* ============================================================
+   RESPONSIVE GLOBAL PANEL ADMIN
+   ============================================================ */
+
+.admin-main,
+.content {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+.admin-panel-box {
+    max-width: 100%;
+    overflow: hidden;
+}
+
+/* Scroll horizontal real para todas las tablas admin */
+.admin-panel-box:has(table),
+.table-responsive,
+.agenda-tabla-wrap,
+.calendar-scroll {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+}
+
+.admin-panel-box table,
+.admin-table,
+.admin-table-servicios,
+.agenda-tabla,
+.reservas-list-table,
+.reservas-calendar-table {
+    min-width: 760px;
+    width: 100%;
+}
+
+/* Formularios admin adaptables */
+.admin-form-servicios,
+.admin-form-galeria,
+.admin-form-blog,
+.ubicacion-form-grid,
+.horario-admin-row {
+    grid-template-columns: 1fr;
+}
+
+/* Tablets */
+@media (max-width: 1024px) {
+    body.admin-panel,
+    .admin-layout {
+        display: block;
+    }
+
+    .admin-main,
+    .content {
+        margin-left: 0 !important;
+        width: 100%;
+        padding: 80px 22px 30px;
+    }
+
+    .admin-header-flex,
+    .reservas-admin-header,
+    .agenda-cabecera,
+    .agenda-toolbar,
+    .calendar-topbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .admin-stats,
+    .admin-actions {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .galeria-admin-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .blog-admin-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .add-member-panel,
+    .separator-gold {
+        margin-left: 0;
+        margin-right: 0;
+    }
+}
+
+/* Móviles */
+@media (max-width: 600px) {
+    .admin-main,
+    .content {
+        padding: 75px 14px 24px;
+    }
+
+    .admin-main h1,
+    .content > header h1 {
+        font-size: 1.45rem;
+    }
+
+    .admin-small-title {
+        font-size: 0.6rem;
+        letter-spacing: 2px;
+    }
+
+    .admin-panel-box {
+        padding: 14px;
+    }
+
+    .admin-stats,
+    .admin-actions,
+    .galeria-admin-grid,
+    .blog-admin-grid,
+    .agenda-resumen {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-form-servicios,
+    .admin-form-galeria,
+    .admin-form-blog,
+    .form-row,
+    .ubicacion-form-grid,
+    .horario-admin-row,
+    .form-group-grid,
+    .agenda-container {
+        grid-template-columns: 1fr !important;
+    }
+
+    .reservas-view-actions,
+    .modal-actions,
+    .form-buttons,
+    .resenas-botones {
+        flex-direction: column;
+    }
+
+    .reservas-view-btn,
+    .admin-btn,
+    .btn-save-new,
+    .btn-save,
+    .btn-cancel,
+    .btn-danger {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+    }
+
+    .admin-table th,
+    .admin-table td,
+    .admin-table-servicios th,
+    .admin-table-servicios td {
+        white-space: nowrap;
+        font-size: 0.78rem;
+        padding: 10px;
+    }
+
+    .modal-box {
+        max-height: 88vh;
+        width: 100%;
+    }
+
+    .modal-footer {
+        flex-direction: column;
+    }
+
+    body.admin-panel .equipo-grid {
+        grid-template-columns: 1fr !important;
+        padding: 0 0 24px;
+    }
+
+    body.admin-panel .barbero-card .card-image,
+    body.admin-panel .barbero-card .card-image img,
+    body.admin-panel .barbero-card > img {
+        height: 280px;
+    }
+}
+
+/* FIX DEFINITIVO SCROLL TABLAS ADMIN */
+@media (max-width: 1024px) {
+    html,
+    body {
+        overflow-x: hidden;
+    }
+
+    .admin-main,
+    .content,
+    .admin-panel-box {
+        max-width: 100%;
+        min-width: 0;
+    }
+
+    .admin-panel-box:has(table),
+    .table-responsive,
+    .agenda-tabla-wrap,
+    .calendar-scroll {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        overflow-x: auto !important;
+        overflow-y: visible;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 12px;
+    }
+
+    .admin-table,
+    .admin-table-servicios,
+    .agenda-tabla,
+    .reservas-list-table,
+    .reservas-calendar-table {
+        width: max-content !important;
+        min-width: 850px;
+    }
+
+    .admin-table th,
+    .admin-table td,
+    .admin-table-servicios th,
+    .admin-table-servicios td {
+        white-space: nowrap;
+    }
+}
+
+/* FIX GESTIÓN UBICACIÓN / FORMULARIOS LARGOS ADMIN */
+@media (max-width: 1024px) {
+    .admin-panel-box {
+        max-height: none !important;
+        overflow-y: visible !important;
+    }
+
+    .gestion-ubicacion-box {
+        max-height: none !important;
+        overflow: visible !important;
+    }
+
+    .horario-admin-row {
+        grid-template-columns: 1fr !important;
+    }
+
+    .gestion-ubicacion-box input[type="text"],
+    .gestion-ubicacion-box input[type="time"] {
+        width: 100%;
+    }
+}
+
+/* ============================================================
+   PÁGINAS LEGALES
+   ============================================================ */
+
+.legal-page {
+    background: var(--dark-bg);
+    color: var(--white);
+    min-height: 70vh;
+}
+
+.legal-hero {
+    padding: 90px 20px 45px;
+    text-align: center;
+    background:
+        linear-gradient(rgba(0,0,0,0.78), rgba(0,0,0,0.92)),
+        url('img/barberia.png');
+    background-size: cover;
+    background-position: center;
+    border-bottom: 1px solid #1f1f1f;
+}
+
+.legal-hero h1 {
+    font-size: clamp(2.4rem, 6vw, 4.6rem);
+    font-weight: 900;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.legal-hero p {
+    max-width: 700px;
+    margin: 0 auto;
+    color: var(--gray-text);
+    line-height: 1.7;
+}
+
+.legal-content {
+    padding: 70px 20px 90px;
+}
+
+.legal-card {
+    max-width: 950px;
+    margin: 0 auto;
+    background: #111;
+    border: 1px solid #222;
+    border-left: 4px solid var(--gold);
+    padding: 45px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+}
+
+.legal-card h2 {
+    color: var(--gold);
+    font-size: 1.15rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-top: 34px;
+    margin-bottom: 12px;
+}
+
+.legal-card h2:first-child {
+    margin-top: 0;
+}
+
+.legal-card p {
+    color: #c7c7c7;
+    font-size: 0.98rem;
+    line-height: 1.85;
+    margin-bottom: 16px;
+}
+
+.legal-card strong {
+    color: #fff;
+}
+
+@media (max-width: 768px) {
+    .legal-hero {
+        padding: 70px 16px 35px;
+    }
+
+    .legal-content {
+        padding: 45px 14px 65px;
+    }
+
+    .legal-card {
+        padding: 26px 20px;
+    }
+
+    .legal-card h2 {
+        font-size: 1rem;
+    }
+
+    .legal-card p {
+        font-size: 0.92rem;
+    }
+}
+
+.legal-list {
+    margin: 20px 0;
+    padding-left: 20px;
+}
+
+.legal-list li {
+    color: #c7c7c7;
+    margin-bottom: 10px;
+    line-height: 1.7;
+}
+
+.legal-link {
+    color: var(--gold);
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.legal-link:hover {
+    text-decoration: underline;
+}
+
+/* ========================================================================== */
+/* BANNER DE CONSENTIMIENTO DE COOKIES */
+/* ========================================================================== */
+.cookie-banner {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #1a1a1a;
+    border-top: 2px solid #d4af37;
+    color: #f0f0f0;
+    padding: 20px 30px;
+    z-index: 9999;
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+    box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.5);
+}
+
+.cookie-banner.activo {
+    display: flex;
+}
+
+.cookie-banner-texto {
+    flex: 1 1 400px;
+}
+
+.cookie-banner-texto h4 {
+    color: #d4af37;
+    margin: 0 0 6px 0;
+    font-size: 1.1rem;
+}
+
+.cookie-banner-texto p {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    color: #ccc;
+}
+
+.cookie-banner-texto a {
+    color: #d4af37;
+    text-decoration: underline;
+}
+
+.cookie-banner-botones {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    flex: 0 0 auto;
+}
+
+.cookie-btn {
+    padding: 10px 18px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.cookie-btn-dorado {
+    background: #d4af37;
+    color: #1a1a1a;
+    border: 1px solid #d4af37;
+}
+
+.cookie-btn-dorado:hover {
+    background: #f0c94a;
+}
+
+.cookie-btn-borde {
+    background: transparent;
+    color: #f0f0f0;
+    border: 1px solid #555;
+}
+
+.cookie-btn-borde:hover {
+    border-color: #d4af37;
+    color: #d4af37;
+}
+
+@media (max-width: 768px) {
+    .cookie-banner {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 16px 20px;
+    }
+
+    .cookie-banner-botones {
+        justify-content: stretch;
+    }
+
+    .cookie-btn {
+        flex: 1;
+        text-align: center;
+    }
+}
