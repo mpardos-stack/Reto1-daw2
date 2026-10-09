@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservas - Barbería Catracha</title>
+    <link rel="stylesheet" href="../../assets/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="icon" href="../../assets/img/logo.png" type="image/png">
+</head>
+<body>
+
+<div id="header"></div>
+
+<section class="reservas-page">
+    <div class="reservas-container">
+        <h1>Reserva tu Cita</h1>
+
+        <div class="pasos-bar">
+            <div class="paso-item activo" data-paso="0"><span class="paso-numero">1</span><span class="paso-texto">Servicio</span></div>
+            <div class="paso-item" data-paso="1"><span class="paso-numero">2</span><span class="paso-texto">Fecha y Hora</span></div>
+            <div class="paso-item" data-paso="2"><span class="paso-numero">3</span><span class="paso-texto">Barbero</span></div>
+            <div class="paso-item" data-paso="3"><span class="paso-numero">4</span><span class="paso-texto">Tus Datos</span></div>
+            <div class="paso-item" data-paso="4"><span class="paso-numero">5</span><span class="paso-texto">Confirmación</span></div>
+        </div>
+
+        <!-- Mensajes de éxito / error (los pinta reservas.js) -->
+        <div id="reserva-alerta"></div>
+
+        <div class="seguimiento-live" id="seguimiento-live">
+            <div class="seg-item" id="track-servicio"><strong>Servicio:</strong> <span>Ninguno seleccionado</span></div>
+            <div class="seg-item" id="track-barbero"><strong>Barbero:</strong> <span>Ninguno seleccionado</span></div>
+            <div class="seg-item" id="track-cita"><strong>Cita:</strong> <span>No establecida</span></div>
+        </div>
+
+        <form id="form-reserva" action="../json/reservas.php" method="POST">
+            
+            <div class="reserva-step activo" id="step-1">
+                <h2>Selecciona un servicio</h2>
+                
+                <div class="servicios-filtros">
+                    <button type="button" class="filtro-btn activo" data-categoria="todos">Todos</button>
+                    <button type="button" class="filtro-btn" data-categoria="corte">Cortes</button>
+                    <button type="button" class="filtro-btn" data-categoria="barba">Barba</button>
+                    <button type="button" class="filtro-btn" data-categoria="tinte">Tintes / Color</button>
+                    <button type="button" class="filtro-btn" data-categoria="otros">Otros Combos</button>
+                </div>
+
+                <div class="servicios-grid">
+                    <!-- Servicios generados desde /api/json/reservas.php -->
+                </div>
+                <div class="nav-buttons single-btn">
+                    <button type="button" class="btn-siguiente">Siguiente Paso</button>
+                </div>
+            </div>
+
+            <div class="reserva-step" id="step-2">
+                <h2>Elige fecha y hora</h2>
+                <div class="agenda-container">
+                    <div class="calendario-box">
+                        <input type="text" id="datepicker" name="fecha" placeholder="Selecciona una fecha" readonly required>
+                        <input type="hidden" name="hora" id="hora-seleccionada">
+                    </div>
+                    <div class="horas-box">
+                        <h3>Horas disponibles</h3>
+                        <div id="horas-grid" class="horas-grid">
+                            <p class="select-date-msg">Por favor, selecciona una fecha primero.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav-buttons">
+                    <button type="button" class="btn-atras">Atrás</button>
+                    <button type="button" class="btn-siguiente" id="btn-validar-hora">Siguiente Paso</button>
+                </div>
+            </div>
+
+            <div class="reserva-step" id="step-3">
+                <h2>Selecciona tu barbero</h2>
+                <p class="paso-ayuda">Solo se muestran disponibles los barberos que pueden atenderte en la fecha y hora elegidas.</p>
+                <div class="barberos-grid">
+                    <!-- Barberos generados desde /api/json/reservas.php -->
+                </div>
+                <div class="nav-buttons">
+                    <button type="button" class="btn-atras">Atrás</button>
+                    <button type="button" class="btn-siguiente">Siguiente Paso</button>
+                </div>
+            </div>
+
+            <div class="reserva-step" id="step-4">
+                <h2>Tus datos personales</h2>
+                <div class="form-group-grid">
+                    <div class="input-box">
+                        <label>Nombre *</label>
+                        <input type="text" name="nombre" placeholder="Ingresa tu nombre" required>
+                    </div>
+                    <div class="input-box">
+                        <label>Apellido *</label>
+                        <input type="text" name="apellido" placeholder="Ingresa tu apellido" required>
+                    </div>
+                    <div class="input-box">
+                        <label>Teléfono *</label>
+                        <input type="tel" name="telefono" placeholder="Ej: 600000000" required>
+                    </div>
+                    <div class="input-box">
+                        <label>Correo Electrónico</label>
+                        <input type="email" name="email" placeholder="nombre@correo.com">
+                    </div>
+                </div>
+                <div class="nav-buttons">
+                    <button type="button" class="btn-atras">Atrás</button>
+                    <button type="button" class="btn-siguiente">Siguiente Paso</button>
+                </div>
+            </div>
+
+            <div class="reserva-step" id="step-5">
+                <h2>Confirmar tu cita</h2>
+                <div class="resumen-reserva-box">
+                    <p>Por favor, verifica que los detalles de tu cita sean correctos antes de finalizar.</p>
+                    <div class="ticket-resumen">
+                        <div class="ticket-line"><strong>Servicio:</strong> <span id="resumen-servicio">-</span></div>
+                        <div class="ticket-line"><strong>Barbero:</strong> <span id="resumen-barbero">-</span></div>
+                        <div class="ticket-line"><strong>Fecha:</strong> <span id="resumen-fecha">-</span></div>
+                        <div class="ticket-line"><strong>Hora:</strong> <span id="resumen-hora">-</span></div>
+                        <div class="ticket-line total"><strong>Precio total:</strong> <span id="resumen-precio">-</span></div>
+                    </div>
+                </div>
+                <div class="reserva-politica">
+                    <label class="reserva-politica-label">
+                        <input type="checkbox" id="acepto-politica" required>
+                        <span>He leído y acepto la
+                            <a href="../politicaweb/politicaprivacidad.html" target="_blank" class="reserva-politica-link">
+                                Política de Privacidad
+                            </a>
+                            para el tratamiento de mis datos personales.
+                        </span>
+                    </label>
+                </div>
+                <div class="nav-buttons">
+                    <button type="button" class="btn-atras">Atrás</button>
+                    <button type="submit" class="btn-confirmar" id="btn-confirmar-reserva">Confirmar Reserva</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</section>
+
+<div id="footer"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
+<script src="../../assets/js/layout.js"></script>
+<script src="../../assets/js/reservas.js"></script>
+</body>
+</html>

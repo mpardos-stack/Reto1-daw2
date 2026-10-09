@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog | Barbería Catracha</title>
+    <link rel="stylesheet" href="../../assets/style.css">
+    <link rel="icon" href="../../assets/img/logo.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body class="bg-dark">
+
+<div id="header"></div>
+
+<main class="blog-page">
+
+    <section class="blog-header">
+        <p class="subtitle">NUESTRO BLOG</p>
+        <h1 class="titulo-principal">
+            La Barbería en <span class="text-gold">Imágenes</span>
+        </h1>
+        <section class="underline"></section>
+        <p class="descripcion-header">
+            Consejos, estilos, tendencias y contenido visual de Barbería Catracha.
+        </p>
+    </section>
+
+    <!-- Publicaciones generadas desde /api/json/blog.php -->
+    <section class="blog-grid" id="blog-grid"></section>
+
+</main>
+
+<div id="footer"></div>
+
+<script src="../../assets/js/layout.js"></script>
+<script src="../../assets/js/blog.js"></script>
+</body>
+</html>
