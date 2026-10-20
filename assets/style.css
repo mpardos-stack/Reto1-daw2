@@ -4929,3 +4929,22 @@ body.modal-abierto {
         text-align: center;
     }
 }
+
+/* opcion 1 tradcutor*/
+.btn-traducir {
+    background: transparent;
+    color: var(--gold);
+    border: 1px solid var(--gold);
+    padding: 10px 14px;
+    margin-left: 12px;
+    font-weight: 700;
+    cursor: pointer;
+}
+.btn-traducir:hover {
+    background-color: var(--gold);
+    color: #000;
+}
+/* Separación entre logo, menú, botón Reservar y botón EN */
+.main-header .container {
+    gap: 40px;
+}

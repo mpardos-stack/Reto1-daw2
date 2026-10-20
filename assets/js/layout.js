@@ -87,6 +87,7 @@
     document.addEventListener('DOMContentLoaded', async () => {
         await Promise.all(tareas);
         await cargarScript('../../assets/script.js');
+        await cargarScript('../../assets/js/traductor.js');
         avisarScriptCargado();
     }, { once: true });
 })();
