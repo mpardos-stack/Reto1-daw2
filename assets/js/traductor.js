@@ -1,4 +1,4 @@
-// Botón que traduce la página al inglés
+// Botón que traduce la página al inglés opcion 1
 const boton = document.getElementById('btn-traducir');
 
 boton.addEventListener('click', async () => {
