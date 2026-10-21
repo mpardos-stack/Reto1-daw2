@@ -835,6 +835,45 @@ window.addEventListener('resize', function () {
 });
 
 // ==========================================================================
+// BUSCADOR DE LA WEB (filtra las tarjetas de "Explora")
+// ==========================================================================
+document.addEventListener('DOMContentLoaded', function () {
+    const buscador = document.getElementById('buscador-web');
+    if (!buscador) return;
+
+    const tarjetas = document.querySelectorAll('.explore-card');
+    const sinResultados = document.getElementById('buscador-sin-resultados');
+
+    // Quita mayúsculas y tildes: "Reseñas" == "resenas"
+    const normalizar = (texto) =>
+        texto.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+
+    function filtrar() {
+        const termino = normalizar(buscador.value.trim());
+        let visibles = 0;
+
+        tarjetas.forEach((tarjeta) => {
+            const contenido = normalizar(tarjeta.textContent + ' ' + (tarjeta.dataset.keywords || ''));
+            const coincide = contenido.includes(termino);
+            tarjeta.hidden = !coincide;
+            if (coincide) visibles++;
+        });
+
+        if (sinResultados) sinResultados.hidden = visibles > 0;
+    }
+
+    buscador.addEventListener('input', filtrar);
+
+    // Escape borra la búsqueda
+    buscador.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+            buscador.value = '';
+            filtrar();
+        }
+    });
+});
+
+// ==========================================================================
 // 8. AGENDA DEL DÍA Y MODAL "NUEVA RESERVA" (Panel Admin · GestionReservas.php)
 // ==========================================================================
 document.addEventListener('DOMContentLoaded', function () {

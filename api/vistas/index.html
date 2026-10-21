@@ -33,8 +33,14 @@
         <h2 class="section-title">Todo lo que necesitas saber</h2>
         <div class="title-underline"></div>
 
+        <div class="buscador-web">
+            <i class="fa-solid fa-magnifying-glass buscador-icono"></i>
+            <input type="search" id="buscador-web" placeholder="Busca: corte, barba, horario, mapa..." autocomplete="off" aria-label="Buscar en la web">
+        </div>
+        <p id="buscador-sin-resultados" class="buscador-sin-resultados" hidden>No encontramos nada con esa búsqueda.</p>
+
         <div class="explore-grid">
-            <a href="servicios.html" class="explore-card">
+            <a href="servicios.html" class="explore-card" data-keywords="corte pelo barba combo degradado afeitado precio tarifa">
                 <div class="card-icon">✂</div>
                 <div class="card-info">
                     <h3>SERVICIOS & PRECIOS</h3>
@@ -43,7 +49,7 @@
                 <div class="card-arrow">›</div>
             </a>
 
-            <a href="equipo.html" class="explore-card">
+            <a href="equipo.html" class="explore-card" data-keywords="barberos ross luis rolando profesionales">
                 <div class="card-icon">👥</div>
                 <div class="card-info">
                     <h3>NUESTRO EQUIPO</h3>
@@ -52,7 +58,7 @@
                 <div class="card-arrow">›</div>
             </a>
 
-            <a href="galeria.html" class="explore-card">
+            <a href="galeria.html" class="explore-card" data-keywords="fotos imagenes estilos tendencias">
                 <div class="card-icon">🖼</div>
                 <div class="card-info">
                     <h3>GALERÍA</h3>
@@ -61,7 +67,7 @@
                 <div class="card-arrow">›</div>
             </a>
 
-            <a href="resenas.html" class="explore-card">
+            <a href="resenas.html" class="explore-card" data-keywords="opiniones valoraciones google estrellas">
                 <div class="card-icon"><i class="fa-solid fa-star"></i></div>
                 <div class="card-info">
                     <h3>RESEÑAS</h3>
@@ -70,7 +76,7 @@
                 <div class="card-arrow">›</div>
             </a>
 
-            <a href="ubicacion.html" class="explore-card">
+            <a href="ubicacion.html" class="explore-card" data-keywords="direccion mapa horario donde llegar telefono">
                 <div class="card-icon">📍</div>
                 <div class="card-info">
                     <h3>UBICACIÓN</h3>
@@ -89,5 +95,7 @@
 <div id="footer"></div>
 
 <script src="../../assets/js/layout.js"></script>
+<script src="../../assets/script.js"></script>
+
 </body>
 </html>
