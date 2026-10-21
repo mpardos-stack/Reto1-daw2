@@ -5030,8 +5030,11 @@ body.modal-abierto {
     white-space: nowrap;
 }
 
+
 /* Estilo del buscador*/
 /* --- BUSCADOR DE LA WEB --- */
+
+/*
 .buscador-web {
     position: relative;
     max-width: 500px;
@@ -5075,7 +5078,104 @@ body.modal-abierto {
     margin-bottom: 30px;
 }
 
-/* Necesario: .explore-card usa display:flex y eso anula el atributo [hidden] */
 .explore-card[hidden] {
     display: none;
+}
+*/
+
+/* Opcion 2 */
+.buscador-web {
+    position: relative;
+    max-width: 500px;
+    margin: 0 auto 40px;
+    padding: 0 20px;
+}
+
+.buscador-web input {
+    width: 100%;
+    background-color: #111;
+    border: 1px solid rgba(212, 160, 23, 0.4);
+    border-radius: 999px;
+    color: var(--white);
+    padding: 14px 24px 14px 52px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.9rem;
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.buscador-web input::placeholder {
+    color: var(--gray-text);
+}
+
+.buscador-web input:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 4px rgba(212, 160, 23, 0.15), 0 0 20px rgba(212, 160, 23, 0.25);
+}
+
+.buscador-icono {
+    position: absolute;
+    left: 44px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--gold);
+    pointer-events: none;
+}
+*/
+
+/* Opcion 3 */
+.buscador-web {
+    position: relative;
+    max-width: 500px;
+    margin: 0 auto 40px;
+    padding: 0 20px;
+}
+
+.buscador-web input {
+    display: block;
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid #333;
+    border-radius: 0;
+    color: var(--white);
+    padding: 12px 8px 12px 36px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.1rem;
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.buscador-web input::placeholder {
+    color: #666;
+}
+
+/* Línea dorada: empieza escondida (escala 0) y crece al enfocar */
+.buscador-web::after {
+    content: '';
+    position: absolute;
+    left: 20px;
+    right: 20px;
+    bottom: 0;
+    height: 2px;
+    background-color: var(--gold);
+    transform: scaleX(0);
+    transition: transform 0.4s ease;
+}
+
+.buscador-web:focus-within::after {
+    transform: scaleX(1);
+}
+
+.buscador-icono {
+    position: absolute;
+    left: 28px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--gold);
+    font-size: 1.1rem;
+    pointer-events: none;
 }
