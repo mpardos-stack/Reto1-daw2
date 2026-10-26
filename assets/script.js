@@ -3,11 +3,11 @@
 // ==========================================================================
 window.addEventListener('scroll', () => {
     const header = document.querySelector('.main-header');
-    
-    // CONTROL DE SEGURIDAD: Si la página actual no tiene este header (ej. panel admin), 
+
+    // CONTROL DE SEGURIDAD: Si la página actual no tiene este header (ej. panel admin),
     // detenemos la ejecución para que no lance un error en la consola.
-    if (!header) return; 
-    
+    if (!header) return;
+
     // Si el usuario ha bajado más de 100px desde el tope de la página
     if (window.scrollY > 100) {
         header.style.background = 'rgba(10, 10, 10, 0.95)'; // Fondo oscuro semi-transparente
@@ -50,7 +50,7 @@ document.querySelectorAll('.explore-card').forEach(card => {
 // 3. SISTEMA DE RESERVAS: PASOS, FILTROS, CALENDARIO Y TURNOS HORARIOS
 // ==========================================================================
 document.addEventListener('DOMContentLoaded', function () {
-    
+
     // CONTROL DE SEGURIDAD: Si no estamos en la página del formulario de reservas,
     // rompemos la ejecución. Esto evita que el código rompa el historial de otras páginas.
     if (!document.querySelector('.reserva-step')) return;
@@ -98,7 +98,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const datepickerInput = document.getElementById('datepicker');
     const horasGrid = document.getElementById('horas-grid');
     const horaHidden = document.getElementById('hora-seleccionada'); // Input oculto que se envía en el formulario
-    
+
     // Elementos de la barra lateral de seguimiento (sidebar del ticket de progreso)
     const trackServicio = document.getElementById('track-servicio');
     const trackBarbero = document.getElementById('track-barbero');
@@ -131,9 +131,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Cambia visualmente el paso visible del formulario y actualiza la barra de progreso superior
     function mostrarPaso(index) {
-        // 
+        //
         steps.forEach(step => step.classList.remove('activo'));
-        
+
         pasosBar.forEach(paso => paso.classList.remove('activo'));
 
         //
@@ -265,16 +265,16 @@ document.addEventListener('DOMContentLoaded', function () {
             button.className = 'hora-item';
             button.textContent = hora;
             button.dataset.hora = hora;
-            
+
             // Evento al elegir una hora específica
             button.addEventListener('click', () => {
                 horaSeleccionada = hora;
                 if (horaHidden) horaHidden.value = hora;
-                
+
                 // Desmarcar hora previa y marcar la nueva
                 document.querySelectorAll('.hora-item.selected').forEach(btn => btn.classList.remove('selected'));
                 button.classList.add('selected');
-                
+
                 // Habilitamos el botón de continuar
                 if (btnSiguienteFechaHora) {
                     btnSiguienteFechaHora.disabled = false;
@@ -435,7 +435,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const servicioSeleccionado = this.value;
             barberos.forEach(barbero => {
                 const serviciosBarbero = (barbero.dataset.servicios || '').split(',').filter(Boolean);
-                
+
                 if (serviciosBarbero.includes(servicioSeleccionado)) {
                     barbero.style.display = 'flex'; // Muestra el barbero calificado
                 } else {
@@ -523,12 +523,12 @@ document.addEventListener('DOMContentLoaded', function () {
         boton.addEventListener('click', function () {
             botonesFiltro.forEach(btn => btn.classList.remove('activo'));
             this.classList.add('activo');
-            
+
             const categoriaSeleccionada = this.getAttribute('data-categoria');
-            
+
             tarjetasServicios.forEach(tarjeta => {
                 const categoriaTarjeta = tarjeta.getAttribute('data-cat');
-                
+
                 // Muestra todas las tarjetas o filtra por la categoría seleccionada
                 if (categoriaSeleccionada === 'todos' || categoriaTarjeta === categoriaSeleccionada) {
                     tarjeta.style.display = 'block';
@@ -536,7 +536,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     setTimeout(() => { tarjeta.style.opacity = '1'; }, 50); // Pequeña animación fade-in
                 } else {
                     tarjeta.style.display = 'none'; // Esconde las tarjetas que no correspondan
-                    
+
                     // Si el usuario oculta un servicio que ya tenía seleccionado, lo desmarcamos de forma limpia
                     const radioInput = tarjeta.querySelector('input[type="radio"]');
                     if (radioInput && radioInput.checked) {
@@ -824,7 +824,7 @@ window.addEventListener('resize', function () {
     const adminSidebar = document.querySelector('.admin-sidebar');
     const overlay = document.querySelector('.admin-overlay');
     if (!adminSidebar) return;
-    
+
     // Si la pantalla supera los 1024px (escritorio), limpiamos el diseño móvil para que no colisionen
     if (window.innerWidth > 1024) {
         adminSidebar.classList.remove('open');
@@ -1156,8 +1156,66 @@ document.addEventListener('DOMContentLoaded', function () {
 // 7. CIERRE DEFENSIVO: DISPARADOR MANUAL DE DOM READY
 // ==========================================================================
 // Si por razones de rendimiento de carga el script se ejecuta de manera asíncrona ('async' o 'defer')
-// y entra en acción *después* de que el navegador procesó el HTML, disparamos el evento manualmente 
+// y entra en acción *después* de que el navegador procesó el HTML, disparamos el evento manualmente
 // para asegurar que absolutamente todos los EventListeners declarados arriba cobren vida.
 if (document.readyState !== 'loading') {
     document.dispatchEvent(new Event('DOMContentLoaded'));
+}
+// ==========================================================================
+// 8. ANIMACIÓN DE ENTRADA DEL HERO (aparición escalonada + efecto escritura)
+// ==========================================================================
+// 1) Los textos y botones del hero aparecen uno detrás de otro subiendo suavemente.
+// 2) La frase dorada ("Nuestra Pasión") se va descubriendo como si se escribiera, con un cursor.
+// 3) Al terminar, un brillo dorado recorre el texto una sola vez.
+// NOTA: no se modifica el texto del título (no se parte en letras ni se reescribe),
+// para no interferir con el traductor de la página (ES/EN).
+let animacionHeroIniciada = false; // Evita que se ejecute dos veces (ver el disparador manual de la sección 7)
+
+function iniciarAnimacionHero() {
+    if (animacionHeroIniciada) return;
+
+    // CONTROL DE SEGURIDAD: si la página no tiene el título del hero (otras páginas), no hacemos nada
+    const titulo = document.querySelector('.contenido-titulo');
+    const dorado = titulo ? titulo.querySelector('.texto-dorado') : null;
+    if (!titulo || !dorado) return;
+
+    // ACCESIBILIDAD: si el usuario pide menos movimiento en su sistema, no animamos
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    animacionHeroIniciada = true;
+
+    // --- Parte 1: aparición escalonada de los elementos del hero ---
+    const selectores = ['.direccion', '.contenido-titulo', '.contenido-description', '.buttons'];
+    const elementosHero = selectores
+        .map(selector => document.querySelector(selector))
+        .filter(elemento => elemento !== null);
+
+    elementosHero.forEach((elemento, i) => {
+        elemento.classList.add('hero-anim'); // Lo ocultamos antes de mostrarlo
+        // Cada elemento aparece 250ms después del anterior
+        setTimeout(() => elemento.classList.add('hero-anim-visible'), 100 + i * 250);
+    });
+
+    // --- Parte 2: efecto escritura en el texto dorado (solo con CSS, sin tocar el texto) ---
+    // Le decimos al CSS cuántos "saltos" dar: uno por letra
+    dorado.style.setProperty('--letras', dorado.textContent.trim().length);
+    dorado.classList.add('escritura-dorada');
+
+    // --- Parte 3: cuando termina la escritura, lanzamos el brillo dorado ---
+    dorado.addEventListener('animationend', function alTerminar(e) {
+        if (e.animationName === 'escribir-dorado') {
+            dorado.classList.remove('escritura-dorada'); // El texto queda con su estilo original
+            dorado.classList.add('brillo-dorado');
+        } else if (e.animationName === 'brillo-dorado') {
+            dorado.classList.remove('brillo-dorado');
+            dorado.removeEventListener('animationend', alTerminar);
+        }
+    });
+}
+
+// Arrancamos cuando el HTML esté listo (o directamente si ya lo está)
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', iniciarAnimacionHero);
+} else {
+    iniciarAnimacionHero();
 }

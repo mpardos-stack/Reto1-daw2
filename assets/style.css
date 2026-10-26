@@ -1,4 +1,3 @@
-
 :root {
     --dark-bg: #0a0a0a;
     --gold: #d4a017; /* tono dorado ajustado */
@@ -76,9 +75,9 @@ img, picture, video, iframe, svg {
 }
 
 .icon img {
-    height: 100%;       
-    max-height: 120px;   
-    width: auto;        
+    height: 100%;
+    max-height: 120px;
+    width: auto;
     display: block;
 }
 
@@ -208,9 +207,9 @@ img, picture, video, iframe, svg {
 
 .container-contenido {
     position: relative;
-    height: 90vh; 
-    background: linear-gradient(rgba(0, 0, 0, 0.445), rgba(0, 0, 0, 0.658)), 
-                url('img/barberia.png'); 
+    height: 90vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.445), rgba(0, 0, 0, 0.658)),
+    url('img/barberia.png');
     background-size: cover;
     background-position: center;
     display: flex;
@@ -308,8 +307,8 @@ img, picture, video, iframe, svg {
 /* PARTE DE EXPLORAR SERVICIOS */
 
 .explora {
-    background-color: var(--dark-bg); 
-    padding: 120px 0 60px 0; 
+    background-color: var(--dark-bg);
+    padding: 120px 0 60px 0;
     text-align: center;
 }
 
@@ -325,7 +324,7 @@ img, picture, video, iframe, svg {
     font-size: 0.8rem;
     font-weight: 800;
     margin-bottom: 40px;
-    
+
 }
 
 .section-title {
@@ -1187,7 +1186,7 @@ img { max-width: 100%; height: auto; display: block; }
     .ubicacion-grid {
         grid-template-columns: 1fr;
     }
-    
+
     .ubicacion-mapa {
         min-height: 350px;
         order: -1; /* Mapa arriba en móviles */
@@ -1254,7 +1253,7 @@ img { max-width: 100%; height: auto; display: block; }
 
 /* Encabezado ocupa todo el ancho */
 .servicios-header-top {
-    grid-column: 1 / -1; 
+    grid-column: 1 / -1;
     text-align: center;
     margin-bottom: 50px;
 }
@@ -1304,7 +1303,7 @@ img { max-width: 100%; height: auto; display: block; }
 
 /* Icono decorativo antes del título */
 .categoria-nombre::before {
-    content: '◈'; 
+    content: '◈';
     color: var(--gold);
     font-size: 1.2rem;
 }
@@ -1377,11 +1376,11 @@ img { max-width: 100%; height: auto; display: block; }
         grid-template-columns: 1fr; /* Una sola columna en móvil */
         padding: 40px 15px;
     }
-    
+
     .servicios-header-top .titulo-principal {
         font-size: 2rem;
     }
-    
+
     .categoria-bloque {
         padding: 25px;
     }
@@ -2291,8 +2290,8 @@ img { max-width: 100%; height: auto; display: block; }
     background-color: #0a0a0a;
     color: #fff;
 }
- 
- /* --- ADMIN SERVICIOS MEJORADO --- */
+
+/* --- ADMIN SERVICIOS MEJORADO --- */
 
 .admin-main {
     background-color: #0a0a0a;
@@ -2710,7 +2709,7 @@ img { max-width: 100%; height: auto; display: block; }
 /* ============================================================
  — GestionEquipo.php  (body.admin-panel)
    ============================================================ */
- 
+
 body.admin-panel {
     display: flex;
     min-height: 100vh;
@@ -2719,13 +2718,13 @@ body.admin-panel {
     margin: 0;
     padding: 0;
 }
- 
- 
+
+
 /* ============================================================
    SIDEBAR — admin_sidebar.php
    Clases reales: .admin-sidebar  .admin-logo  .admin-menu  .admin-bottom
    ============================================================ */
- 
+
 .admin-sidebar {
     width: 250px;
     min-height: 100vh;
@@ -2788,7 +2787,7 @@ body.admin-panel {
     /* ensure top padding so content is not hidden under the fixed hamburger */
     .admin-main { margin-left: 0 !important; padding-top: 72px; }
 
-  
+
 
     /* Tables inside admin panels should scroll horizontally and vertically if needed */
     .admin-panel-box table {
@@ -2807,14 +2806,14 @@ body.admin-panel {
     #admin-hamburger-btn { right: 8px; top: 10px; padding: 7px 10px; }
     .admin-sidebar { width: 240px; }
 }
- 
+
 /* Logo */
 .admin-sidebar .admin-logo {
     margin-bottom: 38px;
     padding: 0 5px;
     display: block;
 }
- 
+
 .admin-sidebar .admin-logo strong {
     display: block;
     font-size: 1.1rem;
@@ -2824,7 +2823,7 @@ body.admin-panel {
     text-transform: uppercase;
     line-height: 1.1;
 }
- 
+
 .admin-sidebar .admin-logo span {
     display: block;
     color: #555;
@@ -2834,7 +2833,7 @@ body.admin-panel {
     text-transform: uppercase;
     margin-top: 5px;
 }
- 
+
 /* Menú de navegación */
 .admin-sidebar .admin-menu {
     display: flex;
@@ -2842,7 +2841,7 @@ body.admin-panel {
     gap: 2px;
     flex: 1;
 }
- 
+
 .admin-sidebar .admin-menu a {
     color: #777;
     text-decoration: none;
@@ -2854,20 +2853,20 @@ body.admin-panel {
     display: block;
     border-left: 2px solid transparent;
 }
- 
+
 .admin-sidebar .admin-menu a:hover {
     color: #fff;
     background-color: rgba(217, 156, 43, 0.07);
     border-left-color: rgba(217, 156, 43, 0.3);
 }
- 
+
 .admin-sidebar .admin-menu a.active {
     background-color: #d99c2b;
     color: #000;
     font-weight: 700;
     border-left-color: transparent;
 }
- 
+
 /* Pie del sidebar */
 .admin-sidebar .admin-bottom {
     margin-top: auto;
@@ -2877,7 +2876,7 @@ body.admin-panel {
     padding-top: 20px;
     border-top: 1px solid #1c1c1c;
 }
- 
+
 .admin-sidebar .admin-bottom a {
     color: #444;
     text-decoration: none;
@@ -2885,16 +2884,16 @@ body.admin-panel {
     padding: 8px 15px;
     transition: color 0.2s ease;
 }
- 
+
 .admin-sidebar .admin-bottom a:hover {
     color: #aaa;
 }
- 
- 
+
+
 /* ============================================================
    ÁREA PRINCIPAL — panel.php  (.admin-main)
    ============================================================ */
- 
+
 .admin-main {
     flex: 1;
     margin-left: 250px;
@@ -2902,7 +2901,7 @@ body.admin-panel {
     background-color: #0a0a0a;
     min-height: 100vh;
 }
- 
+
 .admin-small-title {
     color: #d99c2b;
     font-size: 0.68rem;
@@ -2911,19 +2910,19 @@ body.admin-panel {
     text-transform: uppercase;
     margin-bottom: 12px;
 }
- 
+
 .admin-main h1 {
     font-size: 2rem;
     font-weight: 900;
     margin-bottom: 6px;
 }
- 
+
 .admin-subtitle {
     color: #555;
     font-size: 0.85rem;
     margin-bottom: 30px;
 }
- 
+
 /* Stats cards */
 .admin-stats {
     display: grid;
@@ -2931,13 +2930,13 @@ body.admin-panel {
     gap: 15px;
     margin-bottom: 25px;
 }
- 
+
 .admin-card {
     background-color: #111;
     border: 1px solid #1e1e1e;
     padding: 20px;
 }
- 
+
 .admin-card span {
     color: #555;
     font-size: 0.75rem;
@@ -2945,7 +2944,7 @@ body.admin-panel {
     text-transform: uppercase;
     letter-spacing: 1px;
 }
- 
+
 .admin-card strong {
     display: block;
     font-size: 2rem;
@@ -2953,7 +2952,7 @@ body.admin-panel {
     margin-top: 10px;
     color: #fff;
 }
- 
+
 /* Panel box (reservas recientes, etc.) */
 .admin-panel-box {
     background-color: #111;
@@ -2961,14 +2960,14 @@ body.admin-panel {
     padding: 25px;
     margin-bottom: 25px;
 }
- 
+
 .admin-panel-box h2 {
     font-size: 1rem;
     font-weight: 700;
     margin-bottom: 15px;
     color: #fff;
 }
- 
+
 .admin-panel-box p {
     color: #555;
     font-size: 0.85rem;
@@ -3001,14 +3000,14 @@ body.admin-panel {
 .admin-alert a:hover {
     text-decoration: underline;
 }
- 
+
 /* Acciones rápidas */
 .admin-actions {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 12px;
 }
- 
+
 .admin-actions a {
     background-color: #111;
     border: 1px solid #1e1e1e;
@@ -3021,26 +3020,26 @@ body.admin-panel {
     letter-spacing: 0.5px;
     transition: all 0.2s ease;
 }
- 
+
 .admin-actions a:hover {
     border-color: #d99c2b;
     color: #d99c2b;
     background-color: rgba(217, 156, 43, 0.05);
 }
- 
+
 /* Tablas admin */
 .admin-table {
     width: 100%;
     border-collapse: collapse;
 }
- 
+
 .admin-table th,
 .admin-table td {
     border-bottom: 1px solid #1e1e1e;
     padding: 14px;
     text-align: left;
 }
- 
+
 .admin-table th {
     color: #d99c2b;
     font-size: 0.72rem;
@@ -3048,26 +3047,26 @@ body.admin-panel {
     text-transform: uppercase;
     letter-spacing: 1.5px;
 }
- 
+
 .admin-table td {
     color: #aaa;
     font-size: 0.85rem;
 }
- 
+
 .admin-table a {
     color: #d99c2b;
     margin-right: 10px;
     text-decoration: none;
     font-size: 0.8rem;
 }
- 
+
 .admin-header-flex {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 25px;
 }
- 
+
 .admin-btn {
     background-color: #d99c2b;
     color: #000;
@@ -3078,23 +3077,23 @@ body.admin-panel {
     letter-spacing: 1px;
     transition: background-color 0.2s ease;
 }
- 
+
 .admin-btn:hover {
     background-color: #f0ad32;
 }
- 
+
 .admin-avatar {
     width: 55px;
     height: 55px;
     object-fit: cover;
     border-radius: 50%;
 }
- 
- 
+
+
 /* ============================================================
    LAYOUT BASE — admin-panel + .content
    ============================================================ */
- 
+
 body.admin-panel {
     display: flex;
     min-height: 100vh;
@@ -3104,7 +3103,7 @@ body.admin-panel {
     margin: 0;
     padding: 0;
 }
- 
+
 .content {
     margin-left: 250px;
     flex: 1;
@@ -3114,17 +3113,17 @@ body.admin-panel {
     flex-direction: column;
     box-sizing: border-box;
 }
- 
+
 /* ============================================================
    HEADER DE SECCIÓN
    ============================================================ */
- 
+
 .content > header {
     padding: 28px 40px 22px;
     border-bottom: 1px solid #161616;
     background-color: #0d0d0d;
 }
- 
+
 .content > header h1 {
     font-size: 2rem;
     font-weight: 900;
@@ -3132,24 +3131,24 @@ body.admin-panel {
     margin: 0 0 5px 0;
     letter-spacing: 0.5px;
 }
- 
+
 .content > header p {
     color: #555;
     font-size: 0.82rem;
     margin: 0;
 }
- 
+
 /* ============================================================
    PANEL "NUEVO MIEMBRO"
    ============================================================ */
- 
+
 .add-member-panel {
     background-color: #0f0f0f;
     border: 1px solid #222;
     padding: 30px 35px;
     margin: 30px 40px 0;
 }
- 
+
 .panel-header h2 {
     color: #d99c2b;
     font-size: 1rem;
@@ -3158,14 +3157,14 @@ body.admin-panel {
     margin: 0 0 10px 0;
     text-transform: uppercase;
 }
- 
+
 .line-gold {
     width: 40px;
     height: 2px;
     background-color: #d99c2b;
     margin-bottom: 25px;
 }
- 
+
 .add-form-grid {
     display: flex;
     flex-direction: column;
@@ -3194,19 +3193,19 @@ body.admin-panel {
 .input-group input[type="file"]::-webkit-file-upload-button:hover {
     background: #f0ad32;
 }
- 
+
 .form-row {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 16px;
 }
- 
+
 .input-group {
     display: flex;
     flex-direction: column;
     gap: 7px;
 }
- 
+
 .input-group label {
     color: #666;
     font-size: 0.68rem;
@@ -3214,7 +3213,7 @@ body.admin-panel {
     letter-spacing: 2px;
     text-transform: uppercase;
 }
- 
+
 .input-group input,
 .input-group select,
 .input-group textarea {
@@ -3229,37 +3228,37 @@ body.admin-panel {
     box-sizing: border-box;
     width: 100%;
 }
- 
+
 .input-group input:focus,
 .input-group select:focus,
 .input-group textarea:focus {
     border-color: #d99c2b;
 }
- 
+
 .input-group input::placeholder,
 .input-group textarea::placeholder {
     color: #333;
 }
- 
+
 .input-group select {
     cursor: pointer;
     appearance: none;
 }
- 
+
 .input-group textarea {
     resize: vertical;
     min-height: 75px;
     line-height: 1.5;
 }
- 
+
 .input-group.full-width {
     grid-column: 1 / -1;
 }
- 
+
 .form-footer {
     margin-top: 6px;
 }
- 
+
 .btn-save-new {
     background-color: #d99c2b;
     color: #000;
@@ -3276,25 +3275,25 @@ body.admin-panel {
     align-items: center;
     gap: 8px;
 }
- 
+
 .btn-save-new:hover {
     background-color: #f0ad32;
 }
- 
+
 /* ============================================================
    SEPARADOR
    ============================================================ */
- 
+
 .separator-gold {
     border: 0;
     border-top: 1px solid #1a1a1a;
     margin: 30px 40px;
 }
- 
+
 /* ============================================================
    GRID DE TARJETAS
    ============================================================ */
- 
+
 body.admin-panel .equipo-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -3304,11 +3303,11 @@ body.admin-panel .equipo-grid {
     max-width: none;
     margin: 0;
 }
- 
+
 /* ============================================================
    TARJETA DE BARBERO — MODO VISTA
    ============================================================ */
- 
+
 body.admin-panel .barbero-card {
     background-color: #111;
     border: 1px solid #1e1e1e;
@@ -3322,11 +3321,11 @@ body.admin-panel .barbero-card {
 body.admin-panel .barbero-card:hover {
     transform: translateY(-2px);
 }
- 
+
 body.admin-panel .barbero-card:hover {
     border-color: #303030;
 }
- 
+
 /* ── Imagen ── */
 /* Selector ampliado: cubre tanto <img> directo como dentro de .card-image */
 body.admin-panel .barbero-card .card-image {
@@ -3334,7 +3333,7 @@ body.admin-panel .barbero-card .card-image {
     width: 100%;
     height: 360px;
 }
- 
+
 body.admin-panel .barbero-card .card-image img,
 body.admin-panel .barbero-card > img {
     width: 100%;
@@ -3345,19 +3344,19 @@ body.admin-panel .barbero-card > img {
     filter: brightness(0.65);
     transition: filter 0.4s ease, transform 0.4s ease;
 }
- 
+
 body.admin-panel .barbero-card:hover .card-image img,
 body.admin-panel .barbero-card:hover > img {
     filter: brightness(0.5);
     transform: scale(1.03);
 }
- 
+
 /* ── Bloque info ── */
 body.admin-panel .barbero-card .info {
     padding: 18px 20px 20px;
     background-color: #111;
 }
- 
+
 body.admin-panel .barbero-card .info h3 {
     font-size: 1.55rem;
     font-weight: 900;
@@ -3366,7 +3365,7 @@ body.admin-panel .barbero-card .info h3 {
     letter-spacing: 0.5px;
     line-height: 1.1;
 }
- 
+
 body.admin-panel .barbero-card .info .rank {
     color: #d99c2b;
     font-size: 0.68rem;
@@ -3376,7 +3375,7 @@ body.admin-panel .barbero-card .info .rank {
     margin: 0 0 4px 0;
     display: block;
 }
- 
+
 body.admin-panel .barbero-card .info .role-text {
     color: #444;
     font-size: 0.65rem;
@@ -3386,7 +3385,7 @@ body.admin-panel .barbero-card .info .role-text {
     margin: 0 0 16px 0;
     display: block;
 }
- 
+
 /* ── Botones de acción (editar + eliminar) ── */
 .actions-group {
     display: flex;
@@ -3395,7 +3394,7 @@ body.admin-panel .barbero-card .info .role-text {
     gap: 10px;
     margin-top: 4px;
 }
- 
+
 body.admin-panel .barbero-card .info .btn-edit {
     display: inline-flex;
     align-items: center;
@@ -3408,22 +3407,22 @@ body.admin-panel .barbero-card .info .btn-edit {
     text-transform: uppercase;
     transition: color 0.2s ease;
 }
- 
+
 body.admin-panel .barbero-card .info .btn-edit::before {
     content: '✎';
     font-size: 0.9rem;
 }
- 
+
 body.admin-panel .barbero-card .info .btn-edit:hover {
     color: #fff;
 }
- 
+
 .delete-form {
     margin: 0;
     padding: 0;
     display: inline;
 }
- 
+
 .btn-delete {
     display: inline-flex;
     align-items: center;
@@ -3464,24 +3463,24 @@ body.admin-panel .barbero-card .info .btn-edit:hover {
     background: #246d24;
     transform: translateY(-1px);
 }
- 
+
 .btn-delete::before {
     content: '🗑';
     font-size: 0.85rem;
 }
- 
+
 .btn-delete:hover {
     color: #e53e3e;
 }
- 
+
 /* ============================================================
    TARJETA DE BARBERO — MODO EDICIÓN
    ============================================================ */
- 
+
 body.admin-panel .barbero-card.editing {
     border-color: #d99c2b;
 }
- 
+
 body.admin-panel .barbero-card.editing .card-image,
 body.admin-panel .barbero-card.editing .card-image img,
 body.admin-panel .barbero-card.editing > img {
@@ -3489,7 +3488,7 @@ body.admin-panel .barbero-card.editing > img {
     filter: brightness(0.4);
     transform: none;
 }
- 
+
 .edit-form {
     padding: 16px 18px 20px;
     background-color: #111;
@@ -3515,11 +3514,11 @@ body.admin-panel .barbero-card.editing > img {
     margin-top: 8px;
     display: block;
 }
- 
+
 .edit-form label:first-of-type {
     margin-top: 0;
 }
- 
+
 .edit-form input,
 .edit-form textarea,
 .edit-form select {
@@ -3536,19 +3535,19 @@ body.admin-panel .barbero-card.editing > img {
     border-radius: 0;
     box-sizing: border-box;
 }
- 
+
 .edit-form input:focus,
 .edit-form textarea:focus,
 .edit-form select:focus {
     border-color: #d99c2b;
     background-color: #1e1e1e;
 }
- 
+
 .edit-form input::placeholder,
 .edit-form textarea::placeholder {
     color: #3a3a3a;
 }
- 
+
 .edit-form textarea {
     resize: vertical;
     min-height: 80px;
@@ -3576,7 +3575,7 @@ body.admin-panel .barbero-card.editing > img {
     gap: 8px;
     margin-top: 12px;
 }
- 
+
 .btn-save {
     background-color: #d99c2b;
     color: #000;
@@ -3595,16 +3594,16 @@ body.admin-panel .barbero-card.editing > img {
     justify-content: center;
     gap: 6px;
 }
- 
+
 .btn-save::before {
     content: '✓';
     font-size: 0.9rem;
 }
- 
+
 .btn-save:hover {
     background-color: #f0ad32;
 }
- 
+
 .btn-cancel {
     background-color: #1c1c1c;
     color: #999;
@@ -3625,12 +3624,12 @@ body.admin-panel .barbero-card.editing > img {
     justify-content: center;
     gap: 6px;
 }
- 
+
 .btn-cancel::before {
     content: '✕';
     font-size: 0.75rem;
 }
- 
+
 .btn-cancel:hover {
     background-color: #242424;
     color: #fff;
@@ -3730,7 +3729,7 @@ body.admin-panel .barbero-card.editing > img {
     color: #2a7a2a;
     font-size: 0.75rem;
 }
- 
+
 /* ============================================================
    AGENDA DEL DÍA — GestionReservas.php (.agenda-reservas)
    ============================================================ */
@@ -4291,27 +4290,27 @@ body.modal-abierto {
 /* ============================================================
    RESPONSIVE
    ============================================================ */
- 
+
 @media (max-width: 900px) {
     .content { margin-left: 0; }
- 
+
     body.admin-panel .equipo-grid {
         grid-template-columns: repeat(2, 1fr);
         padding: 0 20px 30px;
     }
- 
+
     .add-member-panel  { margin: 20px 20px 0; }
     .separator-gold    { margin: 24px 20px; }
 }
- 
+
 @media (max-width: 600px) {
     body.admin-panel .equipo-grid {
         grid-template-columns: 1fr;
         padding: 0 16px 24px;
     }
- 
+
     .form-row { grid-template-columns: 1fr; }
- 
+
     .add-member-panel { margin: 16px 16px 0; padding: 20px; }
     .separator-gold   { margin: 20px 16px; }
 
@@ -4724,8 +4723,8 @@ body.modal-abierto {
     padding: 90px 20px 45px;
     text-align: center;
     background:
-        linear-gradient(rgba(0,0,0,0.78), rgba(0,0,0,0.92)),
-        url('img/barberia.png');
+            linear-gradient(rgba(0,0,0,0.78), rgba(0,0,0,0.92)),
+            url('img/barberia.png');
     background-size: cover;
     background-position: center;
     border-bottom: 1px solid #1f1f1f;
@@ -5123,6 +5122,7 @@ body.modal-abierto {
     color: var(--gold);
     pointer-events: none;
 }
+
 */
 
 /* Opcion 3 */
@@ -5178,4 +5178,92 @@ body.modal-abierto {
     color: var(--gold);
     font-size: 1.1rem;
     pointer-events: none;
+}
+
+/* ==========================================================================
+   ANIMACIÓN DE ENTRADA DEL HERO (efecto escritura + brillo dorado)
+   ========================================================================== */
+
+/* Elementos del hero: empiezan invisibles y desplazados hacia abajo.
+   El JavaScript les añade la clase "hero-anim-visible" de uno en uno */
+.hero-anim {
+    opacity: 0;
+    transform: translateY(25px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.hero-anim.hero-anim-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Efecto escritura: el texto dorado se va descubriendo de izquierda a derecha.
+   Importante: el texto NO se modifica, así el traductor de la web lo sigue entendiendo.
+   "--letras" lo rellena el JavaScript para que el avance sea a saltos, como al teclear */
+.texto-dorado.escritura-dorada {
+    display: table;          /* La caja se ajusta al ancho del texto, así el efecto empieza justo donde empieza la frase */
+    margin: 0 auto;
+    position: relative;
+    clip-path: inset(0 100% 0 0);
+    animation: escribir-dorado 1.6s steps(var(--letras, 14), end) 0.6s forwards;
+}
+
+@keyframes escribir-dorado {
+    to { clip-path: inset(0 0 0 0); }
+}
+
+/* Cursor dorado que viaja por delante del texto mientras se "escribe" */
+.texto-dorado.escritura-dorada::after {
+    content: '';
+    position: absolute;
+    top: 12%;
+    left: 0;
+    width: 3px;
+    height: 76%;
+    background-color: var(--gold);
+    animation: mover-cursor-dorado 1.6s steps(var(--letras, 14), end) 0.6s forwards;
+}
+
+@keyframes mover-cursor-dorado {
+    to { left: 100%; }
+}
+
+/* Brillo dorado que recorre el texto una vez cuando termina de escribirse */
+.texto-dorado.brillo-dorado {
+    background: linear-gradient(90deg, var(--gold) 0%, var(--gold) 40%, #fff3b0 50%, var(--gold) 60%, var(--gold) 100%);
+    background-size: 300% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: brillo-dorado 1.8s ease-in-out 1;
+}
+
+@keyframes brillo-dorado {
+    from { background-position: 100% 0; }
+    to   { background-position: 0% 0; }
+}
+
+/* Accesibilidad: si el usuario prefiere menos movimiento, se muestra todo sin animar */
+@media (prefers-reduced-motion: reduce) {
+    .hero-anim {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+}
+
+/* ==========================================================================
+   ARREGLO DEL BUSCADOR: hacer que el atributo "hidden" funcione en las tarjetas
+   ========================================================================== */
+/* El JavaScript oculta las tarjetas con tarjeta.hidden = true, pero .explore-card
+   tiene display: flex, que pisa al atributo hidden y las tarjetas nunca desaparecían.
+   Estas reglas estaban dentro del bloque comentado de la "Opción 1" y no se aplicaban. */
+.explore-card[hidden] {
+    display: none;
+}
+
+.buscador-sin-resultados {
+    color: var(--gray-text);
+    font-style: italic;
+    margin-bottom: 30px;
 }
