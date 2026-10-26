@@ -53,7 +53,6 @@ img, picture, video, iframe, svg {
     align-items: center;
     justify-content: space-between;
     padding: 0 20px;
-    align-items: center;
     height: 100%;
 }
 
@@ -209,9 +208,7 @@ img, picture, video, iframe, svg {
     position: relative;
     height: 90vh;
     background: linear-gradient(rgba(0, 0, 0, 0.445), rgba(0, 0, 0, 0.658)),
-    url('img/barberia.png');
-    background-size: cover;
-    background-position: center;
+    url('img/barberia.png') center / cover;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -2829,7 +2826,7 @@ body.admin-panel {
     color: #555;
     font-size: 0.7rem;
     font-weight: 500;
-    letter-spacing: 1.5px;
+    letter-spacing: 0.1rem;
     text-transform: uppercase;
     margin-top: 5px;
 }
@@ -2848,7 +2845,7 @@ body.admin-panel {
     padding: 11px 15px;
     font-size: 0.82rem;
     font-weight: 500;
-    letter-spacing: 0.3px;
+    letter-spacing: 0.02rem;
     transition: all 0.2s ease;
     display: block;
     border-left: 2px solid transparent;
@@ -3017,7 +3014,7 @@ body.admin-panel {
     text-align: center;
     font-size: 0.8rem;
     font-weight: 600;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.03rem;
     transition: all 0.2s ease;
 }
 
@@ -3045,7 +3042,7 @@ body.admin-panel {
     font-size: 0.72rem;
     font-weight: 800;
     text-transform: uppercase;
-    letter-spacing: 1.5px;
+    letter-spacing: 0.1rem;
 }
 
 .admin-table td {
@@ -3129,7 +3126,7 @@ body.admin-panel {
     font-weight: 900;
     color: #fff;
     margin: 0 0 5px 0;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.03rem;
 }
 
 .content > header p {
@@ -3362,7 +3359,7 @@ body.admin-panel .barbero-card .info h3 {
     font-weight: 900;
     color: #fff;
     margin: 0 0 4px 0;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.03rem;
     line-height: 1.1;
 }
 
@@ -3370,7 +3367,7 @@ body.admin-panel .barbero-card .info .rank {
     color: #d99c2b;
     font-size: 0.68rem;
     font-weight: 800;
-    letter-spacing: 2.5px;
+    letter-spacing: 0.15rem;
     text-transform: uppercase;
     margin: 0 0 4px 0;
     display: block;
@@ -3380,7 +3377,7 @@ body.admin-panel .barbero-card .info .role-text {
     color: #444;
     font-size: 0.65rem;
     font-weight: 700;
-    letter-spacing: 1.5px;
+    letter-spacing: 0.1rem;
     text-transform: uppercase;
     margin: 0 0 16px 0;
     display: block;
@@ -3452,7 +3449,7 @@ body.admin-panel .barbero-card .info .btn-edit:hover {
     font-family: 'Montserrat', sans-serif;
     font-size: 0.72rem;
     font-weight: 700;
-    letter-spacing: 1.5px;
+    letter-spacing: 0.1rem;
     text-transform: uppercase;
     border-radius: 6px;
     cursor: pointer;
@@ -3508,7 +3505,7 @@ body.admin-panel .barbero-card.editing > img {
     color: #555;
     font-size: 0.65rem;
     font-weight: 800;
-    letter-spacing: 1.5px;
+    letter-spacing: 0.1rem;
     text-transform: uppercase;
     margin-bottom: 4px;
     margin-top: 8px;
@@ -3584,7 +3581,7 @@ body.admin-panel .barbero-card.editing > img {
     font-family: 'Montserrat', sans-serif;
     font-weight: 800;
     font-size: 0.72rem;
-    letter-spacing: 1.5px;
+    letter-spacing: 0.1rem;
     text-transform: uppercase;
     cursor: pointer;
     flex: 1;
@@ -3612,7 +3609,7 @@ body.admin-panel .barbero-card.editing > img {
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
     font-size: 0.72rem;
-    letter-spacing: 1.5px;
+    letter-spacing: 0.1rem;
     text-transform: uppercase;
     cursor: pointer;
     flex: 1;
@@ -3680,7 +3677,6 @@ body.admin-panel .barbero-card.editing > img {
     background: #fff;
     padding: 22px;
     border-radius: 14px;
-    max-width: 92%;
     width: 100%;
     max-width: 420px;
     text-align: center;
@@ -3818,7 +3814,7 @@ body.admin-panel .barbero-card.editing > img {
     font-size: 0.7rem;
     font-weight: 800;
     text-transform: uppercase;
-    letter-spacing: 1.5px;
+    letter-spacing: 0.1rem;
 }
 
 .agenda-toolbar input[type="date"] {
@@ -3846,7 +3842,7 @@ body.admin-panel .barbero-card.editing > img {
     font-size: 0.75rem;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.03rem;
 }
 
 .agenda-leyenda-libre {
@@ -3962,7 +3958,7 @@ body.admin-panel .barbero-card.editing > img {
     font-size: 0.65rem;
     font-weight: 800;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.03rem;
     padding: 2px 6px;
     border-radius: 3px;
 }
@@ -4114,7 +4110,7 @@ body.modal-abierto {
     font-size: 0.7rem;
     font-weight: 800;
     text-transform: uppercase;
-    letter-spacing: 1.5px;
+    letter-spacing: 0.1rem;
 }
 
 .modal-body .input-box {
@@ -4329,7 +4325,7 @@ body.modal-abierto {
     padding: 12px 22px;
     font-weight: 600;
     font-size: 0.85rem;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.03rem;
     cursor: pointer;
     transition: background-color 0.2s ease, transform 0.15s ease;
 }
@@ -4375,7 +4371,7 @@ body.modal-abierto {
     font-size: 0.72rem;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.9px;
+    letter-spacing: 0.06rem;
 }
 
 .cp-field input[type="password"] {
@@ -4439,7 +4435,7 @@ body.modal-abierto {
     color: #777;
     font-size: 0.75rem;
     text-decoration: none;
-    letter-spacing: 0.3px;
+    letter-spacing: 0.02rem;
     transition: color 0.2s;
 }
 
@@ -4724,9 +4720,7 @@ body.modal-abierto {
     text-align: center;
     background:
             linear-gradient(rgba(0,0,0,0.78), rgba(0,0,0,0.92)),
-            url('img/barberia.png');
-    background-size: cover;
-    background-position: center;
+            url('img/barberia.png') center / cover;
     border-bottom: 1px solid #1f1f1f;
 }
 
@@ -4762,7 +4756,7 @@ body.modal-abierto {
     color: var(--gold);
     font-size: 1.15rem;
     text-transform: uppercase;
-    letter-spacing: 1.5px;
+    letter-spacing: 0.1rem;
     margin-top: 34px;
     margin-bottom: 12px;
 }
@@ -5123,8 +5117,6 @@ body.modal-abierto {
     pointer-events: none;
 }
 
-*/
-
 /* Opcion 3 */
 .buscador-web {
     position: relative;
@@ -5199,11 +5191,12 @@ body.modal-abierto {
 
 /* Efecto escritura: el texto dorado se va descubriendo de izquierda a derecha.
    Importante: el texto NO se modifica, así el traductor de la web lo sigue entendiendo.
-   "--letras" lo rellena el JavaScript para que el avance sea a saltos, como al teclear */
+   "--letras" son los saltos del avance (uno por letra), como al teclear */
 .texto-dorado.escritura-dorada {
     display: table;          /* La caja se ajusta al ancho del texto, así el efecto empieza justo donde empieza la frase */
     margin: 0 auto;
     position: relative;
+    --letras: 14;            /* Valor por defecto; el JavaScript lo sustituye por el número real de letras */
     clip-path: inset(0 100% 0 0);
     animation: escribir-dorado 1.6s steps(var(--letras, 14), end) 0.6s forwards;
 }
@@ -5240,7 +5233,7 @@ body.modal-abierto {
 
 @keyframes brillo-dorado {
     from { background-position: 100% 0; }
-    to   { background-position: 0% 0; }
+    to   { background-position: 0 0; }
 }
 
 /* Accesibilidad: si el usuario prefiere menos movimiento, se muestra todo sin animar */
