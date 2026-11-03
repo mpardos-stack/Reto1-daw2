@@ -746,90 +746,140 @@ img, picture, video, iframe, svg {
     .filtros-reservas .btn { width: 100%; }
 }
 
-/* Hamburger menu styles for client views */
+/*Opcion 1 menu desplegable*/
+/*!* Hamburger menu styles for client views *!*/
+
+/*.hamburger-btn {*/
+/*    display: none; !* shown on small screens *!*/
+/*    background: transparent;*/
+/*    border: none;*/
+/*    cursor: pointer;*/
+/*    padding: 8px;*/
+/*    margin-left: 12px;*/
+/*    align-self: center;*/
+/*}*/
+/*.hamburger-line {*/
+/*    display: block;*/
+/*    width: 22px;*/
+/*    height: 2px;*/
+/*    background: var(--white);*/
+/*    margin: 4px 0;*/
+/*    transition: transform 0.2s ease, opacity 0.2s ease;*/
+/*}*/
+
+/*.hamburger-menu {*/
+/*    position: absolute;*/
+/*    right: 16px;*/
+/*    top: 70px;*/
+/*    background: rgba(10,10,10,0.98);*/
+/*    border: 1px solid rgba(255,255,255,0.04);*/
+/*    padding: 12px;*/
+/*    border-radius: 8px;*/
+/*    min-width: 180px;*/
+/*    box-shadow: 0 8px 30px rgba(0,0,0,0.6);*/
+/*    z-index: 9999;*/
+/*    display: none;*/
+/*}*/
+/*.hamburger-menu ul { list-style: none; margin: 0; padding: 0; }*/
+/*.hamburger-menu li { margin: 6px 0; }*/
+/*.hamburger-menu a { color: var(--white); text-decoration: none; display: block; padding: 8px 10px; border-radius:6px; }*/
+/*.hamburger-menu a:hover { background: rgba(255,255,255,0.02); color: var(--gold); }*/
+
+/*!* Show hamburger on tablets and smaller, hide main nav on <=1024px *!*/
+/*@media (max-width: 1024px) {*/
+/*    .nav-menu { display: none; }*/
+/*    .hamburger-btn { display: inline-flex; }*/
+/*}*/
+
+/*!* Tablet-specific sizing (601px - 1024px): slightly larger tappable area *!*/
+/*@media (min-width: 601px) and (max-width: 1024px) {*/
+/*    .hamburger-btn {*/
+/*        padding: 10px;*/
+/*        margin-left: 16px;*/
+/*    }*/
+/*    .hamburger-line {*/
+/*        width: 26px;*/
+/*        height: 3px;*/
+/*        margin: 5px 0;*/
+/*    }*/
+/*    .hamburger-menu {*/
+/*        top: 64px; !* adjust for taller tablet headers *!*/
+/*        right: 18px;*/
+/*        min-width: 220px;*/
+/*        padding: 14px;*/
+/*    }*/
+/*    .icon img { max-height: 56px; }*/
+/*}*/
+
+/*!* Mobile-specific (<=600px): keep previous compact sizes *!*/
+/*@media (max-width: 600px) {*/
+/*    .hamburger-btn { padding: 8px; margin-left: 12px; }*/
+/*    .hamburger-line { width: 22px; height: 2px; margin: 4px 0; }*/
+/*    .hamburger-menu { top: 60px; right: 12px; min-width: 180px; }*/
+/*    .icon img { max-height: 44px; }*/
+/*}*/
+
+/*!* Ocultar la palabra 'BARBERÍA' en móviles y mostrar solo logo + 'CATRACHA' *!*/
+/*@media (max-width: 768px) {*/
+/*    .logo { display: flex; align-items: center; gap: 6px; }*/
+/*    .logo .text-white { display: none; }*/
+/*    .logo .text-gold { font-size: 1.25rem; }*/
+/*    .icon img { max-height: 44px; }*/
+/*}*/
+
+/*!* When menu is open *!*/
+/*.hamburger-menu.open { display: block; }*/
+/*.hamburger-btn.open .hamburger-line:nth-child(1) { transform: translateY(6px) rotate(45deg); }*/
+/*.hamburger-btn.open .hamburger-line:nth-child(2) { opacity: 0; }*/
+/*.hamburger-btn.open .hamburger-line:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }*/
+
+/*Opcion 2 menu deplegable */
+/* --- MENÚ MÓVIL SENCILLO --- */
+/* El header es la referencia para colocar el menú debajo */
+.main-header {
+    position: relative;
+}
 .hamburger-btn {
-    display: none; /* shown on small screens */
-    background: transparent;
+    display: none; /* Oculto en PC */
+    background: var(--gold);
+    color: #000;
     border: none;
+    padding: 8px 12px;
+    font-weight: bold;
     cursor: pointer;
-    padding: 8px;
-    margin-left: 12px;
-    align-self: center;
 }
-.hamburger-line {
-    display: block;
-    width: 22px;
-    height: 2px;
-    background: var(--white);
-    margin: 4px 0;
-    transition: transform 0.2s ease, opacity 0.2s ease;
-}
-
 .hamburger-menu {
+    display: none; /* Oculto por defecto */
     position: absolute;
-    right: 16px;
-    top: 70px;
-    background: rgba(10,10,10,0.98);
-    border: 1px solid rgba(255,255,255,0.04);
-    padding: 12px;
-    border-radius: 8px;
-    min-width: 180px;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.6);
-    z-index: 9999;
-    display: none;
+    top: 100%; /* Aparece justo debajo del header */
+    left: 0;
+    width: 100%;
+    background-color: #0a0a0a;
+    border-top: 1px solid var(--gold);
+    padding: 15px 0;
+    z-index: 1000; /* Por encima del resto de la página */
 }
-.hamburger-menu ul { list-style: none; margin: 0; padding: 0; }
-.hamburger-menu li { margin: 6px 0; }
-.hamburger-menu a { color: var(--white); text-decoration: none; display: block; padding: 8px 10px; border-radius:6px; }
-.hamburger-menu a:hover { background: rgba(255,255,255,0.02); color: var(--gold); }
-
-/* Show hamburger on tablets and smaller, hide main nav on <=1024px */
+/* Clase que activa el JS para mostrar el menú */
+.hamburger-menu.mostrar {
+    display: block;
+}
+.hamburger-menu ul {
+    list-style: none;
+    text-align: center;
+}
+.hamburger-menu li {
+    margin: 12px 0;
+}
+.hamburger-menu a {
+    color: var(--white);
+    text-decoration: none;
+    font-weight: 600;
+}
+/* Mostrar el botón en móviles/tablets */
 @media (max-width: 1024px) {
     .nav-menu { display: none; }
-    .hamburger-btn { display: inline-flex; }
+    .hamburger-btn { display: block; }
 }
-
-/* Tablet-specific sizing (601px - 1024px): slightly larger tappable area */
-@media (min-width: 601px) and (max-width: 1024px) {
-    .hamburger-btn {
-        padding: 10px;
-        margin-left: 16px;
-    }
-    .hamburger-line {
-        width: 26px;
-        height: 3px;
-        margin: 5px 0;
-    }
-    .hamburger-menu {
-        top: 64px; /* adjust for taller tablet headers */
-        right: 18px;
-        min-width: 220px;
-        padding: 14px;
-    }
-    .icon img { max-height: 56px; }
-}
-
-/* Mobile-specific (<=600px): keep previous compact sizes */
-@media (max-width: 600px) {
-    .hamburger-btn { padding: 8px; margin-left: 12px; }
-    .hamburger-line { width: 22px; height: 2px; margin: 4px 0; }
-    .hamburger-menu { top: 60px; right: 12px; min-width: 180px; }
-    .icon img { max-height: 44px; }
-}
-
-/* Ocultar la palabra 'BARBERÍA' en móviles y mostrar solo logo + 'CATRACHA' */
-@media (max-width: 768px) {
-    .logo { display: flex; align-items: center; gap: 6px; }
-    .logo .text-white { display: none; }
-    .logo .text-gold { font-size: 1.25rem; }
-    .icon img { max-height: 44px; }
-}
-
-/* When menu is open */
-.hamburger-menu.open { display: block; }
-.hamburger-btn.open .hamburger-line:nth-child(1) { transform: translateY(6px) rotate(45deg); }
-.hamburger-btn.open .hamburger-line:nth-child(2) { opacity: 0; }
-.hamburger-btn.open .hamburger-line:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
 
 /* Global responsive rules: móviles, tablets y escritorio */
 

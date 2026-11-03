@@ -588,52 +588,62 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 // ==========================================================================
-// 5. MENÚ HAMBURGUESA MÓVIL (Vistas del Cliente)
+// 5. MENÚ HAMBURGUESA MÓVIL (Vistas del Cliente) Opcion1 menu desplegable
 // ==========================================================================
-document.addEventListener('DOMContentLoaded', function () {
-    const hambBtn = document.getElementById('hamburger-btn');
-    const hambMenu = document.getElementById('hamburger-menu');
+//document.addEventListener('DOMContentLoaded', function () {
+  //  const hambBtn = document.getElementById('hamburger-btn');
+   // const hambMenu = document.getElementById('hamburger-menu');
 
-    if (!hambBtn || !hambMenu) return;
+// if (!hambBtn || !hambMenu) return;
 
     // Cierra el menú móvil de manera limpia aplicando accesibilidad ARIA
-    function closeMenu() {
-        hambMenu.classList.remove('open');
-        hambBtn.classList.remove('open');
-        hambBtn.setAttribute('aria-expanded', 'false');
-        hambMenu.setAttribute('aria-hidden', 'true');
-    }
+// function closeMenu() {
+//     hambMenu.classList.remove('open');
+//     hambBtn.classList.remove('open');
+//     hambBtn.setAttribute('aria-expanded', 'false');
+//     hambMenu.setAttribute('aria-hidden', 'true');
+// }
 
     // Abre el menú móvil aplicando accesibilidad ARIA
-    function openMenu() {
-        hambMenu.classList.add('open');
-        hambBtn.classList.add('open');
-        hambBtn.setAttribute('aria-expanded', 'true');
-        hambMenu.setAttribute('aria-hidden', 'false');
-    }
+//  function openMenu() {
+//       hambMenu.classList.add('open');
+//      hambBtn.classList.add('open');
+//       hambBtn.setAttribute('aria-expanded', 'true');
+//       hambMenu.setAttribute('aria-hidden', 'false');
+//  }
 
     // Alternar apertura y cierre al presionar el botón de hamburguesa
-    hambBtn.addEventListener('click', function (e) {
-        e.stopPropagation(); // Evita que el evento "flote" al documento e inmediatamente cierre el menú
-        if (hambMenu.classList.contains('open')) {
-            closeMenu();
-        } else {
-            openMenu();
-        }
-    });
+//  hambBtn.addEventListener('click', function (e) {
+//       e.stopPropagation(); // Evita que el evento "flote" al documento e inmediatamente cierre el menú
+//       if (hambMenu.classList.contains('open')) {
+//           closeMenu();
+//       } else {
+//           openMenu();
+//       }
+//   });
 
     // UX: Si el menú está abierto y el usuario hace clic fuera de él, se cierra automáticamente
-    document.addEventListener('click', function (e) {
-        if (!hambMenu.contains(e.target) && !hambBtn.contains(e.target)) {
-            closeMenu();
-        }
-    });
+//  document.addEventListener('click', function (e) {
+//      if (!hambMenu.contains(e.target) && !hambBtn.contains(e.target)) {
+//          closeMenu();
+//      }
+//   });
 
     // Accesibilidad por teclado: Al pulsar la tecla Escape se cierra el menú lateral
-    document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape') closeMenu();
-    });
-});
+//    document.addEventListener('keydown', function (e) {
+//       if (e.key === 'Escape') closeMenu();
+//   });
+//});
+
+// ==========================================================================
+// 5. MENÚ HAMBURGUESA MÓVIL (Vistas del Cliente) Opcion 2 menu desplegable
+// ==========================================================================
+// Se ejecuta al pulsar el botón MENÚ (onclick en header.html).
+// toggle añade la clase "mostrar" si no la tiene y la quita si ya la tiene.
+function abrirMenu() {
+    document.getElementById('hamburger-menu').classList.toggle('mostrar');
+}
+
 
 // ==========================================================================
 // 6. TOGGLE SIDEBAR DE ADMINISTRACIÓN (Adaptabilidad Tablets/Móviles)

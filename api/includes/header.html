@@ -29,7 +29,8 @@
         <!-- Boton traductor -->
         <button type="button" id="btn-traducir" class="btn-traducir">EN</button>
 
-        <!-- Hamburger button for mobile menu -->
+        <!-- Opcion 1 menu desplegable
+        Hamburger button for mobile menu
         <button id="hamburger-btn" class="hamburger-btn" aria-label="Abrir menú" aria-expanded="false">
             <span class="hamburger-line"></span>
             <span class="hamburger-line"></span>
@@ -45,6 +46,24 @@
                 <li><a href="../vistas/resenas.html">RESEÑAS</a></li>
                 <li><a href="../vistas/ubicacion.html">UBICACIÓN</a></li>
                 <li><a href="../vistas/blog.html">BLOG</a></li>
+            </ul>
+        </nav> -->
+
+        <!-- Opcion 2 menu desplegable-->
+        <!-- Botón simple de menú: al hacer clic llama a la función abrirMenu() de script.js -->
+        <button id="hamburger-btn" class="hamburger-btn" onclick="abrirMenu()">MENÚ ☰</button>
+
+        <!-- Menú desplegable sencillo -->
+        <nav id="hamburger-menu" class="hamburger-menu">
+            <ul>
+                <li><a href="../vistas/index.html">INICIO</a></li>
+                <li><a href="../vistas/servicios.html">SERVICIOS</a></li>
+                <li><a href="../vistas/equipo.html">EQUIPO</a></li>
+                <li><a href="../vistas/galeria.html">GALERÍA</a></li>
+                <li><a href="../vistas/resenas.html">RESEÑAS</a></li>
+                <li><a href="../vistas/ubicacion.html">UBICACIÓN</a></li>
+                <li><a href="../vistas/blog.html">BLOG</a></li>
+                <li><a href="../vistas/reservas.html" class="btn-reserva-menu">RESERVAR</a></li>
             </ul>
         </nav>
     </section>
