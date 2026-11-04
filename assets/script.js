@@ -554,7 +554,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // ==========================================================================
 // 4. FUNCIONALIDAD PANEL ADMIN: SELECCIÓN MÚLTIPLE DE TABLAS Y ACCIONES
-// ==========================================================================
+
 document.addEventListener('DOMContentLoaded', function () {
     const selectAll = document.getElementById('select-all'); // Checkbox maestro de la cabecera
     const rowCheckboxes = document.querySelectorAll('.row-checkbox'); // Checkboxes individuales de filas
