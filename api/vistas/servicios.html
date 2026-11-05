@@ -3,24 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Servicios - Barbería Catracha</title>
+    <title>Servicios y precios | Barbería Catracha</title>
+    <!-- Descripción que muestran los buscadores en los resultados -->
+    <meta name="description" content="Precios de cortes de pelo, degradados, barba, tintes y combos en Barbería Catracha, Zaragoza.">
     <link rel="stylesheet" href="../../assets/style.css">
-    <link rel="stylesheet" href="../../assets/servicios-style.css">
+    <!-- Hoja alternativa: solo se nota cuando <html> tiene data-tema="claro" -->
+    <link rel="stylesheet" href="../../assets/tema-claro.css">
+    <!-- Se carga en el head para poner el tema antes de pintar la página (sin parpadeo) -->
+    <script src="../../assets/js/tema.js"></script>
     <link rel="icon" href="../../assets/img/logo.png" type="image/png">
 </head>
 <body class="servicios-body">
 
 <div id="header"></div>
 
-<main class="servicios-main">
+<main class="servicios-main" id="contenido">
     <header class="servicios-header-top">
         <p class="subtitle">LISTA DE PRECIOS</p>
         <h1 class="titulo-principal">Nuestros Servicios</h1>
-        <span class="underline"></span>
+        <span class="underline" aria-hidden="true"></span>
     </header>
 
-    <!-- Un bloque por categoría, generado desde /api/json/servicios.php -->
-    <div id="servicios-bloques"></div>
+    <!-- Un bloque por categoría, generado desde /api/json/servicios.php.
+         La clase servicios-bloques hace que cada bloque entre en la rejilla de 2 columnas -->
+    <div id="servicios-bloques" class="servicios-bloques" aria-live="polite"></div>
 
     <footer class="categoria-cta">
         <a href="reservas.html" class="btn-reserva-premium">RESERVAR CITA AHORA</a>

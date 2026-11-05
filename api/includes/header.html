@@ -1,16 +1,21 @@
+<!-- Enlace para saltar el menú con el teclado (solo se ve al tabular) -->
+<a href="#contenido" class="skip-link">Saltar al contenido</a>
+
 <header class="main-header">
     <section class="container">
-        <a href="../vistas/index.html" class="icon">
-            <section class="icon">
-                <img src="../../assets/img/logo.png" alt="logo barberia">
-            </section>
-            <section class="logo">
+        <!-- El logo lleva alt vacío porque el texto del enlace ya dice el nombre -->
+        <a href="../vistas/index.html" class="icon" aria-label="Barbería Catracha, ir al inicio">
+            <span class="icon">
+                <img src="../../assets/img/logo.png" alt="" width="60" height="60">
+            </span>
+            <span class="logo">
                 <span class="text-white">BARBERÍA</span>
                 <span class="text-gold">CATRACHA</span>
-            </section>
+            </span>
         </a>
 
-        <nav class="nav-menu">
+        <!-- layout.js marca con aria-current="page" el enlace de la página actual -->
+        <nav class="nav-menu" aria-label="Menú principal">
             <ul>
                 <li><a href="../vistas/index.html">INICIO</a></li>
                 <li><a href="../vistas/servicios.html">SERVICIOS</a></li>
@@ -26,8 +31,14 @@
             <a href="../vistas/reservas.html" class="btn-reserve">RESERVAR</a>
         </section>
 
-        <!-- Boton traductor -->
-        <button type="button" id="btn-traducir" class="btn-traducir">EN</button>
+        <!-- Botones de herramientas: idioma y tema (claro / oscuro) -->
+        <section class="header-herramientas">
+            <button type="button" id="btn-traducir" class="btn-traducir" aria-label="Traducir la página al inglés">EN</button>
+            <!-- tema.js cambia el texto y aria-pressed al pulsarlo -->
+            <button type="button" id="btn-tema" class="btn-tema" aria-pressed="false" aria-label="Activar tema claro">
+                <span aria-hidden="true">☀</span>
+            </button>
+        </section>
 
         <!-- Opcion 1 menu desplegable
         Hamburger button for mobile menu
@@ -49,12 +60,12 @@
             </ul>
         </nav> -->
 
-        <!-- Opcion 2 menu desplegable-->
-        <!-- Botón simple de menú: al hacer clic llama a la función abrirMenu() de script.js -->
-        <button id="hamburger-btn" class="hamburger-btn" onclick="abrirMenu()">MENÚ ☰</button>
+        <!-- Menú desplegable para móvil y tablet (opción 2).
+             Antes llevaba onclick="abrirMenu()" en el HTML; ahora el evento se pone en script.js
+             y el botón avisa al lector de pantalla si está abierto o cerrado (aria-expanded). -->
+        <button type="button" id="hamburger-btn" class="hamburger-btn" aria-expanded="false" aria-controls="hamburger-menu">MENÚ ☰</button>
 
-        <!-- Menú desplegable sencillo -->
-        <nav id="hamburger-menu" class="hamburger-menu">
+        <nav id="hamburger-menu" class="hamburger-menu" aria-label="Menú móvil">
             <ul>
                 <li><a href="../vistas/index.html">INICIO</a></li>
                 <li><a href="../vistas/servicios.html">SERVICIOS</a></li>

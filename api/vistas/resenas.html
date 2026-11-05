@@ -3,19 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reseñas - Barbería Catracha</title>
+    <title>Reseñas de clientes | Barbería Catracha</title>
+    <!-- Descripción que muestran los buscadores en los resultados -->
+    <meta name="description" content="Opiniones de clientes de Barbería Catracha en Google. Cuéntanos qué te pareció tu corte.">
     <link rel="stylesheet" href="../../assets/style.css">
+    <!-- Hoja alternativa: solo se nota cuando <html> tiene data-tema="claro" -->
+    <link rel="stylesheet" href="../../assets/tema-claro.css">
+    <!-- Se carga en el head para poner el tema antes de pintar la página (sin parpadeo) -->
+    <script src="../../assets/js/tema.js"></script>
+    <link rel="icon" href="../../assets/img/logo.png" type="image/png">
 </head>
 
 <body>
 <div id="header"></div>
 
-<section class="resenas-page">
+<main class="resenas-page" id="contenido">
 
     <section class="resenas-header">
         <p class="subtitle">LO QUE DICEN NUESTROS CLIENTES</p>
         <h1 class="titulo-principal">Reseñas</h1>
-        <section class="underline"></section>
+        <span class="underline" aria-hidden="true"></span>
     </section>
 
     <section class="widget-container">
@@ -26,16 +33,16 @@
     <section class="resenas-cta">
         <p>¿Te ha gustado tu corte? ¡Cuéntanos tu experiencia!</p>
         <div class="resenas-botones">
-            <a href="https://maps.google.com/?q=Barbería+Catracha" 
-               target="_blank" 
+            <a href="https://maps.google.com/?q=Barbería+Catracha"
+               target="_blank" rel="noopener"
                class="btn-google">
-                Escribir reseña en Google
+                Escribir reseña en Google <span class="sr-only">(se abre en otra pestaña)</span>
             </a>
             <a href="reservas.html" class="btn-resenas-reserva">Reservar Cita</a>
         </div>
     </section>
 
-</section>
+</main>
 
 <div id="footer"></div>
 

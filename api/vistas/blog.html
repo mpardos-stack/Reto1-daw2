@@ -3,23 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog | Barbería Catracha</title>
+    <title>Blog de consejos y tendencias | Barbería Catracha</title>
+    <!-- Descripción que muestran los buscadores en los resultados -->
+    <meta name="description" content="Consejos de cuidado, tendencias de cortes y novedades de Barbería Catracha en Zaragoza.">
     <link rel="stylesheet" href="../../assets/style.css">
+    <!-- Hoja alternativa: solo se nota cuando <html> tiene data-tema="claro" -->
+    <link rel="stylesheet" href="../../assets/tema-claro.css">
+    <!-- Se carga en el head para poner el tema antes de pintar la página (sin parpadeo) -->
+    <script src="../../assets/js/tema.js"></script>
     <link rel="icon" href="../../assets/img/logo.png" type="image/png">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body class="bg-dark">
 
 <div id="header"></div>
 
-<main class="blog-page">
+<main class="blog-page" id="contenido">
 
     <section class="blog-header">
         <p class="subtitle">NUESTRO BLOG</p>
         <h1 class="titulo-principal">
             La Barbería en <span class="text-gold">Imágenes</span>
         </h1>
-        <section class="underline"></section>
+        <span class="underline" aria-hidden="true"></span>
         <p class="descripcion-header">
             Consejos, estilos, tendencias y contenido visual de Barbería Catracha.
         </p>

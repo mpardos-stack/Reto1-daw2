@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Práctica: estilos inline vs CSS externo | Barbería Catracha</title>
+    <!-- Esta página es solo una práctica (CE2B). No sale en el menú ni la deben indexar los buscadores -->
+    <meta name="robots" content="noindex">
+    <link rel="stylesheet" href="../../assets/style.css">
+    <link rel="stylesheet" href="../../assets/practica-inline.css">
+    <link rel="icon" href="../../assets/img/logo.png" type="image/png">
+</head>
+<body>
+<main class="practica" id="contenido">
+    <h1>Práctica: estilos inline vs CSS externo</h1>
+    <p>Mismo componente (una tarjeta de oferta) hecho de dos formas. Abre las herramientas del navegador
+       (F12 → Elements → Styles) y selecciona cada tarjeta para ver de dónde sale cada estilo.</p>
+
+    <div class="practica-fila">
+
+        <!-- VERSIÓN A: estilos inline.
+             5 declaraciones directas en el atributo style. Funciona, pero:
+             - hay que repetirlas en cada tarjeta que hagamos
+             - el tema claro no las puede cambiar (el inline gana a las hojas)
+             - no se puede usar :hover, :focus ni media queries -->
+        <section>
+            <h2>A · Con style="..."</h2>
+            <article style="background-color: #111111; border: 2px solid #d4af37; border-radius: 8px; padding: 24px; color: #ffffff;">
+                <h3 style="color: #d4af37; margin-bottom: 8px;">Corte + barba</h3>
+                <p>Martes y miércoles por 15 €</p>
+            </article>
+        </section>
+
+        <!-- VERSIÓN B: el mismo resultado con una clase de practica-inline.css -->
+        <section>
+            <h2>B · Con la clase .tarjeta-oferta</h2>
+            <article class="tarjeta-oferta">
+                <h3 class="tarjeta-oferta-titulo">Corte + barba</h3>
+                <p>Martes y miércoles por 15 €</p>
+            </article>
+        </section>
+    </div>
+
+    <!-- PRUEBA DE CASCADA: la clase pone el borde dorado, el inline lo pone rojo.
+         Gana el inline porque tiene más prioridad que cualquier selector de una hoja. -->
+    <section class="practica-cascada">
+        <h2>Prueba de prioridad</h2>
+        <article class="tarjeta-oferta" style="border-color: #e74c3c;">
+            <h3 class="tarjeta-oferta-titulo">Inline contra clase</h3>
+            <p>La clase dice borde dorado; el atributo style dice rojo. Se ve rojo.</p>
+        </article>
+
+        <!-- La única forma de que una hoja gane a un inline es !important (por eso no lo usamos) -->
+        <article class="tarjeta-oferta tarjeta-oferta--forzada" style="border-color: #e74c3c;">
+            <h3 class="tarjeta-oferta-titulo">Inline contra !important</h3>
+            <p>Aquí la hoja tiene !important y gana al inline: se ve verde.</p>
+        </article>
+    </section>
+
+    <section class="practica-conclusion">
+        <h2>Conclusión</h2>
+        <ul>
+            <li>Las dos tarjetas de arriba se ven iguales, pero la B se reutiliza en cualquier página con solo poner la clase.</li>
+            <li>Con la A, para cambiar el dorado habría que editar cada style="" a mano; con la B se cambia una vez en el CSS.</li>
+            <li>El inline tiene prioridad sobre las hojas, así que rompe el tema alternativo y obliga a usar !important para ganarle.</li>
+            <li>En la web final no usamos inline. El único que queda es la variable --letras que pone script.js en el título
+                del inicio, porque es un número que se calcula en el momento (cuántas letras tiene el texto).</li>
+            <li>En este hito también quitamos los inline que ponía script.js en el header y en las tarjetas de inicio:
+                ahora son las clases .header-scroll, .por-revelar y .revelada.</li>
+        </ul>
+    </section>
+
+    <p><a href="../vistas/index.html">Volver a la web</a></p>
+</main>
+</body>
+</html>

@@ -3,14 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Barberia Catracha</title>
+    <title>Barbería en Zaragoza | Barbería Catracha</title>
+    <!-- Descripción que muestran los buscadores en los resultados -->
+    <meta name="description" content="Barbería Catracha en Zaragoza (C. de Fray Julián Garcés, 3-5): cortes modernos, degradados y arreglo de barba. Reserva tu cita online.">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="../../assets/style.css">
+    <!-- Hoja alternativa: solo se nota cuando <html> tiene data-tema="claro" -->
+    <link rel="stylesheet" href="../../assets/tema-claro.css">
+    <!-- Se carga en el head para poner el tema antes de pintar la página (sin parpadeo) -->
+    <script src="../../assets/js/tema.js"></script>
     <link rel="icon" href="../../assets/img/logo.png" type="image/png">
 </head>
 <body>
 <div id="header"></div>
-    <main>
+    <!-- id="contenido": destino del enlace "Saltar al contenido" del header -->
+    <main id="contenido">
         <section class="container-contenido">
             <section class="contenido">
                 <p class="direccion">ZARAGOZA · C. DE FRAY JULIÁN GARCÉS, 3-5</p>
@@ -25,77 +32,83 @@
                 </section>
             </section>
         </section>
-    </main>
 
+    <!-- Antes esta sección estaba fuera de <main>; ahora todo el contenido principal va dentro -->
     <section class="explora">
     <div class="container-small">
         <p class="section-subtitle">EXPLORA</p>
         <h2 class="section-title">Todo lo que necesitas saber</h2>
         <div class="title-underline"></div>
 
-        <div class="buscador-web">
-            <i class="fa-solid fa-magnifying-glass buscador-icono"></i>
-            <input type="search" id="buscador-web" placeholder="Busca: corte, barba, horario, mapa..." autocomplete="off" aria-label="Buscar en la web">
+        <div class="buscador-web" role="search">
+            <!-- Label real (oculto a la vista) en vez de depender solo del placeholder -->
+            <label for="buscador-web" class="sr-only">Buscar en la web</label>
+            <i class="fa-solid fa-magnifying-glass buscador-icono" aria-hidden="true"></i>
+            <input type="search" id="buscador-web" placeholder="Busca: corte, barba, horario, mapa..." autocomplete="off" aria-describedby="buscador-ayuda">
         </div>
-        <p id="buscador-sin-resultados" class="buscador-sin-resultados" hidden>No encontramos nada con esa búsqueda.</p>
+        <p id="buscador-ayuda" class="sr-only">Las tarjetas de abajo se filtran mientras escribes. Pulsa Escape para borrar.</p>
+        <!-- role="status": el lector de pantalla lee el aviso cuando aparece -->
+        <p id="buscador-sin-resultados" class="buscador-sin-resultados" role="status" hidden>No encontramos nada con esa búsqueda. Prueba con "corte", "barba" o "horario".</p>
 
         <div class="explore-grid">
             <a href="servicios.html" class="explore-card" data-keywords="corte pelo barba combo degradado afeitado precio tarifa">
-                <div class="card-icon">✂</div>
+                <div class="card-icon" aria-hidden="true">✂</div>
                 <div class="card-info">
                     <h3>SERVICIOS & PRECIOS</h3>
                     <p>Cortes, barba y combos</p>
                 </div>
-                <div class="card-arrow">›</div>
+                <div class="card-arrow" aria-hidden="true">›</div>
             </a>
 
             <a href="equipo.html" class="explore-card" data-keywords="barberos ross luis rolando profesionales">
-                <div class="card-icon">👥</div>
+                <div class="card-icon" aria-hidden="true">👥</div>
                 <div class="card-info">
                     <h3>NUESTRO EQUIPO</h3>
                     <p>Ross, Luis y Rolando</p>
                 </div>
-                <div class="card-arrow">›</div>
+                <div class="card-arrow" aria-hidden="true">›</div>
             </a>
 
             <a href="galeria.html" class="explore-card" data-keywords="fotos imagenes estilos tendencias">
-                <div class="card-icon">🖼</div>
+                <div class="card-icon" aria-hidden="true">🖼</div>
                 <div class="card-info">
                     <h3>GALERÍA</h3>
                     <p>Tendencias y estilos</p>
                 </div>
-                <div class="card-arrow">›</div>
+                <div class="card-arrow" aria-hidden="true">›</div>
             </a>
 
             <a href="resenas.html" class="explore-card" data-keywords="opiniones valoraciones google estrellas">
-                <div class="card-icon"><i class="fa-solid fa-star"></i></div>
+                <div class="card-icon" aria-hidden="true"><i class="fa-solid fa-star"></i></div>
                 <div class="card-info">
                     <h3>RESEÑAS</h3>
                     <p>5 estrellas en Google</p>
                 </div>
-                <div class="card-arrow">›</div>
+                <div class="card-arrow" aria-hidden="true">›</div>
             </a>
 
             <a href="ubicacion.html" class="explore-card" data-keywords="direccion mapa horario donde llegar telefono">
-                <div class="card-icon">📍</div>
+                <div class="card-icon" aria-hidden="true">📍</div>
                 <div class="card-info">
                     <h3>UBICACIÓN</h3>
                     <p>Dónde encontrarnos</p>
                 </div>
-                <div class="card-arrow">›</div>
+                <div class="card-arrow" aria-hidden="true">›</div>
             </a>
         </div>
     </div>
 
     <div class="bottom-cta-bar">
-        <a href="reservas.html">✂ RESERVAR CITA — EMPIEZA AQUÍ</a>
+        <a href="reservas.html"><span aria-hidden="true">✂ </span>RESERVAR CITA — EMPIEZA AQUÍ</a>
     </div>
-</section>
+    </section>
+    </main>
 
 <div id="footer"></div>
 
 <script src="../../assets/js/layout.js"></script>
-<script src="../../assets/script.js"></script>
+<!-- script.js ya lo carga layout.js cuando el header y el footer están puestos.
+     Antes también se cargaba aquí y salía en consola "observerOptions has already been declared". -->
 
 </body>
 </html>

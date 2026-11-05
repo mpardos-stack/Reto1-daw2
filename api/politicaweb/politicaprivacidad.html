@@ -4,7 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Privacidad | Barbería Catracha</title>
+    <!-- Descripción que muestran los buscadores en los resultados -->
+    <meta name="description" content="Política de privacidad y tratamiento de datos de Barbería Catracha.">
     <link rel="stylesheet" href="../../assets/style.css?v=10">
+    <!-- Hoja alternativa: solo se nota cuando <html> tiene data-tema="claro" -->
+    <link rel="stylesheet" href="../../assets/tema-claro.css">
+    <!-- Se carga en el head para poner el tema antes de pintar la página (sin parpadeo) -->
+    <script src="../../assets/js/tema.js"></script>
     <link rel="icon" href="../../assets/img/logo.png" type="image/png">
 
 
@@ -12,7 +18,7 @@
 <body>
 <div id="header"></div>
 
-<main class="legal-page">
+<main class="legal-page" id="contenido">
 
     <!-- HERO -->
     <section class="legal-hero">
@@ -136,9 +142,9 @@
 
             <p>
                 <a href="https://www.aepd.es/"
-                   target="_blank"
+                   target="_blank" rel="noopener"
                    class="legal-link">
-                    www.aepd.es
+                    www.aepd.es <span class="sr-only">(se abre en otra pestaña)</span>
                 </a>
             </p>
 

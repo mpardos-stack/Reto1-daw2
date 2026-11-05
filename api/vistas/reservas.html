@@ -3,71 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reservas - Barbería Catracha</title>
+    <title>Reservar cita online | Barbería Catracha</title>
+    <!-- Descripción que muestran los buscadores en los resultados -->
+    <meta name="description" content="Reserva tu cita en Barbería Catracha en 5 pasos: elige servicio, fecha, hora y barbero.">
     <link rel="stylesheet" href="../../assets/style.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <!-- Hoja alternativa: solo se nota cuando <html> tiene data-tema="claro" -->
+    <link rel="stylesheet" href="../../assets/tema-claro.css">
+    <!-- Se carga en el head para poner el tema antes de pintar la página (sin parpadeo) -->
+    <script src="../../assets/js/tema.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/flatpickr.min.css">
     <link rel="icon" href="../../assets/img/logo.png" type="image/png">
 </head>
 <body>
 
 <div id="header"></div>
 
-<section class="reservas-page">
+<main class="reservas-page" id="contenido">
     <div class="reservas-container">
         <h1>Reserva tu Cita</h1>
 
-        <div class="pasos-bar">
-            <div class="paso-item activo" data-paso="0"><span class="paso-numero">1</span><span class="paso-texto">Servicio</span></div>
-            <div class="paso-item" data-paso="1"><span class="paso-numero">2</span><span class="paso-texto">Fecha y Hora</span></div>
-            <div class="paso-item" data-paso="2"><span class="paso-numero">3</span><span class="paso-texto">Barbero</span></div>
-            <div class="paso-item" data-paso="3"><span class="paso-numero">4</span><span class="paso-texto">Tus Datos</span></div>
-            <div class="paso-item" data-paso="4"><span class="paso-numero">5</span><span class="paso-texto">Confirmación</span></div>
-        </div>
+        <!-- Los pasos son una secuencia, así que van en una lista ordenada.
+             script.js pone aria-current="step" en el paso en el que estás. -->
+        <ol class="pasos-bar" aria-label="Pasos de la reserva">
+            <li class="paso-item activo" data-paso="0" aria-current="step"><span class="paso-numero">1</span><span class="paso-texto">Servicio</span></li>
+            <li class="paso-item" data-paso="1"><span class="paso-numero">2</span><span class="paso-texto">Fecha y Hora</span></li>
+            <li class="paso-item" data-paso="2"><span class="paso-numero">3</span><span class="paso-texto">Barbero</span></li>
+            <li class="paso-item" data-paso="3"><span class="paso-numero">4</span><span class="paso-texto">Tus Datos</span></li>
+            <li class="paso-item" data-paso="4"><span class="paso-numero">5</span><span class="paso-texto">Confirmación</span></li>
+        </ol>
+        <!-- En móvil los nombres de los pasos se ocultan, así que lo decimos con texto -->
+        <p class="paso-indicador" id="paso-indicador" aria-live="polite">Paso 1 de 5: Servicio</p>
 
-        <!-- Mensajes de éxito / error (los pinta reservas.js) -->
-        <div id="reserva-alerta"></div>
+        <!-- Mensajes de éxito / error (los pinta reservas.js). aria-live para que se lean solos -->
+        <div id="reserva-alerta" aria-live="assertive"></div>
 
-        <div class="seguimiento-live" id="seguimiento-live">
+        <div class="seguimiento-live" id="seguimiento-live" aria-label="Resumen de tu elección">
             <div class="seg-item" id="track-servicio"><strong>Servicio:</strong> <span>Ninguno seleccionado</span></div>
             <div class="seg-item" id="track-barbero"><strong>Barbero:</strong> <span>Ninguno seleccionado</span></div>
             <div class="seg-item" id="track-cita"><strong>Cita:</strong> <span>No establecida</span></div>
         </div>
 
-        <form id="form-reserva" action="../json/reservas.php" method="POST">
+        <!-- novalidate: los errores los enseña script.js junto a cada paso, con un texto claro,
+             en vez de los globos del navegador (que cambian según el navegador) -->
+        <form id="form-reserva" action="../json/reservas.php" method="POST" novalidate>
             
             <div class="reserva-step activo" id="step-1">
-                <h2>Selecciona un servicio</h2>
-                
-                <div class="servicios-filtros">
-                    <button type="button" class="filtro-btn activo" data-categoria="todos">Todos</button>
-                    <button type="button" class="filtro-btn" data-categoria="corte">Cortes</button>
-                    <button type="button" class="filtro-btn" data-categoria="barba">Barba</button>
-                    <button type="button" class="filtro-btn" data-categoria="tinte">Tintes / Color</button>
-                    <button type="button" class="filtro-btn" data-categoria="otros">Otros Combos</button>
+                <!-- tabindex="-1": script.js lleva el foco aquí al cambiar de paso -->
+                <h2 tabindex="-1">Selecciona un servicio</h2>
+
+                <!-- aria-pressed indica qué filtro está activo -->
+                <div class="servicios-filtros" role="group" aria-label="Filtrar servicios por categoría">
+                    <button type="button" class="filtro-btn activo" data-categoria="todos" aria-pressed="true">Todos</button>
+                    <button type="button" class="filtro-btn" data-categoria="corte" aria-pressed="false">Cortes</button>
+                    <button type="button" class="filtro-btn" data-categoria="barba" aria-pressed="false">Barba</button>
+                    <button type="button" class="filtro-btn" data-categoria="tinte" aria-pressed="false">Tintes / Color</button>
+                    <button type="button" class="filtro-btn" data-categoria="otros" aria-pressed="false">Otros Combos</button>
                 </div>
 
-                <div class="servicios-grid">
+                <div class="servicios-grid" role="radiogroup" aria-label="Servicios">
                     <!-- Servicios generados desde /api/json/reservas.php -->
                 </div>
+                <!-- Aquí aparece el aviso si intentas avanzar sin elegir (antes era un alert()) -->
+                <p class="aviso-paso" role="alert" hidden></p>
                 <div class="nav-buttons single-btn">
                     <button type="button" class="btn-siguiente">Siguiente Paso</button>
                 </div>
             </div>
 
             <div class="reserva-step" id="step-2">
-                <h2>Elige fecha y hora</h2>
+                <h2 tabindex="-1">Elige fecha y hora</h2>
                 <div class="agenda-container">
                     <div class="calendario-box">
-                        <input type="text" id="datepicker" name="fecha" placeholder="Selecciona una fecha" readonly required>
+                        <label for="datepicker" class="campo-label">Fecha de la cita</label>
+                        <input type="text" id="datepicker" name="fecha" placeholder="Selecciona una fecha" readonly required aria-describedby="ayuda-fecha">
+                        <p id="ayuda-fecha" class="campo-ayuda">Los días en gris están cerrados.</p>
                         <input type="hidden" name="hora" id="hora-seleccionada">
                     </div>
                     <div class="horas-box">
-                        <h3>Horas disponibles</h3>
-                        <div id="horas-grid" class="horas-grid">
+                        <h3 id="titulo-horas">Horas disponibles</h3>
+                        <div id="horas-grid" class="horas-grid" role="group" aria-labelledby="titulo-horas" aria-live="polite">
                             <p class="select-date-msg">Por favor, selecciona una fecha primero.</p>
                         </div>
                     </div>
                 </div>
+                <p class="aviso-paso" role="alert" hidden></p>
                 <div class="nav-buttons">
                     <button type="button" class="btn-atras">Atrás</button>
                     <button type="button" class="btn-siguiente" id="btn-validar-hora">Siguiente Paso</button>
@@ -75,11 +94,12 @@
             </div>
 
             <div class="reserva-step" id="step-3">
-                <h2>Selecciona tu barbero</h2>
+                <h2 tabindex="-1">Selecciona tu barbero</h2>
                 <p class="paso-ayuda">Solo se muestran disponibles los barberos que pueden atenderte en la fecha y hora elegidas.</p>
-                <div class="barberos-grid">
+                <div class="barberos-grid" role="radiogroup" aria-label="Barberos">
                     <!-- Barberos generados desde /api/json/reservas.php -->
                 </div>
+                <p class="aviso-paso" role="alert" hidden></p>
                 <div class="nav-buttons">
                     <button type="button" class="btn-atras">Atrás</button>
                     <button type="button" class="btn-siguiente">Siguiente Paso</button>
@@ -87,25 +107,30 @@
             </div>
 
             <div class="reserva-step" id="step-4">
-                <h2>Tus datos personales</h2>
+                <h2 tabindex="-1">Tus datos personales</h2>
+                <p class="paso-ayuda">Los campos marcados con * son obligatorios.</p>
+                <!-- Cada label va unido a su campo con for/id: al pulsar el texto se enfoca el campo
+                     y el lector de pantalla lo lee. autocomplete deja que el navegador lo rellene. -->
                 <div class="form-group-grid">
                     <div class="input-box">
-                        <label>Nombre *</label>
-                        <input type="text" name="nombre" placeholder="Ingresa tu nombre" required>
+                        <label for="campo-nombre">Nombre *</label>
+                        <input type="text" id="campo-nombre" name="nombre" placeholder="Ej: Carlos" autocomplete="given-name" required>
                     </div>
                     <div class="input-box">
-                        <label>Apellido *</label>
-                        <input type="text" name="apellido" placeholder="Ingresa tu apellido" required>
+                        <label for="campo-apellido">Apellido *</label>
+                        <input type="text" id="campo-apellido" name="apellido" placeholder="Ej: García" autocomplete="family-name" required>
                     </div>
                     <div class="input-box">
-                        <label>Teléfono *</label>
-                        <input type="tel" name="telefono" placeholder="Ej: 600000000" required>
+                        <label for="campo-telefono">Teléfono *</label>
+                        <input type="tel" id="campo-telefono" name="telefono" placeholder="Ej: 600000000" autocomplete="tel" inputmode="tel" pattern="[0-9 +]{9,15}" required aria-describedby="ayuda-telefono">
+                        <p id="ayuda-telefono" class="campo-ayuda">9 cifras, sin guiones.</p>
                     </div>
                     <div class="input-box">
-                        <label>Correo Electrónico</label>
-                        <input type="email" name="email" placeholder="nombre@correo.com">
+                        <label for="campo-email">Correo electrónico (opcional)</label>
+                        <input type="email" id="campo-email" name="email" placeholder="nombre@correo.com" autocomplete="email">
                     </div>
                 </div>
+                <p class="aviso-paso" role="alert" hidden></p>
                 <div class="nav-buttons">
                     <button type="button" class="btn-atras">Atrás</button>
                     <button type="button" class="btn-siguiente">Siguiente Paso</button>
@@ -113,7 +138,7 @@
             </div>
 
             <div class="reserva-step" id="step-5">
-                <h2>Confirmar tu cita</h2>
+                <h2 tabindex="-1">Confirmar tu cita</h2>
                 <div class="resumen-reserva-box">
                     <p>Por favor, verifica que los detalles de tu cita sean correctos antes de finalizar.</p>
                     <div class="ticket-resumen">
@@ -128,13 +153,14 @@
                     <label class="reserva-politica-label">
                         <input type="checkbox" id="acepto-politica" required>
                         <span>He leído y acepto la
-                            <a href="../politicaweb/politicaprivacidad.html" target="_blank" class="reserva-politica-link">
-                                Política de Privacidad
+                            <a href="../politicaweb/politicaprivacidad.html" target="_blank" rel="noopener" class="reserva-politica-link">
+                                Política de Privacidad <span class="sr-only">(se abre en otra pestaña)</span>
                             </a>
                             para el tratamiento de mis datos personales.
                         </span>
                     </label>
                 </div>
+                <p class="aviso-paso" role="alert" hidden></p>
                 <div class="nav-buttons">
                     <button type="button" class="btn-atras">Atrás</button>
                     <button type="submit" class="btn-confirmar" id="btn-confirmar-reserva">Confirmar Reserva</button>
@@ -143,12 +169,12 @@
 
         </form>
     </div>
-</section>
+</main>
 
 <div id="footer"></div>
 
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/flatpickr.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/l10n/es.js"></script>
 <script src="../../assets/js/layout.js"></script>
 <script src="../../assets/js/reservas.js"></script>
 </body>

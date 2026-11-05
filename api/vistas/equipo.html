@@ -3,21 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Equipo - Barbería Catracha</title>
+    <title>Nuestro equipo de barberos | Barbería Catracha</title>
+    <!-- Descripción que muestran los buscadores en los resultados -->
+    <meta name="description" content="Conoce a Ross, Luis y Rolando, los barberos de Barbería Catracha en Zaragoza, y sus especialidades.">
     <link rel="stylesheet" href="../../assets/style.css">
+    <!-- Hoja alternativa: solo se nota cuando <html> tiene data-tema="claro" -->
+    <link rel="stylesheet" href="../../assets/tema-claro.css">
+    <!-- Se carga en el head para poner el tema antes de pintar la página (sin parpadeo) -->
+    <script src="../../assets/js/tema.js"></script>
     <link rel="icon" href="../../assets/img/logo.png" type="image/png">
 </head>
 <body>
 
 <div id="header"></div>
 
-<main>
+<main id="contenido">
     <section class="equipo-section">
 
         <header class="equipo-header">
             <p class="subtitle">PROFESIONALES DE CONFIANZA</p>
             <h1 class="titulo-principal">Nuestro Equipo</h1>
-            <span class="underline"></span>
+            <span class="underline" aria-hidden="true"></span>
             <p class="descripcion-header">
                 Tres barberos con pasión, técnica y dedicación para darte el mejor resultado.
             </p>
@@ -30,7 +36,7 @@
         <template id="tpl-barbero">
             <section class="barbero-card">
                 <section class="barbero-img">
-                    <img src="" alt="">
+                    <img src="" alt="" width="400" height="500" loading="lazy">
                 </section>
                 <section class="barbero-info">
                     <h2></h2>
