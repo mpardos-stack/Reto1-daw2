@@ -637,62 +637,34 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 // ==========================================================================
-// 5. MENÚ HAMBURGUESA MÓVIL (Vistas del Cliente) Opcion1 menu desplegable
+// 5. MENÚ DESPLEGABLE MÓVIL: 3 OPCIONES (solo una activa, ver header.html)
 // ==========================================================================
-//document.addEventListener('DOMContentLoaded', function () {
-  //  const hambBtn = document.getElementById('hamburger-btn');
-   // const hambMenu = document.getElementById('hamburger-menu');
 
-// if (!hambBtn || !hambMenu) return;
+// --------------------------------------------------------------------------
+// OPCIÓN 1: botón hamburguesa (3 rayas que se convierten en X)
+// Al pulsar el botón se pone o se quita la clase "abierto" en el botón y en el menú.
+// El CSS hace el resto: muestra la caja y gira las rayas para formar la X.
+// --------------------------------------------------------------------------
+// document.addEventListener('DOMContentLoaded', function () {
+//     const boton = document.getElementById('menu1-btn');
+//     const menu = document.getElementById('menu1-lista');
+//     if (!boton || !menu) return; // esta página no tiene el menú
+//
+//     boton.addEventListener('click', function () {
+//         const abierto = menu.classList.toggle('abierto'); // toggle devuelve true si la ha puesto
+//         boton.classList.toggle('abierto', abierto);
+//         boton.setAttribute('aria-expanded', abierto);       // para el lector de pantalla
+//     });
+// });
 
-    // Cierra el menú móvil de manera limpia aplicando accesibilidad ARIA
-// function closeMenu() {
-//     hambMenu.classList.remove('open');
-//     hambBtn.classList.remove('open');
-//     hambBtn.setAttribute('aria-expanded', 'false');
-//     hambMenu.setAttribute('aria-hidden', 'true');
-// }
-
-    // Abre el menú móvil aplicando accesibilidad ARIA
-//  function openMenu() {
-//       hambMenu.classList.add('open');
-//      hambBtn.classList.add('open');
-//       hambBtn.setAttribute('aria-expanded', 'true');
-//       hambMenu.setAttribute('aria-hidden', 'false');
-//  }
-
-    // Alternar apertura y cierre al presionar el botón de hamburguesa
-//  hambBtn.addEventListener('click', function (e) {
-//       e.stopPropagation(); // Evita que el evento "flote" al documento e inmediatamente cierre el menú
-//       if (hambMenu.classList.contains('open')) {
-//           closeMenu();
-//       } else {
-//           openMenu();
-//       }
-//   });
-
-    // UX: Si el menú está abierto y el usuario hace clic fuera de él, se cierra automáticamente
-//  document.addEventListener('click', function (e) {
-//      if (!hambMenu.contains(e.target) && !hambBtn.contains(e.target)) {
-//          closeMenu();
-//      }
-//   });
-
-    // Accesibilidad por teclado: Al pulsar la tecla Escape se cierra el menú lateral
-//    document.addEventListener('keydown', function (e) {
-//       if (e.key === 'Escape') closeMenu();
-//   });
-//});
-
-// ==========================================================================
-// 5. MENÚ HAMBURGUESA MÓVIL (Vistas del Cliente) Opcion 2 menu desplegable
-// ==========================================================================
-// Antes el botón tenía onclick="abrirMenu()" escrito en header.html. Ahora el evento se
-// pone aquí para no mezclar HTML y JavaScript, y además:
-//  - aria-expanded avisa al lector de pantalla de si el menú está abierto o cerrado
+// --------------------------------------------------------------------------
+// OPCIÓN 2 (ACTIVA): botón "MENÚ ☰" y menú a todo el ancho
+// Igual que la opción 1 (poner o quitar una clase), y además:
+//  - al abrir, el foco pasa al primer enlace (cómodo con teclado)
 //  - Escape cierra el menú y devuelve el foco al botón
-//  - al hacer clic fuera del menú también se cierra
-// toggle añade la clase "mostrar" si no la tiene y la quita si ya la tiene.
+//  - un clic fuera del menú también lo cierra
+// --------------------------------------------------------------------------
+// forzar: true = abrir, false = cerrar, sin nada = cambiar al contrario
 function abrirMenu(forzar) {
     const menu = document.getElementById('hamburger-menu');
     const boton = document.getElementById('hamburger-btn');
@@ -708,9 +680,8 @@ document.addEventListener('DOMContentLoaded', function () {
     boton.dataset.listo = '1'; // evita poner el evento dos veces (el script vuelve a lanzar DOMContentLoaded)
 
     boton.addEventListener('click', function (e) {
-        e.stopPropagation();
+        e.stopPropagation(); // si no, el clic llega al document y el menú se cerraría al momento
         abrirMenu();
-        // Al abrir, llevamos el foco al primer enlace para seguir con el teclado
         if (menu.classList.contains('mostrar')) menu.querySelector('a').focus();
     });
 
@@ -726,6 +697,10 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
+// --------------------------------------------------------------------------
+// OPCIÓN 3: menú con <details> y <summary>
+// No necesita JavaScript: el navegador abre y cierra el <details> solo.
+// --------------------------------------------------------------------------
 
 // ==========================================================================
 // 6. TOGGLE SIDEBAR DE ADMINISTRACIÓN (Adaptabilidad Tablets/Móviles)

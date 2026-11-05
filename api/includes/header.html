@@ -40,15 +40,23 @@
             </button>
         </section>
 
-        <!-- Opcion 1 menu desplegable
-        Hamburger button for mobile menu
-        <button id="hamburger-btn" class="hamburger-btn" aria-label="Abrir menú" aria-expanded="false">
-            <span class="hamburger-line"></span>
-            <span class="hamburger-line"></span>
-            <span class="hamburger-line"></span>
+        <!-- =====================================================================
+             MENÚ DESPLEGABLE PARA MÓVIL Y TABLET: 3 OPCIONES
+             Solo puede haber una activa. Para cambiar de opción:
+               1) aquí: comentar la activa y quitar el comentario de la que quieras
+               2) en style.css: lo mismo con su bloque de CSS
+               3) en script.js: lo mismo con su bloque de JS (la opción 3 no tiene JS)
+             ===================================================================== -->
+
+        <!-- OPCIÓN 1: botón hamburguesa (3 rayas que se convierten en una X al abrir).
+             El menú sale en una caja pequeña a la derecha. Necesita script.js.
+        <button type="button" id="menu1-btn" class="menu1-btn" aria-label="Menú" aria-expanded="false" aria-controls="menu1-lista">
+            <span class="menu1-raya"></span>
+            <span class="menu1-raya"></span>
+            <span class="menu1-raya"></span>
         </button>
 
-        <nav id="hamburger-menu" class="hamburger-menu" aria-hidden="true">
+        <nav id="menu1-lista" class="menu1-lista" aria-label="Menú móvil">
             <ul>
                 <li><a href="../vistas/index.html">INICIO</a></li>
                 <li><a href="../vistas/servicios.html">SERVICIOS</a></li>
@@ -57,12 +65,13 @@
                 <li><a href="../vistas/resenas.html">RESEÑAS</a></li>
                 <li><a href="../vistas/ubicacion.html">UBICACIÓN</a></li>
                 <li><a href="../vistas/blog.html">BLOG</a></li>
+                <li><a href="../vistas/reservas.html">RESERVAR</a></li>
             </ul>
-        </nav> -->
+        </nav>
+        -->
 
-        <!-- Menú desplegable para móvil y tablet (opción 2).
-             Antes llevaba onclick="abrirMenu()" en el HTML; ahora el evento se pone en script.js
-             y el botón avisa al lector de pantalla si está abierto o cerrado (aria-expanded). -->
+        <!-- OPCIÓN 2 (ACTIVA): botón con el texto "MENÚ ☰" y menú a todo el ancho bajo el header.
+             Necesita script.js. aria-expanded le dice al lector de pantalla si está abierto. -->
         <button type="button" id="hamburger-btn" class="hamburger-btn" aria-expanded="false" aria-controls="hamburger-menu">MENÚ ☰</button>
 
         <nav id="hamburger-menu" class="hamburger-menu" aria-label="Menú móvil">
@@ -74,8 +83,28 @@
                 <li><a href="../vistas/resenas.html">RESEÑAS</a></li>
                 <li><a href="../vistas/ubicacion.html">UBICACIÓN</a></li>
                 <li><a href="../vistas/blog.html">BLOG</a></li>
-                <li><a href="../vistas/reservas.html" class="btn-reserva-menu">RESERVAR</a></li>
+                <li><a href="../vistas/reservas.html">RESERVAR</a></li>
             </ul>
         </nav>
+
+        <!-- OPCIÓN 3: menú hecho solo con HTML usando details y summary.
+             El navegador lo abre y lo cierra al pulsar "Menú", sin JavaScript.
+             Funciona igual con ratón, dedo o teclado (Intro o Espacio).
+        <details class="menu3">
+            <summary>☰ Menú</summary>
+            <nav class="menu3-lista" aria-label="Menú móvil">
+                <ul>
+                <li><a href="../vistas/index.html">INICIO</a></li>
+                <li><a href="../vistas/servicios.html">SERVICIOS</a></li>
+                <li><a href="../vistas/equipo.html">EQUIPO</a></li>
+                <li><a href="../vistas/galeria.html">GALERÍA</a></li>
+                <li><a href="../vistas/resenas.html">RESEÑAS</a></li>
+                <li><a href="../vistas/ubicacion.html">UBICACIÓN</a></li>
+                <li><a href="../vistas/blog.html">BLOG</a></li>
+                <li><a href="../vistas/reservas.html">RESERVAR</a></li>
+                </ul>
+            </nav>
+        </details>
+        -->
     </section>
 </header>

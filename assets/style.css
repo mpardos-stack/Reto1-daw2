@@ -756,142 +756,209 @@ img, picture, video, iframe, svg {
     .filtros-reservas .btn { width: 100%; }
 }
 
-/*Opcion 1 menu desplegable*/
-/*!* Hamburger menu styles for client views *!*/
+/* ==========================================================================
+   MENÚ DESPLEGABLE PARA MÓVIL Y TABLET: 3 OPCIONES
+   Solo una activa (la 2). Para cambiar: comentar su bloque y descomentar otro,
+   y hacer lo mismo en header.html y script.js.
+   Las tres aparecen por debajo de 1200px; en escritorio se ve el menú normal (.nav-menu).
+   Usan las variables de color (--gold, --white, --dark-bg), así funcionan con el tema claro.
+   ========================================================================== */
 
-/*.hamburger-btn {*/
-/*    display: none; !* shown on small screens *!*/
-/*    background: transparent;*/
-/*    border: none;*/
-/*    cursor: pointer;*/
-/*    padding: 8px;*/
-/*    margin-left: 12px;*/
-/*    align-self: center;*/
-/*}*/
-/*.hamburger-line {*/
-/*    display: block;*/
-/*    width: 22px;*/
-/*    height: 2px;*/
-/*    background: var(--white);*/
-/*    margin: 4px 0;*/
-/*    transition: transform 0.2s ease, opacity 0.2s ease;*/
-/*}*/
-
-/*.hamburger-menu {*/
-/*    position: absolute;*/
-/*    right: 16px;*/
-/*    top: 70px;*/
-/*    background: rgba(10,10,10,0.98);*/
-/*    border: 1px solid rgba(255,255,255,0.04);*/
-/*    padding: 12px;*/
-/*    border-radius: 8px;*/
-/*    min-width: 180px;*/
-/*    box-shadow: 0 8px 30px rgba(0,0,0,0.6);*/
-/*    z-index: 9999;*/
-/*    display: none;*/
-/*}*/
-/*.hamburger-menu ul { list-style: none; margin: 0; padding: 0; }*/
-/*.hamburger-menu li { margin: 6px 0; }*/
-/*.hamburger-menu a { color: var(--white); text-decoration: none; display: block; padding: 8px 10px; border-radius:6px; }*/
-/*.hamburger-menu a:hover { background: rgba(255,255,255,0.02); color: var(--gold); }*/
-
-/*!* Show hamburger on tablets and smaller, hide main nav on <=1024px *!*/
-/*@media (max-width: 1024px) {*/
-/*    .nav-menu { display: none; }*/
-/*    .hamburger-btn { display: inline-flex; }*/
-/*}*/
-
-/*!* Tablet-specific sizing (601px - 1024px): slightly larger tappable area *!*/
-/*@media (min-width: 601px) and (max-width: 1024px) {*/
-/*    .hamburger-btn {*/
-/*        padding: 10px;*/
-/*        margin-left: 16px;*/
-/*    }*/
-/*    .hamburger-line {*/
-/*        width: 26px;*/
-/*        height: 3px;*/
-/*        margin: 5px 0;*/
-/*    }*/
-/*    .hamburger-menu {*/
-/*        top: 64px; !* adjust for taller tablet headers *!*/
-/*        right: 18px;*/
-/*        min-width: 220px;*/
-/*        padding: 14px;*/
-/*    }*/
-/*    .icon img { max-height: 56px; }*/
-/*}*/
-
-/*!* Mobile-specific (<=600px): keep previous compact sizes *!*/
-/*@media (max-width: 600px) {*/
-/*    .hamburger-btn { padding: 8px; margin-left: 12px; }*/
-/*    .hamburger-line { width: 22px; height: 2px; margin: 4px 0; }*/
-/*    .hamburger-menu { top: 60px; right: 12px; min-width: 180px; }*/
-/*    .icon img { max-height: 44px; }*/
-/*}*/
-
-/*!* Ocultar la palabra 'BARBERÍA' en móviles y mostrar solo logo + 'CATRACHA' *!*/
-/*@media (max-width: 768px) {*/
-/*    .logo { display: flex; align-items: center; gap: 6px; }*/
-/*    .logo .text-white { display: none; }*/
-/*    .logo .text-gold { font-size: 1.25rem; }*/
-/*    .icon img { max-height: 44px; }*/
-/*}*/
-
-/*!* When menu is open *!*/
-/*.hamburger-menu.open { display: block; }*/
-/*.hamburger-btn.open .hamburger-line:nth-child(1) { transform: translateY(6px) rotate(45deg); }*/
-/*.hamburger-btn.open .hamburger-line:nth-child(2) { opacity: 0; }*/
-/*.hamburger-btn.open .hamburger-line:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }*/
-
-/*Opcion 2 menu deplegable */
-/* --- MENÚ MÓVIL SENCILLO --- */
-/* El header es la referencia para colocar el menú debajo */
+/* Común a las tres: el header es la referencia para colocar el menú justo debajo */
 .main-header {
     position: relative;
 }
+
+/* --------------------------------------------------------------------------
+   OPCIÓN 1: botón hamburguesa (3 rayas que se convierten en X)
+   -------------------------------------------------------------------------- */
+/*
+.menu1-btn {
+    display: none;
+    width: 44px;
+    height: 44px;
+    padding: 10px;
+    background: transparent;
+    border: 1px solid var(--gold);
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.menu1-raya {
+    display: block;
+    height: 2px;
+    margin: 4px 0;
+    background: var(--gold);
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.menu1-btn.abierto .menu1-raya:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.menu1-btn.abierto .menu1-raya:nth-child(2) { opacity: 0; }
+.menu1-btn.abierto .menu1-raya:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+.menu1-lista {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 16px;
+    min-width: 200px;
+    padding: 10px;
+    background: var(--dark-bg);
+    border: 1px solid var(--gold);
+    border-radius: 8px;
+    z-index: 1000;
+}
+
+.menu1-lista.abierto {
+    display: block;
+}
+
+.menu1-lista ul {
+    list-style: none;
+}
+
+.menu1-lista a {
+    display: block;
+    padding: 10px 12px;
+    color: var(--white);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.menu1-lista a:hover,
+.menu1-lista a[aria-current="page"] {
+    color: var(--gold);
+}
+
+@media (max-width: 1199px) {
+    .nav-menu { display: none; }
+    .menu1-btn { display: block; }
+}
+*/
+
+/* --------------------------------------------------------------------------
+   OPCIÓN 2 (ACTIVA): botón "MENÚ ☰" y menú a todo el ancho
+   - El botón está oculto en PC y aparece hasta 1199px (entre 1025 y 1199px
+     los 7 enlaces y los botones no cabían en el header).
+   - El menú va justo debajo del header y se ve cuando el JS le pone la clase "mostrar".
+   - Dentro del bloque no hay comentarios a propósito: así se puede comentar
+     entero con un solo par de barras y asteriscos sin que se rompa.
+   -------------------------------------------------------------------------- */
 .hamburger-btn {
-    display: none; /* Oculto en PC */
+    display: none;
     background: var(--gold);
     color: #000;
     border: none;
-    padding: 8px 12px;
+    padding: 10px 12px;
     font-weight: bold;
+    white-space: nowrap;
     cursor: pointer;
 }
+
 .hamburger-menu {
-    display: none; /* Oculto por defecto */
+    display: none;
     position: absolute;
-    top: 100%; /* Aparece justo debajo del header */
+    top: 100%;
     left: 0;
     width: 100%;
     background-color: #0a0a0a;
     border-top: 1px solid var(--gold);
     padding: 15px 0;
-    z-index: 1000; /* Por encima del resto de la página */
+    z-index: 1000;
 }
-/* Clase que activa el JS para mostrar el menú */
+
 .hamburger-menu.mostrar {
     display: block;
 }
+
 .hamburger-menu ul {
     list-style: none;
     text-align: center;
 }
+
 .hamburger-menu li {
     margin: 12px 0;
 }
+
 .hamburger-menu a {
+    display: inline-block;
+    padding: 8px 16px;
     color: var(--white);
     text-decoration: none;
     font-weight: 600;
 }
-/* Mostrar el botón en móviles/tablets.
-   Antes era hasta 1024px, pero entre 1025 y 1199px los 7 enlaces + botones no cabían
-   y el header se salía por la derecha (medido en 1025, 1100 y 1200px). */
+
 @media (max-width: 1199px) {
     .nav-menu { display: none; }
     .hamburger-btn { display: block; }
 }
+
+/* --------------------------------------------------------------------------
+   OPCIÓN 3: menú con details y summary (sin JavaScript)
+   Los enlaces salen en dos columnas a todo el ancho.
+   -------------------------------------------------------------------------- */
+/*
+.menu3 {
+    display: none;
+}
+
+.menu3 summary {
+    list-style: none;
+    padding: 10px 14px;
+    border: 1px solid var(--gold);
+    border-radius: 6px;
+    color: var(--gold);
+    font-weight: 700;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.menu3 summary::-webkit-details-marker {
+    display: none;
+}
+
+.menu3[open] summary {
+    background: var(--gold);
+    color: var(--dark-bg);
+}
+
+.menu3-lista {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    padding: 12px 16px;
+    background: var(--dark-bg);
+    border-bottom: 2px solid var(--gold);
+    z-index: 1000;
+}
+
+.menu3-lista ul {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+}
+
+.menu3-lista a {
+    display: block;
+    padding: 10px;
+    color: var(--white);
+    text-decoration: none;
+    font-weight: 600;
+    text-align: center;
+}
+
+.menu3-lista a:hover,
+.menu3-lista a[aria-current="page"] {
+    color: var(--gold);
+}
+
+@media (max-width: 1199px) {
+    .nav-menu { display: none; }
+    .menu3 { display: block; }
+}
+*/
 
 /* Global responsive rules: móviles, tablets y escritorio */
 
@@ -5443,12 +5510,6 @@ body.modal-abierto {
     transform: translateY(-2px);
 }
 
-/* El menú móvil: los enlaces con área de toque más grande */
-.hamburger-menu a {
-    display: inline-block;
-    padding: 8px 16px;
-}
-
 /* Header al hacer scroll (antes eran estilos inline puestos desde script.js) */
 .main-header.header-scroll {
     background: rgba(10, 10, 10, 0.95);
@@ -5591,11 +5652,6 @@ body.modal-abierto {
 
     .btn-traducir {
         padding: 10px 12px;
-    }
-
-    .hamburger-btn {
-        padding: 10px;
-        white-space: nowrap;
     }
 }
 

@@ -84,7 +84,8 @@
     // así el usuario sabe siempre dónde está.
     function marcarPaginaActual() {
         const actual = location.pathname.split('/').pop() || 'index.html';
-        document.querySelectorAll('.nav-menu a, .hamburger-menu a').forEach(enlace => {
+        // 'header nav a' vale para el menú de escritorio y para las 3 opciones de menú móvil
+        document.querySelectorAll('header nav a').forEach(enlace => {
             if (enlace.getAttribute('href').split('/').pop() === actual) {
                 enlace.setAttribute('aria-current', 'page');
             }
