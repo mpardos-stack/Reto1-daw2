@@ -8,17 +8,11 @@ window.addEventListener('scroll', () => {
     // detenemos la ejecución para que no lance un error en la consola.
     if (!header) return;
 
-    // Si el usuario ha bajado más de 100px desde el tope de la página
-    if (window.scrollY > 100) {
-        header.style.background = 'rgba(10, 10, 10, 0.95)'; // Fondo oscuro semi-transparente
-        header.style.height = '70px';                         // Reduce la altura para ganar espacio visual
-        header.style.backdropFilter = 'blur(10px)';          // Efecto de desenfoque moderno (estilo Apple)
-    } else {
-        // Si el usuario regresa al tope de la página, restablece el diseño original
-        header.style.background = '#0a0a0a';
-        header.style.height = '80px';
-        header.style.backdropFilter = 'none';
-    }
+    // Antes se cambiaban header.style.background, height y backdropFilter (estilos inline).
+    // El problema: un estilo inline gana a cualquier regla del CSS, así que el tema claro
+    // no podía cambiar el color del header. Ahora solo ponemos/quitamos una clase y
+    // el aspecto está en style.css (.main-header.header-scroll) y en tema-claro.css.
+    header.classList.toggle('header-scroll', window.scrollY > 100);
 });
 
 // ==========================================================================
@@ -31,18 +25,18 @@ const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         // Si la tarjeta entra en el campo de visión del usuario
         if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';          // Se vuelve completamente visible
-            entry.target.style.transform = 'translateY(0)'; // Regresa a su posición vertical original
+            entry.target.classList.add('revelada'); // La clase .revelada la vuelve visible (ver style.css)
+            observer.unobserve(entry.target);       // Ya se ha mostrado, no hace falta seguir mirándola
         }
     });
 }, observerOptions);
 
 // Preparamos e inicializamos todas las tarjetas antes de que empiece el scroll
+// Igual que con el header: en vez de 3 estilos inline por tarjeta usamos la clase .por-revelar
+// (opacidad 0 y desplazada 30px), definida en style.css
 document.querySelectorAll('.explore-card').forEach(card => {
-    card.style.opacity = '0';                         // Inicialmente invisibles
-    card.style.transform = 'translateY(30px)';        // Desplazadas 30px hacia abajo
-    card.style.transition = 'all 0.6s ease-out';       // Transición suave de 0.6 segundos
-    observer.observe(card);                           // Le decimos al Observer que vigile esta tarjeta
+    card.classList.add('por-revelar');
+    observer.observe(card);
 });
 
 
@@ -118,6 +112,34 @@ document.addEventListener('DOMContentLoaded', function () {
     const btnSiguienteFechaHora = steps[1]?.querySelector('.btn-siguiente');
     const btnSiguienteBarbero = steps[2]?.querySelector('.btn-siguiente');
 
+    // --- AVISOS DENTRO DE CADA PASO ---
+    // Antes los errores salían con alert(): bloquea la página, se cierra y el usuario ya no ve
+    // qué tenía que corregir. Ahora el mensaje se queda escrito encima de los botones del paso
+    // (<p class="aviso-paso" role="alert">), y role="alert" hace que el lector de pantalla lo lea.
+    function mostrarAviso(index, mensaje) {
+        const aviso = steps[index] ? steps[index].querySelector('.aviso-paso') : null;
+        if (!aviso) return;
+        aviso.textContent = mensaje;
+        aviso.hidden = false;
+    }
+
+    function ocultarAviso(index) {
+        const aviso = steps[index] ? steps[index].querySelector('.aviso-paso') : null;
+        if (aviso) aviso.hidden = true;
+    }
+
+    // Botón "Siguiente" en gris pero SIN el atributo disabled.
+    // Con disabled el botón no se puede pulsar ni enfocar con el teclado y el usuario no sabe
+    // por qué no avanza. Así se puede pulsar y validarPaso() le explica qué le falta.
+    function activarBoton(boton, activo) {
+        if (!boton) return;
+        boton.classList.toggle('deshabilitado', !activo);
+        boton.setAttribute('aria-disabled', activo ? 'false' : 'true');
+    }
+
+    const nombresPasos = ['Servicio', 'Fecha y hora', 'Barbero', 'Tus datos', 'Confirmación'];
+    const indicadorPaso = document.getElementById('paso-indicador');
+
     // NAVEGACIÓN HISTORIAL: Forzamos el estado inicial en el historial del navegador para controlar el botón de "Atrás"
     const initialState = { step: pasoActual, reservationComplete: isReservationSuccess };
     history.replaceState(initialState, '', window.location.pathname + window.location.search);
@@ -140,14 +162,21 @@ document.addEventListener('DOMContentLoaded', function () {
         if (steps[index]) steps[index].classList.add('activo');
         if (pasosBar[index]) pasosBar[index].classList.add('activo');
 
+        // El paso actual se marca también para el lector de pantalla
+        pasosBar.forEach((paso, i) => {
+            if (i === index) paso.setAttribute('aria-current', 'step');
+            else paso.removeAttribute('aria-current');
+        });
+        if (indicadorPaso) indicadorPaso.textContent = `Paso ${index + 1} de ${steps.length}: ${nombresPasos[index] || ''}`;
+
+        // Llevamos el foco al título del nuevo paso. Si no, el foco se queda en el botón
+        // "Siguiente" que ya no se ve y el usuario de teclado se pierde.
+        const titulo = steps[index] ? steps[index].querySelector('h2') : null;
+        if (titulo) titulo.focus();
+
         // Si estamos en el paso de Fecha/Hora (Paso 2), validamos si el botón siguiente debe estar activo o no
         if (index === 1 && btnSiguienteFechaHora) {
-            btnSiguienteFechaHora.disabled = !horaHidden.value;
-            if (horaHidden.value) {
-                btnSiguienteFechaHora.classList.remove('deshabilitado');
-            } else {
-                btnSiguienteFechaHora.classList.add('deshabilitado');
-            }
+            activarBoton(btnSiguienteFechaHora, Boolean(horaHidden.value));
         }
     }
 
@@ -207,8 +236,7 @@ document.addEventListener('DOMContentLoaded', function () {
         horaSeleccionada = null;
         if (horaHidden) horaHidden.value = '';
         if (btnSiguienteFechaHora) {
-            btnSiguienteFechaHora.disabled = true;
-            btnSiguienteFechaHora.classList.add('deshabilitado');
+            activarBoton(btnSiguienteFechaHora, false);
         }
         document.querySelectorAll('.hora-item.selected').forEach(btn => btn.classList.remove('selected'));
     }
@@ -265,6 +293,7 @@ document.addEventListener('DOMContentLoaded', function () {
             button.className = 'hora-item';
             button.textContent = hora;
             button.dataset.hora = hora;
+            button.setAttribute('aria-pressed', 'false'); // el lector dice "pulsado" en la hora elegida
 
             // Evento al elegir una hora específica
             button.addEventListener('click', () => {
@@ -272,13 +301,17 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (horaHidden) horaHidden.value = hora;
 
                 // Desmarcar hora previa y marcar la nueva
-                document.querySelectorAll('.hora-item.selected').forEach(btn => btn.classList.remove('selected'));
+                document.querySelectorAll('.hora-item.selected').forEach(btn => {
+                    btn.classList.remove('selected');
+                    btn.setAttribute('aria-pressed', 'false');
+                });
                 button.classList.add('selected');
+                button.setAttribute('aria-pressed', 'true');
+                ocultarAviso(1);
 
                 // Habilitamos el botón de continuar
                 if (btnSiguienteFechaHora) {
-                    btnSiguienteFechaHora.disabled = false;
-                    btnSiguienteFechaHora.classList.remove('deshabilitado');
+                    activarBoton(btnSiguienteFechaHora, true);
                 }
                 // Actualizamos el ticket lateral
                 if (trackCita) {
@@ -315,7 +348,18 @@ document.addEventListener('DOMContentLoaded', function () {
             const ape = document.querySelector('input[name="apellido"]').value.trim();
             const tel = document.querySelector('input[name="telefono"]').value.trim();
             if (!nom || !ape || !tel) {
-                return { valido: false, mensaje: 'Por favor, rellena todos los campos requeridos (*).' };
+                // Decimos exactamente qué campo falta en vez de un mensaje general
+                const faltan = [!nom && 'nombre', !ape && 'apellido', !tel && 'teléfono'].filter(Boolean);
+                return { valido: false, mensaje: 'Falta rellenar: ' + faltan.join(', ') + '.' };
+            }
+            // Teléfono: entre 9 y 15 cifras (se permiten espacios y el prefijo +34)
+            if (!/^\+?[0-9 ]{9,15}$/.test(tel)) {
+                return { valido: false, mensaje: 'El teléfono no es válido. Escribe 9 cifras, por ejemplo 600000000.' };
+            }
+            // El email es opcional, pero si lo escribe tiene que tener formato de email
+            const email = document.querySelector('input[name="email"]');
+            if (email && email.value.trim() && !email.checkValidity()) {
+                return { valido: false, mensaje: 'El correo electrónico no tiene un formato válido (ejemplo: nombre@correo.com).' };
             }
         }
         return { valido: true, mensaje: '' };
@@ -360,9 +404,9 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Inicializamos deshabilitados los botones de pasos para forzar la selección obligatoria del usuario
-    if (btnSiguienteServicio) { btnSiguienteServicio.disabled = true; btnSiguienteServicio.classList.add('deshabilitado'); }
-    if (btnSiguienteFechaHora) { btnSiguienteFechaHora.disabled = true; btnSiguienteFechaHora.classList.add('deshabilitado'); }
-    if (btnSiguienteBarbero) { btnSiguienteBarbero.disabled = true; btnSiguienteBarbero.classList.add('deshabilitado'); }
+    if (btnSiguienteServicio) { activarBoton(btnSiguienteServicio, false); }
+    if (btnSiguienteFechaHora) { activarBoton(btnSiguienteFechaHora, false); }
+    if (btnSiguienteBarbero) { activarBoton(btnSiguienteBarbero, false); }
 
     // EVENTO: Control de cambio de selección en los inputs de Servicio
     servicios.forEach(input => {
@@ -370,6 +414,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const card = this.closest('.servicio-card');
             servicioTexto = card.querySelector('h3').innerText;
             servicioDuracionMinutos = Number(card.dataset.duracion || 30);
+            ocultarAviso(0);
             const precio = card.querySelector('.precio').innerText;
 
             // Actualiza la barra lateral de progreso de reserva
@@ -380,8 +425,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // Habilita el avance al Paso 2
             if (btnSiguienteServicio) {
-                btnSiguienteServicio.disabled = false;
-                btnSiguienteServicio.classList.remove('deshabilitado');
+                activarBoton(btnSiguienteServicio, true);
             }
 
             // Si el usuario cambia el servicio teniendo ya una fecha elegida, recalculamos las horas
@@ -404,27 +448,26 @@ document.addEventListener('DOMContentLoaded', function () {
             // Si el barbero ya tiene una cita a esa hora, bloqueamos la selección y avisamos al cliente
             if (barberoOcupado(card.dataset.id, fechaElegida, horaElegida)) {
                 radio.checked = false;
-                alert('Este barbero no está disponible a esa hora. Por favor, elige otra hora.');
+                mostrarAviso(2, 'Este barbero no está disponible a esa hora. Elige otro barbero o vuelve atrás y cambia la hora.');
 
                 if (trackBarbero) {
                     trackBarbero.querySelector('span').innerText = 'Ninguno seleccionado';
                     trackBarbero.classList.remove('completado');
                 }
                 if (btnSiguienteBarbero) {
-                    btnSiguienteBarbero.disabled = true;
-                    btnSiguienteBarbero.classList.add('deshabilitado');
+                    activarBoton(btnSiguienteBarbero, false);
                 }
                 return;
             }
 
+            ocultarAviso(2);
             barberoTexto = card.querySelector('h3').innerText;
             if (trackBarbero) {
                 trackBarbero.querySelector('span').innerText = barberoTexto;
                 trackBarbero.classList.add('completado');
             }
             if (btnSiguienteBarbero) {
-                btnSiguienteBarbero.disabled = false;
-                btnSiguienteBarbero.classList.remove('deshabilitado');
+                activarBoton(btnSiguienteBarbero, true);
             }
         });
     });
@@ -436,10 +479,11 @@ document.addEventListener('DOMContentLoaded', function () {
             barberos.forEach(barbero => {
                 const serviciosBarbero = (barbero.dataset.servicios || '').split(',').filter(Boolean);
 
+                // Usamos el atributo hidden (y .card-option[hidden] en el CSS) en vez de style.display
                 if (serviciosBarbero.includes(servicioSeleccionado)) {
-                    barbero.style.display = 'flex'; // Muestra el barbero calificado
+                    barbero.hidden = false; // Muestra el barbero calificado
                 } else {
-                    barbero.style.display = 'none'; // Oculta al barbero que no realiza este servicio
+                    barbero.hidden = true; // Oculta al barbero que no realiza este servicio
                     const radio = barbero.querySelector('input[type="radio"]');
                     if (radio) radio.checked = false; // Deselecciona si estaba marcado internamente
                 }
@@ -469,9 +513,10 @@ document.addEventListener('DOMContentLoaded', function () {
         btn.addEventListener('click', () => {
             const validacion = validarPaso(pasoActual);
             if (!validacion.valido) {
-                alert(validacion.mensaje); // Detiene el avance si rompe las reglas
+                mostrarAviso(pasoActual, validacion.mensaje); // Detiene el avance y explica qué falta
                 return;
             }
+            ocultarAviso(pasoActual);
 
             if (pasoActual === 1 && trackCita) {
                 const fecha = datepickerInput ? datepickerInput.value : '';
@@ -506,9 +551,11 @@ document.addEventListener('DOMContentLoaded', function () {
     // POLÍTICA DE PRIVACIDAD: bloquea el envío si el checkbox no está marcado (el estilo del botón lo controla el CSS :has)
     const checkPolitica = document.getElementById('acepto-politica');
     if (checkPolitica) {
+        checkPolitica.addEventListener('change', () => { if (checkPolitica.checked) ocultarAviso(4); });
         document.getElementById('form-reserva')?.addEventListener('submit', function (e) {
             if (!checkPolitica.checked) {
                 e.preventDefault();
+                mostrarAviso(4, 'Para confirmar la reserva tienes que aceptar la Política de Privacidad.');
                 checkPolitica.focus();
             }
         });
@@ -521,8 +568,12 @@ document.addEventListener('DOMContentLoaded', function () {
     botonesFiltro.forEach(boton => {
         // Al hacer clic en un botón de filtro, actualizamos la interfaz para mostrar solo las tarjetas que correspondan a la categoría seleccionada
         boton.addEventListener('click', function () {
-            botonesFiltro.forEach(btn => btn.classList.remove('activo'));
+            botonesFiltro.forEach(btn => {
+                btn.classList.remove('activo');
+                btn.setAttribute('aria-pressed', 'false');
+            });
             this.classList.add('activo');
+            this.setAttribute('aria-pressed', 'true');
 
             const categoriaSeleccionada = this.getAttribute('data-categoria');
 
@@ -531,11 +582,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 // Muestra todas las tarjetas o filtra por la categoría seleccionada
                 if (categoriaSeleccionada === 'todos' || categoriaTarjeta === categoriaSeleccionada) {
-                    tarjeta.style.display = 'block';
-                    tarjeta.style.opacity = '0';
-                    setTimeout(() => { tarjeta.style.opacity = '1'; }, 50); // Pequeña animación fade-in
+                    tarjeta.hidden = false; // la animación de entrada está en el CSS (.card-option)
                 } else {
-                    tarjeta.style.display = 'none'; // Esconde las tarjetas que no correspondan
+                    tarjeta.hidden = true; // Esconde las tarjetas que no correspondan
 
                     // Si el usuario oculta un servicio que ya tenía seleccionado, lo desmarcamos de forma limpia
                     const radioInput = tarjeta.querySelector('input[type="radio"]');
@@ -638,11 +687,44 @@ document.addEventListener('DOMContentLoaded', function () {
 // ==========================================================================
 // 5. MENÚ HAMBURGUESA MÓVIL (Vistas del Cliente) Opcion 2 menu desplegable
 // ==========================================================================
-// Se ejecuta al pulsar el botón MENÚ (onclick en header.html).
+// Antes el botón tenía onclick="abrirMenu()" escrito en header.html. Ahora el evento se
+// pone aquí para no mezclar HTML y JavaScript, y además:
+//  - aria-expanded avisa al lector de pantalla de si el menú está abierto o cerrado
+//  - Escape cierra el menú y devuelve el foco al botón
+//  - al hacer clic fuera del menú también se cierra
 // toggle añade la clase "mostrar" si no la tiene y la quita si ya la tiene.
-function abrirMenu() {
-    document.getElementById('hamburger-menu').classList.toggle('mostrar');
+function abrirMenu(forzar) {
+    const menu = document.getElementById('hamburger-menu');
+    const boton = document.getElementById('hamburger-btn');
+    if (!menu || !boton) return;
+    const abierto = menu.classList.toggle('mostrar', forzar);
+    boton.setAttribute('aria-expanded', abierto ? 'true' : 'false');
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+    const boton = document.getElementById('hamburger-btn');
+    const menu = document.getElementById('hamburger-menu');
+    if (!boton || !menu || boton.dataset.listo) return;
+    boton.dataset.listo = '1'; // evita poner el evento dos veces (el script vuelve a lanzar DOMContentLoaded)
+
+    boton.addEventListener('click', function (e) {
+        e.stopPropagation();
+        abrirMenu();
+        // Al abrir, llevamos el foco al primer enlace para seguir con el teclado
+        if (menu.classList.contains('mostrar')) menu.querySelector('a').focus();
+    });
+
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && menu.classList.contains('mostrar')) {
+            abrirMenu(false);
+            boton.focus();
+        }
+    });
+
+    document.addEventListener('click', function (e) {
+        if (!menu.contains(e.target) && menu.classList.contains('mostrar')) abrirMenu(false);
+    });
+});
 
 
 // ==========================================================================
@@ -1228,4 +1310,4 @@ if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', iniciarAnimacionHero);
 } else {
     iniciarAnimacionHero();
-}
+}

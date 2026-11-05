@@ -1,7 +1,15 @@
 :root {
+    /* Variables (tokens) del diseño. Antes había un segundo :root más abajo (en Servicios)
+       que volvía a definir --gold con otro tono (#d4af37). Como el último gana, el dorado
+       real de toda la web era #d4af37; lo dejamos aquí una sola vez para no liarnos. */
     --dark-bg: #0a0a0a;
-    --gold: #d4a017; /* tono dorado ajustado */
+    --gold: #d4af37;
     --gold-dark: #b8860b;
+    --dark-card: #111111;
+    --border-color: #222222;
+    --text-gray: #aaaaaa;
+    --focus: #ffd65c;        /* color del anillo de foco (teclado) */
+    --error: #ff6b6b;        /* texto de error legible sobre fondo oscuro */
     --green: #4CAF50;
     --red: #e74c3c;
     --border: rgba(217,156,43,0.14);
@@ -446,8 +454,11 @@ img, picture, video, iframe, svg {
 }
 
 /* TEXTOS */
-.footer h4 {
+/* Antes eran <h4>; ahora <h2> para no saltar niveles de encabezado (h1 → h4).
+   Les ponemos el mismo tamaño que tenía el h4 para que se vea igual. */
+.footer h2 {
     color: #d99c2b;
+    font-size: 1rem;
     margin-bottom: 15px;
     margin-top: 0;
 }
@@ -502,7 +513,7 @@ img, picture, video, iframe, svg {
     padding-top: 15px;
     text-align: center;
     font-size: 0.8rem;
-    color: #777;
+    color: #999; /* antes #777: contraste 3.9:1, no llegaba a 4.5:1 */
 }
 
 .footer-login {
@@ -511,8 +522,11 @@ img, picture, video, iframe, svg {
     text-decoration: none;
     transition: 0.3s;
 }
-.footer-bottom .footer-login {
-    display: inline !important;
+/* Antes llevaba !important para ganar a ".footer a { display: block }".
+   No hace falta: ".footer-bottom .footer-login" tiene más especificidad (0,2,0) que ".footer a" (0,1,1). */
+.footer-bottom .footer-login,
+.footer .enlace-en-linea {
+    display: inline;
 }
 
 .footer-login:hover {
@@ -871,8 +885,10 @@ img, picture, video, iframe, svg {
     text-decoration: none;
     font-weight: 600;
 }
-/* Mostrar el botón en móviles/tablets */
-@media (max-width: 1024px) {
+/* Mostrar el botón en móviles/tablets.
+   Antes era hasta 1024px, pero entre 1025 y 1199px los 7 enlaces + botones no cabían
+   y el header se salía por la derecha (medido en 1025, 1100 y 1200px). */
+@media (max-width: 1199px) {
     .nav-menu { display: none; }
     .hamburger-btn { display: block; }
 }
@@ -884,7 +900,7 @@ html, body { font-size: 16px; }
 
 /* Tables: make horizontally scrollable on small screens */
 .admin-table, .explore-grid, .galeria-grid { width: 100%; }
-.table-responsive { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.table-responsive { overflow-x: auto; } /* quitado -webkit-overflow-scrolling: no es estándar (aviso del validador) */
 
 /* Small devices (phones, up to 600px) */
 @media (max-width: 600px) {
@@ -1021,6 +1037,7 @@ img { max-width: 100%; height: auto; display: block; }
 }
 
 .underline {
+    display: block; /* en equipo.html es un <span> y sin esto no se veía la línea */
     width: 50px;
     height: 4px;
     background-color: var(--gold);
@@ -1147,7 +1164,9 @@ img { max-width: 100%; height: auto; display: block; }
 
 .ubicacion-page {
     background-color: var(--dark-bg);
-    padding-bottom: 80px;
+    /* Antes solo tenía padding-bottom y el título quedaba pegado al header.
+       Mismo espacio arriba que equipo y galería; 16px a los lados para móvil. */
+    padding: 90px 16px 80px;
 }
 
 .ubicacion-grid {
@@ -1274,13 +1293,7 @@ img { max-width: 100%; height: auto; display: block; }
 }
 
 /* --- ESTILOS DE SERVICIOS PREMIUM (ESTILO TARJETAS DOBLE COLUMNA) --- */
-
-:root {
-    --gold: #d4af37;
-    --dark-card: #111111;
-    --border-color: #222222;
-    --text-gray: #aaaaaa;
-}
+/* (las variables de esta sección se han movido al :root del principio) */
 
 .servicios-body {
     background-color: #050505; /* Fondo negro profundo como la imagen */
@@ -1294,8 +1307,16 @@ img { max-width: 100%; height: auto; display: block; }
     margin: 0 auto;
     padding: 60px 20px;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); /* Crea las 2 columnas */
+    /* min(450px, 100%): en pantallas de menos de 450px la columna no obliga a desbordar */
+    grid-template-columns: repeat(auto-fit, minmax(min(450px, 100%), 1fr)); /* Crea las 2 columnas */
     gap: 30px;
+}
+
+/* Los bloques llegan por JS dentro de <div id="servicios-bloques">. Ese div era una sola celda
+   del grid y todo salía en la columna izquierda (la derecha quedaba vacía en escritorio).
+   Con display: contents el div "desaparece" para el grid y cada bloque ocupa su celda. */
+.servicios-bloques {
+    display: contents;
 }
 
 /* Encabezado ocupa todo el ancho */
@@ -1356,6 +1377,7 @@ img { max-width: 100%; height: auto; display: block; }
 }
 
 .items-list {
+    list-style: none; /* ahora es un <ul> */
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -1370,14 +1392,16 @@ img { max-width: 100%; height: auto; display: block; }
     border-bottom: 1px dotted #333; /* Línea punteada de la imagen */
 }
 
-.item-info h3 {
+/* Antes era ".item-info h3" a secas y pisaba también los títulos de la galería
+   (que usan la misma clase). Lo limitamos a las filas de servicios. */
+.item-row .item-info h3 {
     font-size: 1.05rem;
     font-weight: 500;
     color: #efefef;
     margin: 0;
 }
 
-.item-info small {
+.item-row .item-info small {
     color: var(--gold);
     font-size: 0.75rem;
     display: block;
@@ -1645,8 +1669,9 @@ img { max-width: 100%; height: auto; display: block; }
     color: #dc3545;
 }
 
-/* Barra de Pasos */
+/* Barra de Pasos (ahora es un <ol>) */
 .pasos-bar {
+    list-style: none;
     display: flex;
     justify-content: space-between;
     margin-bottom: 40px;
@@ -1660,7 +1685,7 @@ img { max-width: 100%; height: auto; display: block; }
     flex-direction: column;
     align-items: center;
     flex: 1;
-    opacity: 0.4;
+    opacity: 0.6; /* antes 0.4: el texto de los pasos pendientes casi no se leía */
     transition: all 0.3s ease;
 }
 
@@ -1719,7 +1744,29 @@ img { max-width: 100%; height: auto; display: block; }
 }
 
 /* Estilo de Tarjetas y Opciones */
+/* Antes: display: none. Así el radio desaparecía también para el teclado y el lector
+   de pantalla, y no se podía elegir servicio ni barbero sin ratón.
+   Ahora lo escondemos solo a la vista (mismo truco que .sr-only) y la tarjeta enseña el foco. */
 .card-option input[type="radio"] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    margin: 0;
+}
+
+.card-option {
+    position: relative;
+}
+
+/* Anillo de foco en la tarjeta cuando el radio de dentro tiene el foco del teclado */
+.card-option:has(input:focus-visible) {
+    outline: 3px solid var(--focus);
+    outline-offset: 3px;
+}
+
+/* El filtro de categorías usa el atributo hidden; sin esto display: block le ganaría */
+.card-option[hidden] {
     display: none;
 }
 
@@ -1779,6 +1826,7 @@ img { max-width: 100%; height: auto; display: block; }
 }
 
 .card-meta .precio {
+    white-space: nowrap; /* en móvil "8.00 €" se partía en dos líneas */
     font-size: 1.3rem;
     font-weight: bold;
     color: #d99c2b;
@@ -4536,7 +4584,7 @@ body.modal-abierto {
     width: 100%;
     overflow-x: auto;
     overflow-y: hidden;
-    -webkit-overflow-scrolling: touch;
+    
 }
 
 .admin-panel-box table,
@@ -4712,7 +4760,7 @@ body.modal-abierto {
         max-width: 100%;
         overflow-x: auto !important;
         overflow-y: visible;
-        -webkit-overflow-scrolling: touch;
+        
         padding-bottom: 12px;
     }
 
@@ -4899,7 +4947,7 @@ body.modal-abierto {
     flex: 1 1 400px;
 }
 
-.cookie-banner-texto h4 {
+.cookie-banner-texto h2 { /* antes h4 */
     color: #d4af37;
     margin: 0 0 6px 0;
     font-size: 1.1rem;
@@ -5310,3 +5358,347 @@ body.modal-abierto {
     font-style: italic;
     margin-bottom: 30px;
 }
+/* ==========================================================================
+   ACCESIBILIDAD Y USABILIDAD (Hitos 7, 8 y 9)
+   Todo lo nuevo de estos hitos está aquí junto para encontrarlo fácil.
+   ========================================================================== */
+
+/* Texto solo para lectores de pantalla: no se ve pero se lee.
+   No usamos display: none porque eso lo esconde también al lector. */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Enlace "Saltar al contenido": fuera de la pantalla hasta que recibe el foco con Tab */
+.skip-link {
+    position: absolute;
+    left: 16px;
+    top: -60px;
+    z-index: 2000;
+    background: var(--gold);
+    color: #000;
+    font-weight: 700;
+    padding: 10px 16px;
+    text-decoration: none;
+    transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+    top: 12px;
+}
+
+/* Foco visible para TODOS los elementos al navegar con teclado.
+   :focus-visible solo aparece con teclado, así al hacer clic con el ratón no molesta. */
+:focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 3px;
+}
+
+/* Los títulos de cada paso reciben el foco por JS; no hace falta marcarlos */
+.reserva-step h2:focus {
+    outline: none;
+}
+
+/* Página actual en el menú: dorada y subrayada (no solo color, para quien no distingue colores) */
+.nav-menu a[aria-current="page"],
+.hamburger-menu a[aria-current="page"] {
+    color: var(--gold);
+    text-decoration: underline;
+    text-underline-offset: 6px;
+}
+
+/* Botón de tema: mismo estilo que el de idioma para que se vean como pareja */
+.header-herramientas {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.header-herramientas .btn-traducir {
+    margin-left: 0;
+}
+
+.btn-tema {
+    width: 44px;   /* 44px: tamaño mínimo cómodo para tocar con el dedo */
+    height: 44px;
+    border-radius: 8px;
+    border: 1px solid rgba(212, 160, 23, 0.35);
+    background: linear-gradient(135deg, #1f1f1f, #0f0f0f);
+    color: var(--gold);
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-tema:hover {
+    border-color: var(--gold);
+    transform: translateY(-2px);
+}
+
+/* El menú móvil: los enlaces con área de toque más grande */
+.hamburger-menu a {
+    display: inline-block;
+    padding: 8px 16px;
+}
+
+/* Header al hacer scroll (antes eran estilos inline puestos desde script.js) */
+.main-header.header-scroll {
+    background: rgba(10, 10, 10, 0.95);
+    height: 70px;
+    backdrop-filter: blur(10px);
+}
+
+/* Tarjetas de "Explora" que aparecen al hacer scroll (antes estilos inline desde JS) */
+.explore-card.por-revelar {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out, background-color 0.3s;
+}
+
+.explore-card.por-revelar.revelada {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Si el sistema pide menos movimiento, las tarjetas salen directamente */
+@media (prefers-reduced-motion: reduce) {
+    .explore-card.por-revelar {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+}
+
+/* --- Formulario de reservas --- */
+
+/* Aviso de error dentro de cada paso (sustituye a los alert()).
+   Lleva icono ⚠ además del color rojo: el color solo no basta. */
+.aviso-paso {
+    margin: 10px 0 0;
+    padding: 12px 14px 12px 40px;
+    border: 1px solid var(--error);
+    border-radius: 6px;
+    background: rgba(220, 53, 69, 0.1);
+    color: var(--error);
+    font-weight: 600;
+    position: relative;
+}
+
+.aviso-paso::before {
+    content: '⚠';
+    position: absolute;
+    left: 14px;
+}
+
+.aviso-paso[hidden] {
+    display: none;
+}
+
+/* Botón "Siguiente" en gris pero que se puede pulsar para ver el aviso */
+.btn-siguiente[aria-disabled="true"] {
+    cursor: not-allowed;
+}
+
+/* Texto "Paso 2 de 5: Fecha y hora": en escritorio solo para el lector (ya se ven los nombres) */
+.paso-indicador {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+}
+
+.campo-label {
+    display: block;
+    color: #b3b3b3;
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+}
+
+.campo-ayuda {
+    color: #a0a0a0;
+    font-size: 0.8rem;
+    margin-top: 6px;
+}
+
+/* Las tarjetas que vuelven a aparecer al filtrar hacen un fundido (antes con style.opacity en JS) */
+.card-option {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Contraste: estos textos grises no llegaban a 4.5:1 sobre el fondo oscuro */
+.select-date-msg {
+    color: #9a9a9a; /* antes #666 */
+}
+
+.seg-item {
+    color: #a0a0a0; /* antes #777 */
+}
+
+/* Campos con anillo de foco además del borde dorado (antes solo cambiaba el borde) */
+.input-box input:focus-visible,
+.calendario-box input:focus-visible {
+    box-shadow: 0 0 0 3px rgba(255, 214, 92, 0.45);
+}
+
+/* --- Responsive: incidencias encontradas al probar en móvil y tablet --- */
+
+/* Móvil y tablet: el header se partía en 2 filas (logo arriba, EN y MENÚ abajo).
+   Ahora es una sola fila: logo a la izquierda y botones a la derecha. */
+@media (max-width: 1199px) {
+    .main-header .container {
+        flex-wrap: nowrap;
+        gap: 10px;
+    }
+
+    .header-herramientas {
+        margin-left: auto; /* empuja idioma, tema y menú a la derecha */
+    }
+}
+
+@media (max-width: 480px) {
+    /* En pantallas muy estrechas dejamos solo "CATRACHA" junto al logo */
+    .main-header a.icon .logo .text-white {
+        display: none;
+    }
+
+    .main-header a.icon > .icon {
+        width: 44px;
+        height: 44px;
+        flex-basis: 44px;
+    }
+
+    .main-header {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .main-header .container {
+        gap: 8px;
+    }
+
+    .main-header a.icon .logo {
+        font-size: 1rem;
+    }
+
+    .btn-traducir {
+        padding: 10px 12px;
+    }
+
+    .hamburger-btn {
+        padding: 10px;
+        white-space: nowrap;
+    }
+}
+
+@media (max-width: 768px) {
+    /* En móvil se ocultan los nombres de los pasos, así que enseñamos el texto del paso actual */
+    .paso-indicador {
+        position: static;
+        width: auto;
+        height: auto;
+        clip-path: none;
+        text-align: center;
+        color: var(--gold);
+        font-weight: 600;
+        margin: -25px 0 20px;
+    }
+}
+
+@media (max-width: 600px) {
+    /* Títulos grandes (blog, ubicación...) salían de una palabra por línea en móvil.
+       clamp(): mínimo 2rem, crece con el ancho (9vw) y como mucho 2.6rem */
+    .titulo-principal {
+        font-size: clamp(2rem, 9vw, 2.6rem);
+    }
+
+    .ubicacion-header .descripcion-header,
+    .descripcion-header {
+        padding: 0 4px;
+    }
+}
+
+/* Enlaces dentro de un texto (teléfono, WhatsApp): sin esto salían en el azul por defecto
+   del navegador, con contraste 2.1:1 sobre el fondo oscuro. Subrayados para que se vea que son enlaces. */
+.enlace-en-linea {
+    color: var(--gold);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+/* Escritorio: con el botón de tema nuevo el header no cabía en 1366px y se salía por la derecha.
+   Damos un poco más de ancho al header y el hueco entre enlaces se adapta al ancho (clamp). */
+.main-header .container {
+    max-width: 1320px;
+}
+
+.nav-menu ul {
+    gap: clamp(14px, 1.6vw, 30px);
+}
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+    .nav-menu ul li a {
+        font-size: 0.8rem;
+    }
+
+    .btn-reserve {
+        padding: 12px 18px;
+    }
+}
+
+/* Móviles muy estrechos (320px): solo cabe el logo. El enlace sigue teniendo nombre (aria-label). */
+@media (max-width: 360px) {
+    .main-header a.icon .logo {
+        display: none;
+    }
+}
+/* Animacion visual de entrada en el index */
+/* La opcion 1 es la base creada en javascript */
+/* OPCIÓN 2 · CORTINA: la frase dorada se abre desde el centro y un destello blanco la cruza */
+/*
+.hero-anim { opacity: 0; transform: translateY(25px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+.hero-anim.hero-anim-visible { opacity: 1; transform: none; }
+.direccion.hero-anim:not(.hero-anim-visible) { transform: translateX(-60px); }
+.buttons.hero-anim { transition: opacity 0.5s ease-out, transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.texto-dorado.escritura-dorada {
+    clip-path: inset(0 50% 0 50%);
+    animation: escribir-dorado 1s cubic-bezier(0.77, 0, 0.18, 1) 0.7s forwards;
+}
+@keyframes escribir-dorado { to { clip-path: inset(0); } }
+.texto-dorado.brillo-dorado {
+    background: linear-gradient(105deg, var(--gold) 44%, #fff 50%, var(--gold) 56%) 100% 0 / 300% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: brillo-dorado 1.1s ease-in;
+}
+@keyframes brillo-dorado { to { background-position: 0 0; } }}
+*/
+/* OPCIÓN 3 · NEÓN: el título se enfoca y la frase dorada se enciende como un letrero de neón */
+/*
+.hero-anim { opacity: 0; transform: translateY(25px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+.hero-anim.hero-anim-visible { opacity: 1; transform: none; filter: none; }
+.contenido-titulo.hero-anim { transition: opacity 1.1s ease-out, transform 1.1s ease-out, filter 1.1s ease-out; }
+.contenido-titulo.hero-anim:not(.hero-anim-visible) { transform: scale(1.1); filter: blur(14px); }
+.texto-dorado.escritura-dorada {
+    opacity: 0;
+    animation: escribir-dorado 1.4s linear 0.9s forwards;
+}
+@keyframes escribir-dorado {
+    8% { opacity: 1; } 14% { opacity: 0.1; } 24% { opacity: 1; } 30% { opacity: 0.3; }
+    40%, 100% { opacity: 1; text-shadow: 0 0 24px rgba(212, 160, 23, 0.8); }
+}
+.texto-dorado.brillo-dorado { animation: brillo-dorado 1.4s ease-out; }
+@keyframes brillo-dorado {
+    from { text-shadow: 0 0 24px rgba(212, 160, 23, 0.8); }
+    to   { text-shadow: 0 0 0 rgba(212, 160, 23, 0); }
+}
+*/

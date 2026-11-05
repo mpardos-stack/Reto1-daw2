@@ -1,0 +1,61 @@
+/* ==========================================================================
+   practica-inline.css — solo para api/practicas/inline-vs-externo.html (CE2B)
+   Reproduce con una clase lo mismo que la versión con style="..."
+   ========================================================================== */
+
+.practica {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 40px 16px 60px;
+    line-height: 1.6;
+}
+
+.practica h1 {
+    margin-bottom: 12px;
+}
+
+.practica h2 {
+    font-size: 1.1rem;
+    margin: 24px 0 12px;
+    color: var(--gold);
+}
+
+.practica-fila {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+    gap: 24px;
+}
+
+/* La misma tarjeta que la versión inline, pero reutilizable */
+.tarjeta-oferta {
+    background-color: var(--dark-card);
+    border: 2px solid var(--gold);
+    border-radius: 8px;
+    padding: 24px;
+    color: var(--white);
+    margin-bottom: 16px;
+    transition: transform 0.2s ease;
+}
+
+/* Esto con inline no se puede hacer */
+.tarjeta-oferta:hover {
+    transform: translateY(-3px);
+}
+
+.tarjeta-oferta-titulo {
+    color: var(--gold);
+    margin-bottom: 8px;
+}
+
+/* Solo para demostrar que !important gana al inline. En la web real no se usa. */
+.tarjeta-oferta--forzada {
+    border-color: var(--green) !important;
+}
+
+.practica-conclusion ul {
+    padding-left: 20px;
+}
+
+.practica a {
+    color: var(--gold);
+}

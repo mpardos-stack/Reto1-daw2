@@ -8,8 +8,14 @@ App.esperar((async () => {
         const datos = await App.json('ubicacion.php');
 
         document.getElementById('ubi-direccion').textContent = datos.direccion;
-        document.getElementById('ubi-telefono').textContent = datos.telefono;
-        document.getElementById('ubi-whatsapp').textContent = datos.whatsapp;
+        // Teléfono y WhatsApp como enlaces: en el móvil se llama o se abre el chat con un toque
+        const soloCifras = texto => String(texto || '').replace(/\D/g, '');
+        const tel = document.getElementById('ubi-telefono');
+        tel.textContent = datos.telefono;
+        tel.href = 'tel:+34' + soloCifras(datos.telefono);
+        const wa = document.getElementById('ubi-whatsapp');
+        wa.textContent = datos.whatsapp;
+        wa.href = 'https://wa.me/34' + soloCifras(datos.whatsapp);
 
         // Solo se aceptan mapas de Google para el iframe
         if (/^https:\/\/(www\.)?google\.[a-z.]+\/maps\//.test(datos.mapa_embed)) {

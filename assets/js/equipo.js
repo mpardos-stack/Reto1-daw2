@@ -13,7 +13,7 @@ App.esperar((async () => {
             const tarjeta = plantilla.content.cloneNode(true);
             const img = tarjeta.querySelector('img');
             img.src = barbero.foto_url || '../../assets/img/default-avatar.png';
-            img.alt = barbero.nombre;
+            img.alt = 'Foto de ' + barbero.nombre;
 
             tarjeta.querySelector('h2').textContent = barbero.nombre;
             tarjeta.querySelector('.rango').textContent = barbero.especialidad || '';

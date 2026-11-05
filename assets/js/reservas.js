@@ -61,7 +61,7 @@
         const imgBox = App.crear('div', 'barbero-img');
         const img = document.createElement('img');
         img.src = b.foto_url || '../../assets/img/default-avatar.png';
-        img.alt = b.nombre;
+        img.alt = ''; // el nombre ya está escrito debajo (h3), así no se lee dos veces
         img.onerror = () => { img.onerror = null; img.src = '../../assets/img/default-avatar.png'; };
         imgBox.appendChild(img);
         contenido.append(imgBox, App.crear('h3', '', b.nombre), App.crear('span', 'especialidad', b.especialidad));

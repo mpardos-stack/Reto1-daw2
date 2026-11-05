@@ -10,6 +10,7 @@ boton.addEventListener('click', async () => {
     }
 
     boton.textContent = '...';
+    boton.setAttribute('aria-busy', 'true'); // "ocupado" mientras traduce
 
     // Recorremos todos los textos de la página uno a uno
     const recorrido = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
@@ -26,6 +27,12 @@ boton.addEventListener('click', async () => {
     }
 
     boton.textContent = 'ES';
+    boton.removeAttribute('aria-busy');
+    boton.setAttribute('aria-label', 'Volver a ver la página en español');
+
+    // Cambiamos el idioma del documento: así el lector de pantalla lee el texto
+    // con voz inglesa y no con la española (criterio WCAG 3.1.1)
+    document.documentElement.lang = 'en';
 });
 
 // Envía un texto al traductor de Google y devuelve la traducción en inglés

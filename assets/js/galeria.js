@@ -9,8 +9,11 @@ App.esperar((async () => {
 
     function enlaceCategoria(valor, texto) {
         const li = document.createElement('li');
-        const a = App.crear('a', valor.toLowerCase() === actual.toLowerCase() ? 'active' : '', texto);
+        const esActual = valor.toLowerCase() === actual.toLowerCase();
+        const a = App.crear('a', esActual ? 'active' : '', texto);
         a.href = './galeria.html?categoria=' + encodeURIComponent(valor.toLowerCase());
+        // La categoría elegida se anuncia como "página actual" (no solo con el color dorado)
+        if (esActual) a.setAttribute('aria-current', 'page');
         li.appendChild(a);
         return li;
     }
@@ -34,7 +37,8 @@ App.esperar((async () => {
             const wrapper = App.crear('section', 'image-wrapper');
             const img = document.createElement('img');
             img.src = corte.imagen_url;
-            img.alt = corte.nombre || '';
+            img.alt = corte.nombre ? 'Corte ' + corte.nombre : 'Corte de pelo';
+            img.loading = 'lazy'; // las fotos de abajo se cargan al acercarse (va más rápido en móvil)
             const overlay = App.crear('section', 'overlay');
             overlay.appendChild(App.crear('span', 'tag-estilo', corte.estilo || ''));
             wrapper.append(img, overlay);

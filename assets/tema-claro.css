@@ -1,0 +1,404 @@
+/* ==========================================================================
+   TEMA ALTERNATIVO: "CLARO" (crema + dorado oscuro)
+   --------------------------------------------------------------------------
+   Hoja alternativa que se aplica sobre el MISMO HTML. No hay páginas duplicadas.
+
+   Cómo se activa:
+     - Botón ☀ del header (assets/js/tema.js), que pone data-tema="claro" en <html>
+     - O directamente por URL para probar: index.html?tema=claro
+   Todas las reglas empiezan por html[data-tema="claro"], así que si el atributo
+   no está, este archivo no cambia nada y se ve el tema oscuro principal.
+
+   Por qué funciona sin !important:
+     html[data-tema="claro"] .clase tiene especificidad (0,2,1), más que .clase (0,1,0)
+     de style.css. Gana por especificidad, no por orden ni por !important.
+
+   Contrastes comprobados (WCAG AA, mínimo 4.5:1 en texto normal):
+     texto #1c1a17 sobre fondo #f7f3ec ........ 15.7:1
+     texto suave #4f4a42 sobre #f7f3ec ......... 7.9:1
+     dorado oscuro #7a5a00 sobre #f7f3ec ....... 5.8:1
+     blanco sobre botón dorado oscuro #7a5a00 .. 6.4:1
+   ========================================================================== */
+
+/* 1. VARIABLES: con esto cambia casi toda la web de una vez */
+html[data-tema="claro"] {
+    --dark-bg: #f7f3ec;      /* fondo general crema */
+    --white: #1c1a17;        /* "white" era el color del texto: ahora casi negro */
+    --gray-text: #4f4a42;    /* texto secundario */
+    --gold: #7a5a00;         /* dorado más oscuro para que se lea sobre el crema */
+    --gold-dark: #5c4300;
+    --dark-card: #ffffff;
+    --border-color: #d9cfbf;
+    --border: #d9cfbf;
+    --text-gray: #4f4a42;
+    --focus: #1a56db;        /* anillo de foco azul: el amarillo no se ve sobre crema */
+    --error: #b3261e;
+
+    /* colores propios del tema claro, para no repetirlos */
+    --claro-superficie: #ffffff;
+    --claro-superficie-2: #efe8dc;
+    --claro-borde: #d9cfbf;
+
+    color-scheme: light;     /* barras de scroll y controles nativos en claro */
+}
+
+html[data-tema="claro"] body {
+    background-color: var(--dark-bg);
+}
+
+/* 2. BOTONES DORADOS: con el dorado oscuro el texto negro no se leía (3.5:1) → texto blanco */
+html[data-tema="claro"] .btn-reserve,
+html[data-tema="claro"] .btn-reservas,
+html[data-tema="claro"] .bottom-cta-bar a,
+html[data-tema="claro"] .hamburger-btn,
+html[data-tema="claro"] .tag-estilo,
+html[data-tema="claro"] .btn-reservar-equipo,
+html[data-tema="claro"] .btn-reserva-premium,
+html[data-tema="claro"] .blog-btn,
+html[data-tema="claro"] .skip-link,
+html[data-tema="claro"] .btn-resenas-reserva {
+    color: #ffffff;
+}
+
+html[data-tema="claro"] .btn-reserve:hover,
+html[data-tema="claro"] .blog-btn:hover {
+    background-color: var(--gold-dark);
+}
+
+html[data-tema="claro"] .btn-reserva-premium:hover {
+    background-color: var(--white);
+    color: #ffffff;
+}
+
+/* 3. HEADER Y MENÚ */
+html[data-tema="claro"] .main-header {
+    border-bottom-color: var(--claro-borde);
+}
+
+html[data-tema="claro"] .main-header.header-scroll {
+    background: rgba(247, 243, 236, 0.95);
+}
+
+/* El logo es plateado/blanco: sobre crema se perdía, así que le ponemos un círculo oscuro detrás */
+html[data-tema="claro"] .main-header a.icon > .icon,
+html[data-tema="claro"] .footer-logo img {
+    background-color: #1c1a17;
+    border-radius: 50%;
+}
+
+html[data-tema="claro"] .hamburger-menu {
+    background-color: var(--claro-superficie);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+html[data-tema="claro"] .btn-traducir,
+html[data-tema="claro"] .btn-tema {
+    background: var(--claro-superficie);
+    border-color: var(--claro-borde);
+    box-shadow: none;
+}
+
+html[data-tema="claro"] .btn-traducir:hover {
+    color: #ffffff;
+}
+
+/* 4. HERO DEL INICIO: la foto sigue oscura, así que aquí el texto se queda blanco */
+html[data-tema="claro"] .container-contenido,
+html[data-tema="claro"] .contenido-titulo {
+    color: #ffffff;
+}
+
+html[data-tema="claro"] .contenido-description {
+    color: #e6e6e6;
+}
+
+html[data-tema="claro"] .direccion,
+html[data-tema="claro"] .contenido-titulo .texto-dorado {
+    color: #f0c94a; /* dorado claro: sobre la foto oscura se lee bien */
+}
+
+html[data-tema="claro"] .btn-servicios {
+    border-color: #ffffff;
+    color: #ffffff;
+}
+
+html[data-tema="claro"] .btn-servicios:hover {
+    background-color: #ffffff;
+    color: #1c1a17;
+}
+
+/* 5. TARJETAS Y BLOQUES (tenían fondos oscuros escritos a mano: #111, #151515...) */
+html[data-tema="claro"] .explore-card,
+html[data-tema="claro"] .galeria-item,
+html[data-tema="claro"] .barbero-card,
+html[data-tema="claro"] .blog-card,
+html[data-tema="claro"] .categoria-bloque {
+    background-color: var(--claro-superficie);
+    border-color: var(--claro-borde);
+}
+
+html[data-tema="claro"] .explore-card:hover {
+    background-color: var(--claro-superficie-2);
+}
+
+html[data-tema="claro"] .equipo-section,
+html[data-tema="claro"] .servicios-body,
+html[data-tema="claro"] .reservas-page {
+    background-color: var(--dark-bg);
+    color: var(--white);
+}
+
+html[data-tema="claro"] .galeria-cta,
+html[data-tema="claro"] .blog-media,
+html[data-tema="claro"] .instagram-wrapper {
+    background-color: var(--claro-superficie-2);
+}
+
+html[data-tema="claro"] .categorias-nav,
+html[data-tema="claro"] .horario-lista li,
+html[data-tema="claro"] .ubicacion-mapa {
+    border-color: var(--claro-borde);
+}
+
+html[data-tema="claro"] .categoria-nombre,
+html[data-tema="claro"] .item-row .item-info h3 {
+    color: var(--white);
+}
+
+html[data-tema="claro"] .item-row {
+    border-bottom-color: var(--claro-borde);
+}
+
+/* Fichas del equipo: el texto va sobre la foto con degradado negro, así que sigue en blanco */
+html[data-tema="claro"] .barbero-info,
+html[data-tema="claro"] .barbero-info h2 {
+    color: #ffffff;
+}
+
+html[data-tema="claro"] .barbero-info .bio {
+    color: #e6e6e6;
+}
+
+html[data-tema="claro"] .barbero-info .rango,
+html[data-tema="claro"] .barbero-info .tags span {
+    color: #f0c94a;
+}
+
+/* 6. FOOTER Y COOKIES */
+html[data-tema="claro"] .footer {
+    background-color: var(--claro-superficie-2);
+    color: var(--gray-text);
+}
+
+html[data-tema="claro"] .footer h2,
+html[data-tema="claro"] .footer a:hover {
+    color: var(--gold);
+}
+
+html[data-tema="claro"] .footer a {
+    color: var(--gray-text);
+}
+
+html[data-tema="claro"] .footer-bottom {
+    border-top-color: var(--claro-borde);
+    color: var(--gray-text);
+}
+
+html[data-tema="claro"] .cookie-banner {
+    background: var(--claro-superficie);
+    color: var(--white);
+    border-top-color: var(--gold);
+    box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.12);
+}
+
+html[data-tema="claro"] .cookie-banner-texto h2,
+html[data-tema="claro"] .cookie-banner-texto a {
+    color: var(--gold);
+}
+
+html[data-tema="claro"] .cookie-banner-texto p,
+html[data-tema="claro"] .cookie-btn-borde {
+    color: var(--gray-text);
+}
+
+html[data-tema="claro"] .cookie-btn-borde {
+    border-color: var(--claro-borde);
+}
+
+/* 7. BUSCADOR */
+html[data-tema="claro"] .buscador-web input {
+    background-color: var(--claro-superficie);
+    border-color: var(--claro-borde);
+}
+
+html[data-tema="claro"] .buscador-web input::placeholder {
+    color: #6b655c;
+}
+
+/* 8. RESERVAS (era la vista con más colores escritos a mano) */
+html[data-tema="claro"] .reservas-container,
+html[data-tema="claro"] .seguimiento-live {
+    background: var(--claro-superficie);
+    border-color: var(--claro-borde);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+}
+
+html[data-tema="claro"] .reservas-container h1,
+html[data-tema="claro"] .card-meta .precio,
+html[data-tema="claro"] .card-content-barbero .especialidad,
+html[data-tema="claro"] .ticket-line.total,
+html[data-tema="claro"] .seg-item.completado span {
+    color: var(--gold);
+}
+
+html[data-tema="claro"] .reserva-step h2 {
+    border-left-color: var(--gold);
+}
+
+html[data-tema="claro"] .pasos-bar {
+    border-bottom-color: var(--claro-borde);
+}
+
+html[data-tema="claro"] .paso-numero {
+    background: var(--claro-superficie-2);
+}
+
+html[data-tema="claro"] .paso-item.activo .paso-numero {
+    background: var(--gold);
+    color: #ffffff;
+    border-color: var(--gold);
+}
+
+/* Tarjetas de servicio, barbero, horas, campos y filtros */
+html[data-tema="claro"] .card-option,
+html[data-tema="claro"] .calendario-box input,
+html[data-tema="claro"] .hora-item,
+html[data-tema="claro"] .input-box input,
+html[data-tema="claro"] .ticket-resumen,
+html[data-tema="claro"] .reserva-politica,
+html[data-tema="claro"] .filtro-btn {
+    background: var(--claro-superficie-2);
+    border-color: var(--claro-borde);
+    color: var(--white);
+}
+
+html[data-tema="claro"] .card-option:hover {
+    background: #e6dccb;
+    border-color: #b9ab94;
+}
+
+html[data-tema="claro"] .card-option:has(input[type="radio"]:checked) {
+    border-color: var(--gold);
+    background: #fff8e6;
+    box-shadow: 0 0 0 2px rgba(122, 90, 0, 0.25);
+}
+
+html[data-tema="claro"] .card-info h3,
+html[data-tema="claro"] .seg-item strong {
+    color: var(--white);
+}
+
+html[data-tema="claro"] .card-info p,
+html[data-tema="claro"] .card-meta .duracion,
+html[data-tema="claro"] .horas-box h3,
+html[data-tema="claro"] .input-box label,
+html[data-tema="claro"] .campo-label,
+html[data-tema="claro"] .campo-ayuda,
+html[data-tema="claro"] .paso-ayuda,
+html[data-tema="claro"] .select-date-msg,
+html[data-tema="claro"] .seg-item,
+html[data-tema="claro"] .seg-item span,
+html[data-tema="claro"] .reserva-politica-label,
+html[data-tema="claro"] .alert-texto p {
+    color: var(--gray-text);
+}
+
+html[data-tema="claro"] .ticket-line {
+    border-bottom-color: var(--claro-borde);
+}
+
+html[data-tema="claro"] .hora-item:hover,
+html[data-tema="claro"] .filtro-btn:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+}
+
+html[data-tema="claro"] .hora-item.selected,
+html[data-tema="claro"] .filtro-btn.activo,
+html[data-tema="claro"] .btn-siguiente,
+html[data-tema="claro"] .btn-confirmar {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: #ffffff;
+}
+
+html[data-tema="claro"] .btn-siguiente:hover,
+html[data-tema="claro"] .btn-confirmar:hover {
+    background: var(--gold-dark);
+}
+
+/* Botones en gris (todavía no se puede avanzar): siguen viéndose apagados */
+html[data-tema="claro"] .btn-siguiente.deshabilitado,
+html[data-tema="claro"] .btn-confirmar.deshabilitado,
+html[data-tema="claro"] #form-reserva:has(#acepto-politica:not(:checked)) #btn-confirmar-reserva {
+    background: #cfc7ba;
+    color: #4f4a42;
+}
+
+html[data-tema="claro"] .btn-atras {
+    color: var(--gray-text);
+    border-color: var(--claro-borde);
+}
+
+html[data-tema="claro"] .btn-atras:hover {
+    background: var(--claro-superficie-2);
+    color: var(--white);
+}
+
+html[data-tema="claro"] .alert-success .alert-texto strong {
+    color: var(--gold);
+}
+
+html[data-tema="claro"] .alert-error .alert-texto strong {
+    color: var(--error);
+}
+
+html[data-tema="claro"] .reserva-politica-link:hover {
+    color: var(--white);
+}
+
+/* El logo del footer no es cuadrado: con radio 50% quedaba un óvalo. Esquinas redondeadas */
+html[data-tema="claro"] .footer-logo img {
+    border-radius: 16px;
+    padding: 8px;
+}
+
+/* 9. PÁGINAS LEGALES (aviso legal, privacidad, cookies)
+   Se nos habían pasado: al probar el tema claro el título salía oscuro sobre la foto
+   y las tarjetas seguían negras. */
+html[data-tema="claro"] .legal-hero h1 {
+    color: #ffffff; /* va sobre la foto oscura, como en el inicio */
+}
+
+html[data-tema="claro"] .legal-hero p {
+    color: #e6e6e6;
+}
+
+html[data-tema="claro"] .legal-hero .section-subtitle {
+    color: #f0c94a;
+}
+
+html[data-tema="claro"] .legal-card {
+    background: var(--claro-superficie);
+    border-color: var(--claro-borde);
+    border-left-color: var(--gold);
+}
+
+html[data-tema="claro"] .legal-card p,
+html[data-tema="claro"] .legal-list li {
+    color: var(--gray-text);
+}
+
+html[data-tema="claro"] .legal-card strong {
+    color: var(--white);
+}

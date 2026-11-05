@@ -23,6 +23,7 @@ App.esperar((async () => {
                 const img = document.createElement('img');
                 img.src = post.imagen_url || '../../assets/img/blog/default.jpg';
                 img.alt = post.imagen_url ? post.titulo : 'Blog Barbería Catracha';
+                img.loading = 'lazy';
                 media.appendChild(img);
             }
 
@@ -33,6 +34,8 @@ App.esperar((async () => {
             info.appendChild(App.crear('p', '', post.resumen + '...'));
             const btn = App.crear('a', 'blog-btn', 'RESERVA CITA');
             btn.href = 'reservas.html';
+            // Todos los botones dicen "RESERVA CITA"; el aria-label los diferencia al listarlos
+            btn.setAttribute('aria-label', 'Reservar cita (' + post.titulo + ')');
             info.appendChild(btn);
 
             card.append(media, info);

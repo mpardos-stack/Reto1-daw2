@@ -79,7 +79,19 @@
         });
     }
 
-    App.esperar(cargarParcial('header', '../includes/header.html'));
+    // Marca en el menú el enlace de la página en la que estamos.
+    // aria-current="page" lo lee el lector de pantalla ("página actual") y el CSS lo usa para pintarlo en dorado,
+    // así el usuario sabe siempre dónde está.
+    function marcarPaginaActual() {
+        const actual = location.pathname.split('/').pop() || 'index.html';
+        document.querySelectorAll('.nav-menu a, .hamburger-menu a').forEach(enlace => {
+            if (enlace.getAttribute('href').split('/').pop() === actual) {
+                enlace.setAttribute('aria-current', 'page');
+            }
+        });
+    }
+
+    App.esperar(cargarParcial('header', '../includes/header.html').then(marcarPaginaActual));
     App.esperar(cargarParcial('footer', '../includes/footer.html'));
 
     // Cuando todos los scripts de la página se han registrado, esperamos a que terminen

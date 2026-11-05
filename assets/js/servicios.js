@@ -21,11 +21,13 @@ App.esperar((async () => {
             const bloque = App.crear('section', 'categoria-bloque');
             bloque.appendChild(App.crear('h2', 'categoria-nombre', categoria.replace(/_/g, ' ').toUpperCase()));
 
-            const items = App.crear('nav', 'items-list');
+            // Antes era un <nav>, pero esto es una lista de precios, no un menú de navegación.
+            // Con <ul>/<li> el lector de pantalla dice "lista, 2 elementos".
+            const items = App.crear('ul', 'items-list');
             lista.forEach(s => {
-                const fila = App.crear('article', 'item-row');
+                const fila = App.crear('li', 'item-row');
 
-                const info = App.crear('header', 'item-info');
+                const info = App.crear('div', 'item-info');
                 const h3 = App.crear('h3', '', s.nombre.toUpperCase());
                 if (avisos[s.nombre]) {
                     h3.append(' ');
@@ -34,7 +36,7 @@ App.esperar((async () => {
                 info.appendChild(h3);
                 info.appendChild(App.crear('p', 'descripcion', s.descripcion || ''));
 
-                const precio = App.crear('aside', 'item-precio');
+                const precio = App.crear('p', 'item-precio');
                 precio.appendChild(App.crear('span', '', `${Number(s.precio).toFixed(2)}€ / ${s.duracion} MIN`));
 
                 fila.append(info, precio);
