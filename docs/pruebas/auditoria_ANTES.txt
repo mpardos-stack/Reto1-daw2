@@ -1,0 +1,119 @@
+
+## index.html — "Barberia Catracha" (14 incidencias)
+ - sin meta description
+ - sin enlace "saltar al contenido"
+ - iframe sin title
+ - target=_blank sin rel=noopener: WhatsApp
+ - target=_blank sin rel=noopener: Instagram
+ - target=_blank sin rel=noopener: Facebook
+ - target=_blank sin rel=noopener: Política de Cookies
+ - onclick en el HTML: hamburger-btn
+ - estilo inline: explore-card → opacity: 0; transform: translateY(30px); transitio
+ - estilo inline: explore-card → opacity: 0; transform: translateY(30px); transitio
+ - estilo inline: explore-card → opacity: 0; transform: translateY(30px); transitio
+ - estilo inline: explore-card → opacity: 0; transform: translateY(30px); transitio
+ - estilo inline: explore-card → opacity: 0; transform: translateY(30px); transitio
+ - contraste 3.89:1 en "2026 Barbería Catracha" (p.)
+
+## servicios.html — "Servicios - Barbería Catracha" (9 incidencias)
+ - sin meta description
+ - sin enlace "saltar al contenido"
+ - iframe sin title
+ - target=_blank sin rel=noopener: WhatsApp
+ - target=_blank sin rel=noopener: Instagram
+ - target=_blank sin rel=noopener: Facebook
+ - target=_blank sin rel=noopener: Política de Cookies
+ - onclick en el HTML: hamburger-btn
+ - foco no visible en 1/12 tabulaciones
+
+## equipo.html — "Equipo - Barbería Catracha" (11 incidencias)
+ - sin meta description
+ - sin enlace "saltar al contenido"
+ - salto de encabezado h2→h4 (Ubicación)
+ - iframe sin title
+ - target=_blank sin rel=noopener: WhatsApp
+ - target=_blank sin rel=noopener: Instagram
+ - target=_blank sin rel=noopener: Facebook
+ - target=_blank sin rel=noopener: Política de Cookies
+ - onclick en el HTML: hamburger-btn
+ - contraste 3.89:1 en "2026 Barbería Catracha" (p.)
+ - foco no visible en 1/12 tabulaciones
+
+## galeria.html — "Galería Dinámica - Barbería Catracha" (11 incidencias)
+ - sin meta description
+ - sin enlace "saltar al contenido"
+ - salto de encabezado h1→h3 (Fade medio)
+ - salto de encabezado h2→h4 (Ubicación)
+ - iframe sin title
+ - target=_blank sin rel=noopener: WhatsApp
+ - target=_blank sin rel=noopener: Instagram
+ - target=_blank sin rel=noopener: Facebook
+ - target=_blank sin rel=noopener: Política de Cookies
+ - onclick en el HTML: hamburger-btn
+ - contraste 3.89:1 en "2026 Barbería Catracha" (p.)
+
+## resenas.html — "Reseñas - Barbería Catracha" (12 incidencias)
+ - sin meta description
+ - sin <main>
+ - sin enlace "saltar al contenido"
+ - salto de encabezado h1→h4 (Ubicación)
+ - iframe sin title
+ - target=_blank sin rel=noopener: Escribir reseña en Google
+ - target=_blank sin rel=noopener: WhatsApp
+ - target=_blank sin rel=noopener: Instagram
+ - target=_blank sin rel=noopener: Facebook
+ - target=_blank sin rel=noopener: Política de Cookies
+ - onclick en el HTML: hamburger-btn
+ - contraste 3.89:1 en "2026 Barbería Catracha" (p.)
+
+## ubicacion.html — "Ubicación - Barbería Catracha" (12 incidencias)
+ - sin meta description
+ - sin enlace "saltar al contenido"
+ - salto de encabezado h2→h4 (Ubicación)
+ - iframe sin title
+ - iframe sin title
+ - target=_blank sin rel=noopener: WhatsApp
+ - target=_blank sin rel=noopener: Instagram
+ - target=_blank sin rel=noopener: Facebook
+ - target=_blank sin rel=noopener: Política de Cookies
+ - onclick en el HTML: hamburger-btn
+ - contraste 3.89:1 en "2026 Barbería Catracha" (p.)
+ - foco no visible en 1/12 tabulaciones
+
+## blog.html — "Blog | Barbería Catracha" (10 incidencias)
+ - sin meta description
+ - sin enlace "saltar al contenido"
+ - salto de encabezado h2→h4 (Ubicación)
+ - iframe sin title
+ - target=_blank sin rel=noopener: WhatsApp
+ - target=_blank sin rel=noopener: Instagram
+ - target=_blank sin rel=noopener: Facebook
+ - target=_blank sin rel=noopener: Política de Cookies
+ - onclick en el HTML: hamburger-btn
+ - contraste 3.89:1 en "2026 Barbería Catracha" (p.)
+
+## reservas.html — "Reservas - Barbería Catracha" (24 incidencias)
+ - sin meta description
+ - sin <main>
+ - sin enlace "saltar al contenido"
+ - salto de encabezado h2→h4 (Ubicación)
+ - iframe sin title
+ - radio/checkbox con display:none (no llega el teclado): servicio_id
+ - radio/checkbox con display:none (no llega el teclado): servicio_id
+ - radio/checkbox con display:none (no llega el teclado): servicio_id
+ - radio/checkbox con display:none (no llega el teclado): servicio_id
+ - campo sin label: fecha
+ - radio/checkbox con display:none (no llega el teclado): barbero_id
+ - radio/checkbox con display:none (no llega el teclado): barbero_id
+ - radio/checkbox con display:none (no llega el teclado): barbero_id
+ - campo sin label: nombre
+ - campo sin label: apellido
+ - campo sin label: telefono
+ - campo sin label: email
+ - target=_blank sin rel=noopener: Política de Privacidad
+ - target=_blank sin rel=noopener: WhatsApp
+ - target=_blank sin rel=noopener: Instagram
+ - target=_blank sin rel=noopener: Facebook
+ - target=_blank sin rel=noopener: Política de Cookies
+ - onclick en el HTML: hamburger-btn
+ - contraste 3.89:1 en "2026 Barbería Catracha" (p.)

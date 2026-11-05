@@ -1,0 +1,23 @@
+OK   | 1er Tab llega al enlace "Saltar al contenido" — A Saltar al contenido
+OK   | Tras saltar, el siguiente Tab ya está dentro del formulario — BUTTON Todos
+OK   | Paso 1: Siguiente sin elegir muestra aviso en la página (no alert) — Debes seleccionar un servicio para poder avanzar.
+OK   | Paso 1: el radio del servicio recibe foco y se marca con Espacio
+OK   | Paso 1: la tarjeta enfocada muestra anillo de foco
+OK   | Paso 2: el foco va al título del paso — H2 Elige fecha y hora
+OK   | Paso 2: aria-current="step" en el paso 2
+OK   | Paso 3: se llega con Enter — (fecha simulada: flatpickr viene de CDN) H2 Selecciona tu barbero
+OK   | Paso 3: Siguiente sin barbero muestra aviso — Por favor, selecciona un barbero antes de ir al siguiente paso.
+OK   | Paso 3: barbero elegido con teclado
+OK   | Paso 3: el aviso desaparece al corregir
+OK   | Paso 4: Tab llega a "Nombre" y tiene label asociado — INPUT#campo-nombre 
+OK   | Paso 4: teléfono incorrecto da un mensaje concreto — El teléfono no es válido. Escribe 9 cifras, por ejemplo 600000000.
+OK   | Paso 5: resumen relleno — Corte de pelo (12.00 €)
+OK   | Paso 5: confirmar sin aceptar la política avisa y lleva el foco al checkbox — Para confirmar la reserva tienes que aceptar la Política de Privacidad.
+OK   | Reserva enviada y mensaje de confirmación visible — reservas.html?reserva=ok
+OK   | Móvil: Enter en MENÚ abre el menú y aria-expanded="true"
+OK   | Móvil: el foco pasa al primer enlace del menú
+OK   | Móvil: Escape cierra el menú y devuelve el foco al botón
+OK   | Táctil: tocar MENÚ abre el menú
+OK   | Táctil: tocar fuera lo cierra
+OK   | Teclado: el botón de tema cambia a claro y aria-pressed="true"
+OK   | El tema elegido se mantiene al cambiar de página

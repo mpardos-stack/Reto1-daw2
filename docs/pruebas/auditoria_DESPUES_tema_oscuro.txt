@@ -1,0 +1,17 @@
+
+## index.html — "Barbería en Zaragoza | Barbería Catracha" (0 incidencias)
+
+## servicios.html — "Servicios y precios | Barbería Catracha" (0 incidencias)
+
+## equipo.html — "Nuestro equipo de barberos | Barbería Catracha" (0 incidencias)
+
+## galeria.html — "Galería de estilos y cortes | Barbería Catracha" (0 incidencias)
+
+## resenas.html — "Reseñas de clientes | Barbería Catracha" (0 incidencias)
+
+## ubicacion.html — "Ubicación y horario | Barbería Catracha" (1 incidencias)
+ - contraste 2.11:1 en "876 719 599" (a.enlace-en-linea)
+
+## blog.html — "Blog de consejos y tendencias | Barbería Catracha" (0 incidencias)
+
+## reservas.html — "Reservar cita online | Barbería Catracha" (0 incidencias)

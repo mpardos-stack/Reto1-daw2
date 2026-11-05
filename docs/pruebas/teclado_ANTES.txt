@@ -1,0 +1,9 @@
+FALLA | 1er Tab llega a "Saltar al contenido" — llega a: BARBERÍA CATRA
+FALLA | Se puede llegar con Tab a un servicio — los radios tienen display:none, el foco se los salta
+FALLA | El botón Siguiente se puede enfocar y explica qué falta — tiene disabled: no recibe foco ni da ningún mensaje
+FALLA | Al cambiar de paso el foco va al nuevo paso — foco en: A 
+FALLA | Los errores se muestran dentro de la página — sale un alert(): "Por favor, selecciona un barbero antes de ir al siguiente paso."
+FALLA | Los campos de datos tienen label asociado — <label> sin for, no está unido al input
+FALLA | El botón MENÚ indica si está abierto (aria-expanded)
+FALLA | Escape cierra el menú
+FALLA | Index sin errores de JavaScript en consola — Identifier 'observerOptions' has already been declared

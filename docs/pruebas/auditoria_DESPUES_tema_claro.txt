@@ -1,0 +1,25 @@
+
+## index.html — "Barbería en Zaragoza | Barbería Catracha" (5 incidencias)
+ - contraste 1.44:1 en "ZARAGOZA · C. DE FRAY JUL" (p.direccion hero-anim hero-anim-visible)
+ - contraste 1.11:1 en "Tu Estilo," (h1.contenido-titulo hero-anim hero-anim-visible)
+ - contraste 1.44:1 en "Nuestra Pasión" (span.texto-dorado escritura-dorada)
+ - contraste 1.13:1 en "Expertos en cortes modern" (p.contenido-description hero-anim hero-anim-visible)
+ - contraste 1.11:1 en "VER SERVICIOS" (a.btn-servicios)
+
+## servicios.html — "Servicios y precios | Barbería Catracha" (0 incidencias)
+
+## equipo.html — "Nuestro equipo de barberos | Barbería Catracha" (4 incidencias)
+ - contraste 1.00:1 en "Ross" (h2.)
+ - contraste 1.60:1 en "Barbero profesional" (p.rango)
+ - contraste 1.25:1 en "Especialista en degradado" (p.bio)
+ - contraste 1.60:1 en "FADE" (span.)
+
+## galeria.html — "Galería de estilos y cortes | Barbería Catracha" (0 incidencias)
+
+## resenas.html — "Reseñas de clientes | Barbería Catracha" (0 incidencias)
+
+## ubicacion.html — "Ubicación y horario | Barbería Catracha" (0 incidencias)
+
+## blog.html — "Blog de consejos y tendencias | Barbería Catracha" (0 incidencias)
+
+## reservas.html — "Reservar cita online | Barbería Catracha" (0 incidencias)
