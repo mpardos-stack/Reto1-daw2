@@ -1,0 +1,109 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+/* --- Responsive: incidencias encontradas al probar en móvil y tablet --- */
+
+/* Móvil y tablet: el header se partía en 2 filas (logo arriba, EN y MENÚ abajo).
+   Ahora es una sola fila: logo a la izquierda y botones a la derecha. */
+@include hasta($bp-escritorio) {
+    .main-header .container {
+        flex-wrap: nowrap;
+        gap: 10px;
+    }
+
+    .header-herramientas {
+        margin-left: auto; /* empuja idioma, tema y menú a la derecha */
+    }
+}
+
+@include hasta($bp-movil-s) {
+    /* En pantallas muy estrechas dejamos solo "CATRACHA" junto al logo */
+    .main-header a.icon .logo .text-white {
+        display: none;
+    }
+
+    .main-header a.icon > .icon {
+        width: 44px;
+        height: 44px;
+        flex-basis: 44px;
+    }
+
+    .main-header {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .main-header .container {
+        gap: 8px;
+    }
+
+    .main-header a.icon .logo {
+        font-size: 1rem;
+    }
+
+    .btn-traducir {
+        padding: 10px 12px;
+    }
+}
+
+@include hasta($bp-tablet) {
+    /* En móvil se ocultan los nombres de los pasos, así que enseñamos el texto del paso actual */
+    .paso-indicador {
+        position: static;
+        width: auto;
+        height: auto;
+        clip-path: none;
+        text-align: center;
+        color: var(--gold);
+        font-weight: 600;
+        margin: -25px 0 20px;
+    }
+}
+
+@include hasta($bp-movil) {
+    /* Títulos grandes (blog, ubicación...) salían de una palabra por línea en móvil.
+       clamp(): mínimo 2rem, crece con el ancho (9vw) y como mucho 2.6rem */
+    .titulo-principal {
+        font-size: clamp(2rem, 9vw, 2.6rem);
+    }
+
+    .ubicacion-header .descripcion-header,
+    .descripcion-header {
+        padding: 0 4px;
+    }
+}
+
+/* Enlaces dentro de un texto (teléfono, WhatsApp): sin esto salían en el azul por defecto
+   del navegador, con contraste 2.1:1 sobre el fondo oscuro. Subrayados para que se vea que son enlaces. */
+.enlace-en-linea {
+    color: var(--gold);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+/* Escritorio: con el botón de tema nuevo el header no cabía en 1366px y se salía por la derecha.
+   Damos un poco más de ancho al header y el hueco entre enlaces se adapta al ancho (clamp). */
+.main-header .container {
+    max-width: 1320px;
+}
+
+.nav-menu ul {
+    gap: clamp(14px, 1.6vw, 30px);
+}
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+    .nav-menu ul li a {
+        font-size: 0.8rem;
+    }
+
+    .btn-reserve {
+        padding: 12px 18px;
+    }
+}
+
+/* Móviles muy estrechos (320px): solo cabe el logo. El enlace sigue teniendo nombre (aria-label). */
+@include hasta($bp-xs) {
+    .main-header a.icon .logo {
+        display: none;
+    }
+}

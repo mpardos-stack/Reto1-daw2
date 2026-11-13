@@ -1,0 +1,72 @@
+/* ==========================================================================
+   ANIMACIÓN DE ENTRADA DEL HERO (efecto escritura + brillo dorado)
+   ========================================================================== */
+
+/* Elementos del hero: empiezan invisibles y desplazados hacia abajo.
+   El JavaScript les añade la clase "hero-anim-visible" de uno en uno */
+.hero-anim {
+    opacity: 0;
+    transform: translateY(25px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.hero-anim.hero-anim-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Efecto escritura: el texto dorado se va descubriendo de izquierda a derecha.
+   Importante: el texto NO se modifica, así el traductor de la web lo sigue entendiendo.
+   "--letras" son los saltos del avance (uno por letra), como al teclear */
+.texto-dorado.escritura-dorada {
+    display: table;          /* La caja se ajusta al ancho del texto, así el efecto empieza justo donde empieza la frase */
+    margin: 0 auto;
+    position: relative;
+    --letras: 14;            /* Valor por defecto; el JavaScript lo sustituye por el número real de letras */
+    clip-path: inset(0 100% 0 0);
+    animation: escribir-dorado 1.6s steps(var(--letras, 14), end) 0.6s forwards;
+}
+
+@keyframes escribir-dorado {
+    to { clip-path: inset(0 0 0 0); }
+}
+
+/* Cursor dorado que viaja por delante del texto mientras se "escribe" */
+.texto-dorado.escritura-dorada::after {
+    content: '';
+    position: absolute;
+    top: 12%;
+    left: 0;
+    width: 3px;
+    height: 76%;
+    background-color: var(--gold);
+    animation: mover-cursor-dorado 1.6s steps(var(--letras, 14), end) 0.6s forwards;
+}
+
+@keyframes mover-cursor-dorado {
+    to { left: 100%; }
+}
+
+/* Brillo dorado que recorre el texto una vez cuando termina de escribirse */
+.texto-dorado.brillo-dorado {
+    background: linear-gradient(90deg, var(--gold) 0%, var(--gold) 40%, #fff3b0 50%, var(--gold) 60%, var(--gold) 100%);
+    background-size: 300% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: brillo-dorado 1.8s ease-in-out 1;
+}
+
+@keyframes brillo-dorado {
+    from { background-position: 100% 0; }
+    to   { background-position: 0 0; }
+}
+
+/* Accesibilidad: si el usuario prefiere menos movimiento, se muestra todo sin animar */
+@media (prefers-reduced-motion: reduce) {
+    .hero-anim {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+}

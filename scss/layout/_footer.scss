@@ -1,0 +1,108 @@
+// ============================================
+// FOOTER: mapa, horario, contacto, redes y políticas
+// ============================================
+@use "../abstracts/variables" as *;
+
+.footer {
+    background-color: #1a1a1abb;
+    color: $gris-texto;
+    padding: 60px 20px 20px;
+    font-family: $fuente;
+
+    // Antes eran <h4>; ahora <h2> para no saltar niveles de encabezado.
+    // Mismo tamaño que tenía el h4 para que se vea igual.
+    h2 {
+        color: $dorado-catracha;
+        font-size: 1rem;
+        margin-bottom: 15px;
+        margin-top: 0;
+    }
+
+    p {
+        font-size: 0.9rem;
+        margin-bottom: 8px;
+    }
+
+    a {
+        display: block;
+        text-decoration: none;
+        color: $gris-texto;
+        margin-bottom: 8px;
+        transition: $transicion;
+
+        &:hover {
+            color: $dorado-catracha;
+        }
+    }
+}
+
+// Contenedor principal: 3 columnas
+.footer-container {
+    max-width: 1300px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 250px 1fr 250px;
+    align-items: start; // todos los títulos alineados
+}
+
+.footer-lado {
+    display: flex;
+    flex-direction: column;
+}
+
+.footer-center {
+    display: flex;
+    justify-content: center;
+    gap: 80px;
+}
+
+.mapa {
+    width: 220px;
+    height: 200px;
+    border-radius: 8px;
+    border: none;
+}
+
+.footer-logo {
+    align-items: flex-end;
+
+    img {
+        width: 220px; // mismo tamaño que el mapa
+        max-height: 200px;
+        object-fit: contain;
+        opacity: 0.9;
+        transition: $transicion;
+
+        &:hover {
+            opacity: 1;
+            transform: scale(1.05);
+        }
+    }
+}
+
+// Parte de abajo: copyright y enlace al login
+.footer-bottom {
+    border-top: 1px solid $borde;
+    margin-top: 40px;
+    padding-top: 15px;
+    text-align: center;
+    font-size: 0.8rem;
+    color: #999; // antes #777, no llegaba a contraste 4.5:1
+}
+
+.footer-login {
+    display: inline;
+    color: inherit;
+    text-decoration: none;
+    transition: $transicion;
+
+    &:hover {
+        color: var(--gold);
+    }
+}
+
+// Sin !important: ".footer-bottom .footer-login" (0,2,0) gana a ".footer a" (0,1,1)
+.footer-bottom .footer-login,
+.footer .enlace-en-linea {
+    display: inline;
+}

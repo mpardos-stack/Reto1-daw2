@@ -1,0 +1,616 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+/* --- SECCIÓN RESERVAS --- */
+
+.reservas-page {
+    background-color: #0d0d0d;
+    color: #ffffff;
+    min-height: calc(100vh - 80px);
+    padding: 60px 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.reservas-container {
+    max-width: 900px;
+    width: 100%;
+    background: #141414;
+    border: 1px solid #222;
+    border-radius: 12px;
+    padding: 40px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.reservas-container h1 {
+    text-align: center;
+    font-size: 2.2rem;
+    color: $dorado-catracha;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* Mensajes de confirmación / error de la reserva */
+.alert {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 20px 24px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+.alert-icono {
+    flex-shrink: 0;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.alert-texto strong {
+    display: block;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+}
+
+.alert-texto p {
+    margin: 0;
+    color: #cfcfcf;
+    line-height: 1.5;
+}
+
+.alert-success {
+    background: rgba(217, 156, 43, 0.08);
+    border: 1px solid $dorado-catracha;
+}
+
+.alert-success .alert-icono {
+    background: $dorado-catracha;
+    color: $negro;
+}
+
+.alert-success .alert-texto strong {
+    color: $dorado-catracha;
+}
+
+.alert-error {
+    background: rgba(220, 53, 69, 0.08);
+    border: 1px solid #dc3545;
+}
+
+.alert-error .alert-icono {
+    background: #dc3545;
+    color: #ffffff;
+}
+
+.alert-error .alert-texto strong {
+    color: #dc3545;
+}
+
+/* Barra de Pasos (ahora es un <ol>) */
+.pasos-bar {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 40px;
+    position: relative;
+    border-bottom: 2px solid #222;
+    padding-bottom: 15px;
+}
+
+.paso-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    opacity: 0.6; /* antes 0.4: el texto de los pasos pendientes casi no se leía */
+    transition: all 0.3s ease;
+}
+
+.paso-item.activo {
+    opacity: 1;
+}
+
+.paso-numero {
+    width: 35px;
+    height: 35px;
+    background: #222;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin-bottom: 8px;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.paso-item.activo .paso-numero {
+    background: $dorado-catracha;
+    color: $negro;
+    border-color: #ffffff;
+}
+
+.paso-texto {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Pasos del Formulario */
+.reserva-step {
+    display: none;
+}
+
+.reserva-step.activo {
+    display: block;
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+.reserva-step h2 {
+    font-size: 1.5rem;
+    margin-bottom: 25px;
+    border-left: 4px solid $dorado-catracha;
+    padding-left: 12px;
+}
+
+.paso-ayuda {
+    color: #999;
+    font-size: 0.9rem;
+    margin-top: -15px;
+    margin-bottom: 20px;
+}
+
+/* Estilo de Tarjetas y Opciones */
+/* Antes: display: none. Así el radio desaparecía también para el teclado y el lector
+   de pantalla, y no se podía elegir servicio ni barbero sin ratón.
+   Ahora lo escondemos solo a la vista (mismo truco que .sr-only) y la tarjeta enseña el foco. */
+.card-option input[type="radio"] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    margin: 0;
+}
+
+.card-option {
+    position: relative;
+}
+
+/* Anillo de foco en la tarjeta cuando el radio de dentro tiene el foco del teclado */
+.card-option:has(input:focus-visible) {
+    outline: 3px solid var(--focus);
+    outline-offset: 3px;
+}
+
+/* El filtro de categorías usa el atributo hidden; sin esto display: block le ganaría */
+.card-option[hidden] {
+    display: none;
+}
+
+.card-option {
+    display: block;
+    background: $gris-tarjeta;
+    border: 2px solid #2a2a2a;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    overflow: hidden;
+}
+
+.card-option:hover {
+    border-color: #555;
+    background: #222;
+}
+
+.card-option input[type="radio"]:checked + .card-content,
+.card-option input[type="radio"]:checked + .card-content-barbero,
+.card-option:has(input[type="radio"]:checked) {
+    border-color: $dorado-catracha;
+    background: rgba(217, 156, 43, 0.05);
+    box-shadow: 0 0 15px rgba(217, 156, 43, 0.15);
+}
+
+/* Grid de Servicios */
+.servicios-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.servicio-card .card-content {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-info h3 {
+    font-size: 1.2rem;
+    color: #fff;
+    margin-bottom: 5px;
+}
+
+.card-info p {
+    color: #b3b3b3;
+    font-size: 0.9rem;
+}
+
+.card-meta {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.card-meta .precio {
+    white-space: nowrap; /* en móvil "8.00 €" se partía en dos líneas */
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: $dorado-catracha;
+}
+
+.card-meta .duracion {
+    font-size: 0.8rem;
+    color: #888;
+}
+
+/* Grid de Barberos */
+.barberos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 280px));
+    justify-content: center;
+    justify-items: center;
+    gap: 20px;
+}
+
+.card-content-barbero {
+    padding: 25px 15px;
+    text-align: center;
+}
+
+.card-content-barbero .barbero-img,
+.card-content-barbero img.barbero-img {
+    width: 100%;
+    height: 280px; /* altura del recuadro de la imagen */
+    border-radius: 0; /* quitar forma circular */
+    overflow: hidden;
+    display: block;
+    margin-bottom: 15px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.card-content-barbero .barbero-img img,
+.card-content-barbero img.barbero-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+}
+
+.card-option:has(input[type="radio"]:checked) .barbero-img {
+    box-shadow: 0 0 0 3px rgba(217,156,43,0.12);
+}
+
+.card-content-barbero h3 {
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+}
+
+.card-content-barbero .especialidad {
+    font-size: 0.85rem;
+    color: $dorado-catracha;
+    text-transform: uppercase;
+}
+
+/* Calendario y Horas */
+.agenda-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+.calendario-box input {
+    width: 100%;
+    background: $gris-tarjeta;
+    border: 1px solid #333;
+    padding: 15px;
+    color: white;
+    font-size: 1rem;
+    border-radius: 6px;
+    text-align: center;
+}
+
+.horas-box h3 {
+    font-size: 1rem;
+    margin-bottom: 15px;
+    color: #b3b3b3;
+}
+
+.horas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 10px;
+    max-height: 280px;
+    overflow-y: auto;
+    padding-right: 5px;
+}
+
+.hora-item {
+    background: $gris-tarjeta;
+    border: 1px solid #333;
+    padding: 10px;
+    text-align: center;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+}
+
+.hora-item:hover {
+    border-color: $dorado-catracha;
+    color: $dorado-catracha;
+}
+
+.hora-item.selected {
+    background: $dorado-catracha;
+    color: $negro;
+    border-color: $dorado-catracha;
+    font-weight: bold;
+}
+
+.select-date-msg {
+    grid-column: 1 / -1;
+    color: #666;
+    font-style: italic;
+    font-size: 0.9rem;
+}
+
+/* Inputs de Datos */
+.form-group-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.input-box {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.input-box label {
+    font-size: 0.85rem;
+    color: #b3b3b3;
+    text-transform: uppercase;
+}
+
+.input-box input {
+    background: $gris-tarjeta;
+    border: 1px solid #333;
+    padding: 12px 15px;
+    color: white;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.input-box input:focus {
+    border-color: $dorado-catracha;
+    outline: none;
+}
+
+/* Resumen del Ticket */
+.ticket-resumen {
+    background: $gris-tarjeta;
+    border: 1px solid #2a2a2a;
+    border-radius: 8px;
+    padding: 25px;
+    margin-top: 20px;
+}
+
+.ticket-line {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid #262626;
+    font-size: 0.95rem;
+}
+
+.ticket-line.total {
+    border-bottom: none;
+    font-size: 1.2rem;
+    color: $dorado-catracha;
+    padding-top: 15px;
+}
+
+/* Botonera de Navegación */
+.nav-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+    gap: 15px;
+}
+
+.nav-buttons.single-btn {
+    justify-content: flex-end;
+}
+
+.btn-siguiente, .btn-confirmar {
+    background: $dorado-catracha;
+    color: $negro;
+    border: none;
+    padding: 14px 28px;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: background 0.3s;
+}
+
+.btn-siguiente:hover, .btn-confirmar:hover {
+    background: $dorado-hover;
+}
+
+/* Estado deshabilitado para botones */
+.btn-siguiente:disabled, .btn-confirmar:disabled {
+    background: #666;
+    color: #999;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.reserva-politica {
+    margin: 20px 0 8px;
+    padding: 16px;
+    background: #1a1a1a;
+    border: 1px solid #2b2b2b;
+    border-radius: 8px;
+}
+
+.reserva-politica-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    cursor: pointer;
+    color: #ccc;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.reserva-politica-label input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    min-width: 18px;
+    accent-color: var(--gold);
+    cursor: pointer;
+    margin-top: 2px;
+}
+
+.reserva-politica-link {
+    color: var(--gold);
+    text-decoration: underline;
+}
+
+.reserva-politica-link:hover {
+    color: #fff;
+}
+
+.btn-siguiente:disabled:hover, .btn-confirmar:disabled:hover {
+    background: #666;
+}
+
+.btn-siguiente.deshabilitado, .btn-confirmar.deshabilitado {
+    background: #666;
+    color: #999;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* El botón confirmar se deshabilita visualmente cuando el checkbox de política NO está marcado */
+#form-reserva:has(#acepto-politica:not(:checked)) #btn-confirmar-reserva {
+    background: #666;
+    color: #999;
+    cursor: not-allowed;
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.btn-atras {
+    background: transparent;
+    color: #b3b3b3;
+    border: 1px solid #333;
+    padding: 14px 28px;
+    border-radius: 6px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.3s;
+}
+
+.btn-atras:hover {
+    background: #222;
+    color: #fff;
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@include hasta($bp-tablet) {
+    .agenda-container, .form-group-grid {
+        grid-template-columns: 1fr;
+    }
+    .paso-texto { display: none; }
+}
+
+.seguimiento-live {
+    display: flex;
+    justify-content: space-between;
+    background: #111111;
+    border: 1px solid #252525;
+    padding: 12px 20px;
+    border-radius: 6px;
+    margin: -10px auto 25px auto;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.seg-item {
+    font-size: 0.88rem;
+    color: #777;
+    transition: all 0.3s ease;
+}
+
+.seg-item strong {
+    color: #fff;
+}
+
+.seg-item span {
+    font-style: italic;
+    color: #999;
+}
+
+/* Estado Activo Resaltado */
+.seg-item.completado span {
+    color: var(--gold, $dorado-catracha);
+    font-style: normal;
+    font-weight: 600;
+}
+
+/* Contenedor de Botones de Filtro de Categorías */
+.servicios-filtros {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+}
+
+.filtro-btn {
+    background: $gris-tarjeta;
+    color: #b3b3b3;
+    border: 1px solid #333;
+    padding: 9px 18px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+}
+
+.filtro-btn:hover { border-color: $dorado-catracha; color: #fff; }
+.filtro-btn.activo { background: $dorado-catracha; color: $negro; border-color: $dorado-catracha; }

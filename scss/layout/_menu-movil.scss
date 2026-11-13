@@ -1,0 +1,206 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+/* ==========================================================================
+   MENÚ DESPLEGABLE PARA MÓVIL Y TABLET: 3 OPCIONES
+   Solo una activa (la 2). Para cambiar: comentar su bloque y descomentar otro,
+   y hacer lo mismo en header.html y script.js.
+   Las tres aparecen por debajo de 1200px; en escritorio se ve el menú normal (.nav-menu).
+   Usan las variables de color (--gold, --white, --dark-bg), así funcionan con el tema claro.
+   ========================================================================== */
+
+/* Común a las tres: el header es la referencia para colocar el menú justo debajo */
+.main-header {
+    position: relative;
+}
+
+/* --------------------------------------------------------------------------
+   OPCIÓN 1: botón hamburguesa (3 rayas que se convierten en X)
+   -------------------------------------------------------------------------- */
+/*
+.menu1-btn {
+    display: none;
+    width: 44px;
+    height: 44px;
+    padding: 10px;
+    background: transparent;
+    border: 1px solid var(--gold);
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.menu1-raya {
+    display: block;
+    height: 2px;
+    margin: 4px 0;
+    background: var(--gold);
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.menu1-btn.abierto .menu1-raya:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.menu1-btn.abierto .menu1-raya:nth-child(2) { opacity: 0; }
+.menu1-btn.abierto .menu1-raya:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+.menu1-lista {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 16px;
+    min-width: 200px;
+    padding: 10px;
+    background: var(--dark-bg);
+    border: 1px solid var(--gold);
+    border-radius: 8px;
+    z-index: 1000;
+}
+
+.menu1-lista.abierto {
+    display: block;
+}
+
+.menu1-lista ul {
+    list-style: none;
+}
+
+.menu1-lista a {
+    display: block;
+    padding: 10px 12px;
+    color: var(--white);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.menu1-lista a:hover,
+.menu1-lista a[aria-current="page"] {
+    color: var(--gold);
+}
+
+@media (max-width: 1199px) {
+    .nav-menu { display: none; }
+    .menu1-btn { display: block; }
+}
+*/
+
+/* --------------------------------------------------------------------------
+   OPCIÓN 2 (ACTIVA): botón "MENÚ ☰" y menú a todo el ancho
+   - El botón está oculto en PC y aparece hasta 1199px (entre 1025 y 1199px
+     los 7 enlaces y los botones no cabían en el header).
+   - El menú va justo debajo del header y se ve cuando el JS le pone la clase "mostrar".
+   - Dentro del bloque no hay comentarios a propósito: así se puede comentar
+     entero con un solo par de barras y asteriscos sin que se rompa.
+   -------------------------------------------------------------------------- */
+.hamburger-btn {
+    display: none;
+    background: var(--gold);
+    color: #000;
+    border: none;
+    padding: 10px 12px;
+    font-weight: bold;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.hamburger-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: $negro;
+    border-top: 1px solid var(--gold);
+    padding: 15px 0;
+    z-index: 1000;
+}
+
+.hamburger-menu.mostrar {
+    display: block;
+}
+
+.hamburger-menu ul {
+    list-style: none;
+    text-align: center;
+}
+
+.hamburger-menu li {
+    margin: 12px 0;
+}
+
+.hamburger-menu a {
+    display: inline-block;
+    padding: 8px 16px;
+    color: var(--white);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+@include hasta($bp-escritorio) {
+    .nav-menu { display: none; }
+    .hamburger-btn { display: block; }
+}
+
+/* --------------------------------------------------------------------------
+   OPCIÓN 3: menú con details y summary (sin JavaScript)
+   Los enlaces salen en dos columnas a todo el ancho.
+   -------------------------------------------------------------------------- */
+/*
+.menu3 {
+    display: none;
+}
+
+.menu3 summary {
+    list-style: none;
+    padding: 10px 14px;
+    border: 1px solid var(--gold);
+    border-radius: 6px;
+    color: var(--gold);
+    font-weight: 700;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.menu3 summary::-webkit-details-marker {
+    display: none;
+}
+
+.menu3[open] summary {
+    background: var(--gold);
+    color: var(--dark-bg);
+}
+
+.menu3-lista {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    padding: 12px 16px;
+    background: var(--dark-bg);
+    border-bottom: 2px solid var(--gold);
+    z-index: 1000;
+}
+
+.menu3-lista ul {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+}
+
+.menu3-lista a {
+    display: block;
+    padding: 10px;
+    color: var(--white);
+    text-decoration: none;
+    font-weight: 600;
+    text-align: center;
+}
+
+.menu3-lista a:hover,
+.menu3-lista a[aria-current="page"] {
+    color: var(--gold);
+}
+
+@media (max-width: 1199px) {
+    .nav-menu { display: none; }
+    .menu3 { display: block; }
+}
+*/

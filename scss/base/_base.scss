@@ -1,0 +1,50 @@
+// ============================================
+// BASE: variables CSS, reset y body
+// ============================================
+@use "../abstracts/variables" as *;
+
+// Las variables de Sass se pasan a variables CSS (--gold...) porque
+// tema-claro.css las cambia en el navegador al pulsar el botón ☀.
+// Hay que usar #{} para que Sass escriba el valor dentro de la variable CSS.
+:root {
+    --dark-bg: #{$negro};
+    --gold: #{$dorado};
+    --gold-dark: #{$dorado-oscuro};
+    --dark-card: #{$tarjeta};
+    --border-color: #{$borde};
+    --text-gray: #{$gris};
+    --focus: #{$foco};
+    --error: #{$error};
+    --green: #{$verde};
+    --red: #{$rojo};
+    --border: #{$borde-suave};
+    --white: #{$blanco};
+    --gray-text: #{$gris-texto};
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    min-height: 100%;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: $fuente;
+    background-color: $fondo-body;
+    min-height: 100vh;
+    color: var(--white);
+}
+
+img, picture, video, iframe, svg {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}

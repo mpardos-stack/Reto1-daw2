@@ -1,0 +1,26 @@
+// ============================================
+// MIXINS - bloques de reglas que se repiten
+// ============================================
+@use "variables" as *;
+
+// Media query "hasta" un ancho. Uso: @include hasta($bp-tablet) { ... }
+@mixin hasta($ancho) {
+    @media (max-width: $ancho) {
+        @content;
+    }
+}
+
+// Botón base de la web: fondo, color de texto y padding cambian según el botón
+@mixin boton($fondo, $color: #000, $padding: 15px 35px) {
+    background-color: $fondo;
+    color: $color;
+    padding: $padding;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+// Centrar con flex (se usa en header, logo, tarjetas...)
+@mixin flex-centro {
+    display: flex;
+    align-items: center;
+}

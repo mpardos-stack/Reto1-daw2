@@ -1,0 +1,43 @@
+// ============================================
+// VARIABLES - el Design System de la barbería
+// ============================================
+// Si cambia un color o una medida, se cambia aquí y ya.
+
+// Colores principales
+$negro: #0a0a0a;            // fondo de la web
+$dorado: #d4af37;           // dorado principal (botones, títulos)
+$dorado-oscuro: #b8860b;
+$dorado-catracha: #d99c2b;  // dorado del footer y algunos títulos
+$dorado-hover: #f0ad32;     // dorado más claro al pasar el ratón
+$blanco: #ffffff;
+
+// Grises y fondos
+$fondo-body: #1a1a1a;
+$tarjeta: #111111;
+$gris-tarjeta: #1c1c1c;
+$borde: #222222;
+$gris: #aaaaaa;
+$gris-texto: #b3b3b3;
+
+// Colores de estado
+$foco: #ffd65c;             // anillo de foco al navegar con teclado
+$error: #ff6b6b;
+$verde: #4CAF50;
+$rojo: #e74c3c;
+$borde-suave: rgba(217,156,43,0.14);
+
+// Tipografía
+$fuente: 'Montserrat', sans-serif;
+
+// Transición que se repite en casi todos los enlaces
+$transicion: 0.3s;
+
+// Breakpoints (los mismos que ya usábamos en las media queries)
+$bp-xs: 360px;
+$bp-movil-s: 480px;
+$bp-movil: 600px;
+$bp-movil-l: 640px;
+$bp-tablet: 768px;
+$bp-tablet-l: 900px;
+$bp-portatil: 1024px;
+$bp-escritorio: 1199px;

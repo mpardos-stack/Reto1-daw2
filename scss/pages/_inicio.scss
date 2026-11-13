@@ -1,0 +1,208 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+/* Estilos para el Contenido */
+
+.container-contenido {
+    position: relative;
+    height: 90vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.445), rgba(0, 0, 0, 0.658)),
+    url('img/barberia.png') center / cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--white);
+    padding: 0 20px;
+    overflow: hidden;
+}
+
+/* Esta es la capa que crea el efecto de "fundido a negro" */
+.container-contenido::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 350px; /* Ajusta este valor: más alto = difuminado más largo y suave */
+    background: linear-gradient(to top, var(--dark-bg), transparent);
+    z-index: 1;
+    pointer-events: none; /* Permite que puedas hacer clic a través del degradado */
+}
+
+/* Importante: el contenido debe estar por encima del degradado */
+.contenido {
+    position: relative;
+    z-index: 2; /* Mayor que el z-index del ::after */
+}
+
+.direccion{
+    color: var(--gold);
+    letter-spacing: 2px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+}
+
+.contenido-titulo{
+    font-size: clamp(3rem, 10vw, 6rem);
+    font-weight: 900;
+    line-height: 1.05;
+    color: var(--white);
+    margin-bottom: 30px;
+    max-width: 850px; /* Ajusta este valor para forzar el salto de línea donde prefieras */
+    margin-left: auto;
+    margin-right: auto;
+    text-wrap: balance;
+}
+
+.contenido-titulo .texto-dorado{
+    display: block; /* Esto obliga a que la parte dorada siempre empiece en una línea nueva */
+    color: var(--gold);
+}
+
+.contenido-description{
+    max-width: 700px;
+    margin: 0 auto 40px;
+    font-size: 1.1rem;
+    color: var(--gray-text);
+    line-height: 1.6;
+}
+
+.buttons{
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+// Botones del hero: los dos salen del mixin boton()
+.btn-reservas {
+    @include boton(var(--gold));
+    transition: $transicion;
+}
+
+.btn-servicios {
+    @include boton(transparent, var(--white));
+    border: 2px solid var(--white);
+    transition: $transicion;
+
+    &:hover {
+        background-color: var(--white);
+        color: #000;
+    }
+}
+
+/* PARTE DE EXPLORAR SERVICIOS */
+
+.explora {
+    background-color: var(--dark-bg);
+    padding: 120px 0 60px 0;
+    text-align: center;
+}
+
+.container-small {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.section-subtitle {
+    color: var(--gold);
+    letter-spacing: 4px;
+    font-size: 0.8rem;
+    font-weight: 800;
+    margin-bottom: 40px;
+
+}
+
+.section-title {
+    color: var(--white);
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 40px;
+}
+
+.title-underline {
+    width: 50px;
+    height: 3px;
+    background-color: var(--gold);
+    margin: 20px auto 50px;
+}
+
+/* El Grid de tarjetas */
+.explore-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Crea columnas automáticas */
+    gap: 20px;
+    max-width: 1100px;
+    margin: 0 auto 60px;
+    padding: 0 20px;
+}
+
+.explore-card {
+    background-color: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 25px;
+    @include flex-centro;
+    text-decoration: none;
+    transition: all $transicion ease;
+    text-align: left;
+
+    &:hover {
+        background-color: rgba(255, 255, 255, 0.08);
+        border-color: var(--gold);
+        transform: translateY(-5px);
+    }
+}
+
+.card-icon {
+    font-size: 24px;
+    color: var(--gold);
+    margin-right: 20px;
+    width: 40px;
+}
+
+.card-info {
+    h3 {
+        color: var(--white);
+        font-size: 1rem;
+        font-weight: 700;
+        margin-bottom: 4px;
+    }
+
+    p {
+        color: var(--gray-text);
+        font-size: 0.85rem;
+    }
+}
+
+.card-arrow {
+    margin-left: auto;
+    color: var(--gray-text);
+    font-size: 1.5rem;
+}
+
+/* Barra inferior dorada */
+.bottom-cta-bar {
+    background-color: var(--gold);
+    max-width: 500px; /* Ancho controlado */
+    margin: 0 auto;   /* CENTRADO AUTOMÁTICO */
+    padding: 20px;
+    display: block;   /* Para que respete el margin auto */
+    text-decoration: none;
+    transition: transform $transicion ease;
+
+    &:hover {
+        transform: scale(1.05);
+    }
+
+    a {
+        color: #000;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        text-decoration: none;
+    }
+}

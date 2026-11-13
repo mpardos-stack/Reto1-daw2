@@ -1,0 +1,840 @@
+@use "../abstracts/variables" as *;
+
+/* ============================================================
+   ÁREA PRINCIPAL — panel.php  (.admin-main)
+   ============================================================ */
+
+.admin-main {
+    flex: 1;
+    margin-left: 250px;
+    padding: 35px 40px;
+    background-color: $negro;
+    min-height: 100vh;
+}
+
+.admin-small-title {
+    color: $dorado-catracha;
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+
+.admin-main h1 {
+    font-size: 2rem;
+    font-weight: 900;
+    margin-bottom: 6px;
+}
+
+.admin-subtitle {
+    color: #555;
+    font-size: 0.85rem;
+    margin-bottom: 30px;
+}
+
+/* Stats cards */
+.admin-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.admin-card {
+    background-color: #111;
+    border: 1px solid #1e1e1e;
+    padding: 20px;
+}
+
+.admin-card span {
+    color: #555;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.admin-card strong {
+    display: block;
+    font-size: 2rem;
+    font-weight: 900;
+    margin-top: 10px;
+    color: #fff;
+}
+
+/* Panel box (reservas recientes, etc.) */
+.admin-panel-box {
+    background-color: #111;
+    border: 1px solid #1e1e1e;
+    padding: 25px;
+    margin-bottom: 25px;
+}
+
+.admin-panel-box h2 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: #fff;
+}
+
+.admin-panel-box p {
+    color: #555;
+    font-size: 0.85rem;
+}
+
+.admin-alert {
+    background-color: #251f1d;
+    border: 1px solid $dorado-catracha;
+    color: #f5e6c7;
+    padding: 18px 20px;
+    margin-bottom: 25px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.admin-alert strong {
+    display: block;
+    margin-right: 12px;
+}
+
+.admin-alert a {
+    color: $dorado-catracha;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.admin-alert a:hover {
+    text-decoration: underline;
+}
+
+/* Acciones rápidas */
+.admin-actions {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.admin-actions a {
+    background-color: #111;
+    border: 1px solid #1e1e1e;
+    color: #aaa;
+    text-decoration: none;
+    padding: 18px 15px;
+    text-align: center;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.03rem;
+    transition: all 0.2s ease;
+}
+
+.admin-actions a:hover {
+    border-color: $dorado-catracha;
+    color: $dorado-catracha;
+    background-color: rgba(217, 156, 43, 0.05);
+}
+
+/* Tablas admin */
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.admin-table th,
+.admin-table td {
+    border-bottom: 1px solid #1e1e1e;
+    padding: 14px;
+    text-align: left;
+}
+
+.admin-table th {
+    color: $dorado-catracha;
+    font-size: 0.72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+}
+
+.admin-table td {
+    color: #aaa;
+    font-size: 0.85rem;
+}
+
+.admin-table a {
+    color: $dorado-catracha;
+    margin-right: 10px;
+    text-decoration: none;
+    font-size: 0.8rem;
+}
+
+.admin-header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.admin-btn {
+    background-color: $dorado-catracha;
+    color: #000;
+    text-decoration: none;
+    padding: 12px 20px;
+    font-weight: 800;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    transition: background-color 0.2s ease;
+}
+
+.admin-btn:hover {
+    background-color: $dorado-hover;
+}
+
+.admin-avatar {
+    width: 55px;
+    height: 55px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+
+/* ============================================================
+   LAYOUT BASE — admin-panel + .content
+   ============================================================ */
+
+body.admin-panel {
+    display: flex;
+    min-height: 100vh;
+    background-color: $negro;
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.content {
+    margin-left: 250px;
+    flex: 1;
+    min-height: 100vh;
+    background-color: $negro;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+/* ============================================================
+   HEADER DE SECCIÓN
+   ============================================================ */
+
+.content > header {
+    padding: 28px 40px 22px;
+    border-bottom: 1px solid #161616;
+    background-color: #0d0d0d;
+}
+
+.content > header h1 {
+    font-size: 2rem;
+    font-weight: 900;
+    color: #fff;
+    margin: 0 0 5px 0;
+    letter-spacing: 0.03rem;
+}
+
+.content > header p {
+    color: #555;
+    font-size: 0.82rem;
+    margin: 0;
+}
+
+/* ============================================================
+   PANEL "NUEVO MIEMBRO"
+   ============================================================ */
+
+.add-member-panel {
+    background-color: #0f0f0f;
+    border: 1px solid #222;
+    padding: 30px 35px;
+    margin: 30px 40px 0;
+}
+
+.panel-header h2 {
+    color: $dorado-catracha;
+    font-size: 1rem;
+    font-weight: 800;
+    letter-spacing: 3px;
+    margin: 0 0 10px 0;
+    text-transform: uppercase;
+}
+
+.line-gold {
+    width: 40px;
+    height: 2px;
+    background-color: $dorado-catracha;
+    margin-bottom: 25px;
+}
+
+.add-form-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* Estilo de campo de subida de imagen dentro del gestor de equipo */
+.input-group input[type="file"] {
+    border: 1px solid #2a2a2a;
+    border-radius: 10px;
+    background-color: #0d0d0d;
+    padding: 10px 12px;
+    color: #eee;
+}
+
+.input-group input[type="file"]::-webkit-file-upload-button {
+    border: none;
+    background: $dorado-catracha;
+    color: #000;
+    padding: 10px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 800;
+}
+
+.input-group input[type="file"]::-webkit-file-upload-button:hover {
+    background: $dorado-hover;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.input-group label {
+    color: #666;
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.input-group input,
+.input-group select,
+.input-group textarea {
+    background-color: #050505;
+    border: 1px solid #2a2a2a;
+    color: #fff;
+    padding: 12px 14px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.83rem;
+    outline: none;
+    transition: border-color 0.2s ease;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.input-group input:focus,
+.input-group select:focus,
+.input-group textarea:focus {
+    border-color: $dorado-catracha;
+}
+
+.input-group input::placeholder,
+.input-group textarea::placeholder {
+    color: #333;
+}
+
+.input-group select {
+    cursor: pointer;
+    appearance: none;
+}
+
+.input-group textarea {
+    resize: vertical;
+    min-height: 75px;
+    line-height: 1.5;
+}
+
+.input-group.full-width {
+    grid-column: 1 / -1;
+}
+
+.form-footer {
+    margin-top: 6px;
+}
+
+.btn-save-new {
+    background-color: $dorado-catracha;
+    color: #000;
+    border: none;
+    padding: 14px 32px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: 0.78rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-save-new:hover {
+    background-color: $dorado-hover;
+}
+
+/* ============================================================
+   SEPARADOR
+   ============================================================ */
+
+.separator-gold {
+    border: 0;
+    border-top: 1px solid #1a1a1a;
+    margin: 30px 40px;
+}
+
+/* ============================================================
+   GRID DE TARJETAS
+   ============================================================ */
+
+body.admin-panel .equipo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 22px;
+    padding: 0 40px 40px;
+    align-items: start;
+    max-width: none;
+    margin: 0;
+}
+
+/* ============================================================
+   TARJETA DE BARBERO — MODO VISTA
+   ============================================================ */
+
+body.admin-panel .barbero-card {
+    background-color: #111;
+    border: 1px solid #1e1e1e;
+    overflow: hidden;
+    position: relative;
+    transition: border-color 0.3s ease, transform 0.25s ease;
+    border-radius: 18px;
+    box-shadow: 0 18px 48px rgba(0, 0, 0, 0.22);
+}
+
+body.admin-panel .barbero-card:hover {
+    transform: translateY(-2px);
+}
+
+body.admin-panel .barbero-card:hover {
+    border-color: #303030;
+}
+
+/* ── Imagen ── */
+/* Selector ampliado: cubre tanto <img> directo como dentro de .card-image */
+body.admin-panel .barbero-card .card-image {
+    overflow: hidden;
+    width: 100%;
+    height: 360px;
+}
+
+body.admin-panel .barbero-card .card-image img,
+body.admin-panel .barbero-card > img {
+    width: 100%;
+    height: 360px;
+    object-fit: cover;
+    object-position: top center;
+    display: block;
+    filter: brightness(0.65);
+    transition: filter 0.4s ease, transform 0.4s ease;
+}
+
+body.admin-panel .barbero-card:hover .card-image img,
+body.admin-panel .barbero-card:hover > img {
+    filter: brightness(0.5);
+    transform: scale(1.03);
+}
+
+/* ── Bloque info ── */
+body.admin-panel .barbero-card .info {
+    padding: 18px 20px 20px;
+    background-color: #111;
+}
+
+body.admin-panel .barbero-card .info h3 {
+    font-size: 1.55rem;
+    font-weight: 900;
+    color: #fff;
+    margin: 0 0 4px 0;
+    letter-spacing: 0.03rem;
+    line-height: 1.1;
+}
+
+body.admin-panel .barbero-card .info .rank {
+    color: $dorado-catracha;
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.15rem;
+    text-transform: uppercase;
+    margin: 0 0 4px 0;
+    display: block;
+}
+
+body.admin-panel .barbero-card .info .role-text {
+    color: #444;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.1rem;
+    text-transform: uppercase;
+    margin: 0 0 16px 0;
+    display: block;
+}
+
+/* ── Botones de acción (editar + eliminar) ── */
+.actions-group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 4px;
+}
+
+body.admin-panel .barbero-card .info .btn-edit {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    color: #555;
+    text-decoration: none;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: color 0.2s ease;
+}
+
+body.admin-panel .barbero-card .info .btn-edit::before {
+    content: '✎';
+    font-size: 0.9rem;
+}
+
+body.admin-panel .barbero-card .info .btn-edit:hover {
+    color: #fff;
+}
+
+.delete-form {
+    margin: 0;
+    padding: 0;
+    display: inline;
+}
+
+.btn-delete {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: transparent;
+    color: #5a1a1a;
+    border: none;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.btn-authorize {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    background: #2c7a2c;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1rem;
+    text-transform: uppercase;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.btn-authorize:hover {
+    background: #246d24;
+    transform: translateY(-1px);
+}
+
+.btn-delete::before {
+    content: '🗑';
+    font-size: 0.85rem;
+}
+
+.btn-delete:hover {
+    color: #e53e3e;
+}
+
+/* ============================================================
+   TARJETA DE BARBERO — MODO EDICIÓN
+   ============================================================ */
+
+body.admin-panel .barbero-card.editing {
+    border-color: $dorado-catracha;
+}
+
+body.admin-panel .barbero-card.editing .card-image,
+body.admin-panel .barbero-card.editing .card-image img,
+body.admin-panel .barbero-card.editing > img {
+    height: 140px;
+    filter: brightness(0.4);
+    transform: none;
+}
+
+.edit-form {
+    padding: 16px 18px 20px;
+    background-color: #111;
+    display: flex;
+    flex-direction: column;
+    max-height: 420px;
+    overflow-y: auto;
+}
+
+/* Dentro de la ventana flotante de edición, el propio .modal-box ya controla el scroll */
+.modal-box .edit-form {
+    max-height: none;
+    overflow-y: visible;
+}
+
+.edit-form label {
+    color: #555;
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 0.1rem;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    margin-top: 8px;
+    display: block;
+}
+
+.edit-form label:first-of-type {
+    margin-top: 0;
+}
+
+.edit-form input,
+.edit-form textarea,
+.edit-form select {
+    width: 100%;
+    background-color: #191919;
+    border: 1px solid #282828;
+    color: #fff;
+    padding: 10px 13px;
+    margin-bottom: 2px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.83rem;
+    outline: none;
+    transition: border-color 0.2s ease;
+    border-radius: 0;
+    box-sizing: border-box;
+}
+
+.edit-form input:focus,
+.edit-form textarea:focus,
+.edit-form select:focus {
+    border-color: $dorado-catracha;
+    background-color: #1e1e1e;
+}
+
+.edit-form input::placeholder,
+.edit-form textarea::placeholder {
+    color: #3a3a3a;
+}
+
+.edit-form textarea {
+    resize: vertical;
+    min-height: 80px;
+    line-height: 1.5;
+}
+
+.checkbox-label {
+    display: flex !important;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    margin-top: 12px;
+    cursor: pointer;
+}
+
+.checkbox-label input[type="checkbox"] {
+    width: auto;
+    margin: 0;
+    accent-color: $dorado-catracha;
+    cursor: pointer;
+}
+
+.form-buttons {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.btn-save {
+    background-color: $dorado-catracha;
+    color: #000;
+    border: none;
+    padding: 11px 16px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 0.72rem;
+    letter-spacing: 0.1rem;
+    text-transform: uppercase;
+    cursor: pointer;
+    flex: 1;
+    transition: background-color 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.btn-save::before {
+    content: '✓';
+    font-size: 0.9rem;
+}
+
+.btn-save:hover {
+    background-color: $dorado-hover;
+}
+
+.btn-cancel {
+    background-color: $gris-tarjeta;
+    color: #999;
+    border: 1px solid #2a2a2a;
+    padding: 11px 16px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 0.72rem;
+    letter-spacing: 0.1rem;
+    text-transform: uppercase;
+    cursor: pointer;
+    flex: 1;
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.btn-cancel::before {
+    content: '✕';
+    font-size: 0.75rem;
+}
+
+.btn-cancel:hover {
+    background-color: #242424;
+    color: #fff;
+    border-color: #333;
+}
+
+.preview-image {
+    display: block;
+    max-width: 120px;
+    margin-top: 8px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.btn-delete-photo {
+    margin-top: 8px;
+    background-color: transparent;
+    color: $dorado-catracha;
+    border: 1px solid $dorado-catracha;
+    padding: 10px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.btn-delete-photo:hover {
+    background-color: $dorado-catracha;
+    color: #000;
+}
+
+.image-preview-modal-overlay {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+}
+
+.image-preview-modal-box {
+    background: #fff;
+    padding: 22px;
+    border-radius: 14px;
+    width: 100%;
+    max-width: 420px;
+    text-align: center;
+    box-shadow: 0 2px 18px rgba(0, 0, 0, 0.2);
+}
+
+.image-preview-modal-box img {
+    max-width: 100%;
+    max-height: 220px;
+    margin: 0 auto 16px;
+    display: block;
+    border-radius: 12px;
+}
+
+.image-preview-modal-box p {
+    margin: 0 0 16px;
+    color: #111;
+    font-weight: 700;
+}
+
+.image-preview-modal-box .btn-save,
+.image-preview-modal-box .btn-cancel {
+    width: auto;
+    padding: 10px 18px;
+}
+
+.toast-message {
+    position: fixed;
+    right: 16px;
+    bottom: 16px;
+    background: rgba(0, 0, 0, 0.85);
+    color: #fff;
+    padding: 10px 14px;
+    border-radius: 6px;
+    z-index: 10000;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+#flash-message {
+    display: none;
+}
+
+.role-text.autorizado-en-vista {
+    color: #2a7a2a;
+    font-size: 0.75rem;
+}

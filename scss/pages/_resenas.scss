@@ -1,0 +1,68 @@
+/* --- SECCIÓN RESEÑAS --- */
+
+.resenas-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--dark-bg);
+    color: var(--white);
+    padding: 40px 20px;
+    text-align: center;
+    margin-bottom: 30px;
+    min-height: auto;
+}
+
+.widget-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0; /* 10px de espacio abajo nada más */
+    padding: 0;
+}
+
+.resenas-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.resenas-cta {
+    text-align: center;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.resenas-cta p {
+    color: var(--gray-text);
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+}
+
+.resenas-botones {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+[class*="elfsight-app"] {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+.btn-google,
+.btn-resenas-reserva {
+    padding: 16px 30px;
+    text-decoration: none;
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+}
+
+.btn-google {
+    border: 1px solid var(--gold);
+    color: var(--gold);
+}
+
+.btn-resenas-reserva {
+    background-color: var(--gold);
+    color: #000;
+}

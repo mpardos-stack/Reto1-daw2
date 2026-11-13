@@ -1,0 +1,149 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+/* --- SECCIÓN GALERÍA --- */
+
+@include hasta($bp-portatil) {
+    .footer-container {
+        grid-template-columns: 1fr;
+        gap: 32px;
+    }
+
+    .footer-lado {
+        align-items: stretch;
+    }
+
+    .mapa {
+        width: 100%;
+        height: 240px;
+    }
+
+    .footer-center {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 28px;
+    }
+
+    .footer-logo {
+        align-items: center;
+    }
+
+    .footer-logo img {
+        width: 180px;
+        max-height: 170px;
+    }
+}
+
+@include hasta($bp-movil-l) {
+    .footer-center {
+        grid-template-columns: 1fr;
+    }
+}
+
+.galeria-hero {
+    padding: 100px 20px 60px;
+    text-align: center;
+    background-color: var(--dark-bg);
+}
+
+.titulo-galeria {
+    font-size: 3rem;
+    color: var(--white);
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+.subtitle {
+    color: var(--gold);
+    letter-spacing: 4px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.descripcion-galeria {
+    max-width: 700px;
+    margin: 0 auto;
+    color: var(--gray-text);
+    line-height: 1.6;
+}
+
+/* --- NAVEGACIÓN DE CATEGORÍAS --- */
+.categorias-nav {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    border-bottom: 1px solid #222;
+    padding-bottom: 20px;
+}
+
+.categorias-lista {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+}
+
+.categorias-lista li a {
+    text-decoration: none;
+    color: var(--gray-text);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    padding: 10px 20px;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+    text-transform: uppercase;
+}
+
+.categorias-lista li a:hover {
+    color: var(--gold);
+}
+
+.categorias-lista li a.active {
+    color: var(--gold);
+    border-bottom: 2px solid var(--gold);
+}
+
+/* --- GRID DE IMÁGENES --- */
+.galeria-grid-container {
+    padding: 40px 20px 80px;
+    background-color: var(--dark-bg);
+}
+
+.galeria-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.galeria-item {
+    background-color: #151515;
+    border: 1px solid #222;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.galeria-item:hover {
+    transform: translateY(-10px);
+    border-color: var(--gold);
+}
+
+.image-wrapper {
+    position: relative;
+    height: 350px;
+    overflow: hidden;
+}
+
+.image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: scale 0.5s ease;
+}
+
+.galeria-item:hover .image-wrapper img {
+    scale: 1.1;
+}

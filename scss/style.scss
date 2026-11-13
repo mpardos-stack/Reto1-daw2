@@ -1,0 +1,49 @@
+// ==========================================================
+// BARBERÍA CATRACHA - archivo principal de Sass
+// ----------------------------------------------------------
+// Este archivo solo junta los parciales. Se compila a:
+//     assets/style.css   (el que enlazan todas las páginas)
+// NO editar assets/style.css a mano: se sobrescribe al compilar.
+// El orden importa: es el mismo orden que tenía el CSS antiguo.
+// ==========================================================
+
+/* Archivo generado con Sass desde scss/style.scss. No editar a mano: se sobrescribe al compilar. */
+
+// 1. Base (variables CSS, reset, body)
+@use "base/base";
+
+// 2. Estructura común
+@use "layout/header";
+@use "pages/inicio";
+@use "layout/footer";
+@use "pages/galeria";
+@use "admin/filtros-reservas";
+@use "layout/menu-movil";
+@use "base/responsive";
+@use "components/mensajes";
+
+// 3. Páginas públicas
+@use "pages/equipo";
+@use "pages/ubicacion";
+@use "pages/servicios";
+@use "pages/blog";
+@use "pages/reservas";
+@use "pages/resenas";
+@use "pages/login";
+
+// 4. Panel de administración
+@use "admin/gestiones";
+@use "admin/sidebar";
+@use "admin/panel";
+@use "admin/agenda";
+@use "admin/password";
+@use "admin/admin-responsive";
+
+// 5. Resto de componentes y ajustes finales
+@use "pages/legales";
+@use "components/cookies";
+@use "components/traductor-buscador";
+@use "pages/animacion-hero";
+@use "components/accesibilidad";
+@use "layout/ajustes-responsive";
+@use "pages/animacion-opciones";
